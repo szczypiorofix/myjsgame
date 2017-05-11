@@ -44,12 +44,13 @@ function MyGame() {
         "Nothing special here",
         "A village?",
         "A trader?",
-        "A lone wastelander..."
+        "A lone wastelander...",
+        "Another spare parts!"
     ];
 
 
     this.updateDistance = function() {
-        this.distanceStep = (5 - this.terrain.value);
+        this.distanceStep = (4 - (this.terrain.value / 5));
         this.distance += this.distanceStep;
         document.getElementById("distance").innerHTML = this.distance.toFixed(2);
         document.getElementById("step").innerHTML = (this.distanceStep).toFixed(2);
@@ -71,7 +72,7 @@ function MyGame() {
     };
 
     this.updateFuelUsage = function() {
-        this.fuelusage = this.terrain.fuelConsumption;
+        this.fuelusage = this.terrain.fuelConsumption - (this.fuelConsumptionLevel * 0.04);
         document.getElementById("fuelusage").innerHTML = this.fuelusage.toFixed(2);
     };
     
@@ -110,25 +111,67 @@ function MyGame() {
         document.getElementById("terrain").innerHTML = this.terrains[randomTerrain].name;
     };
 
+
+    // UPGRADES
+    
     this.fuelStorageUpgrade = function() {
-        this.fuelStorageLevel++;
-        document.getElementById("fuelstoragelevel").innerHTML = this.fuelStorageLevel;
+        if (this.spareparts >= this.fuelStorageLevel * 10) {
+            this.maxfuel += 10;
+            this.spareparts -= (this.fuelStorageLevel * 10);
+            this.fuelStorageLevel++;
+            document.getElementById("fuelstoragelevelsp").innerHTML = "("+(this.fuelStorageLevel * 10)+" sp)";
+            document.getElementById("spareparts").innerHTML = this.spareparts;
+            document.getElementById("maxfuel").innerHTML = this.maxfuel;
+            document.getElementById("fuelstoragelevel").innerHTML = this.fuelStorageLevel;    
+        } 
     };
     
     this.shieldUpgrade = function() {
-        this.shieldLevel++;
-        document.getElementById("shieldlevel").innerHTML = this.shieldLevel;
+        if (this.spareparts >= this.shieldLevel * 10) {
+            this.maxshield += 25;
+            this.spareparts -= (this.shieldLevel * 10);
+            this.shieldLevel++;
+            document.getElementById("shieldlevelsp").innerHTML = "("+(this.shieldLevel * 10)+" sp)";
+            document.getElementById("spareparts").innerHTML = this.spareparts;
+            document.getElementById("maxshield").innerHTML = this.maxshield;
+            document.getElementById("shieldlevel").innerHTML = this.shieldLevel;            
+        }
     };
     
     this.foodStorageUpgrade = function() {
-        this.foodStorageLevel++;
-        document.getElementById("foodstoragelevel").innerHTML = this.foodStorageLevel;
+        if (this.spareparts >= this.foodStorageLevel * 10) {
+            this.maxfood += 10;
+            this.spareparts -= (this.foodStorageLevel * 10);
+            this.foodStorageLevel++;
+            document.getElementById("foodstoragelevelsp").innerHTML = "("+(this.foodStorageLevel * 10)+" sp)";
+            document.getElementById("spareparts").innerHTML = this.spareparts;
+            document.getElementById("maxfood").innerHTML = this.maxfood;
+            document.getElementById("foodstoragelevel").innerHTML = this.foodStorageLevel;            
+        }
     };
     
     this.waterStorageUpgrade = function() {
-        this.waterStorageLevel++;
-        document.getElementById("waterstoragelevel").innerHTML = this.waterStorageLevel;
+        if (this.spareparts >= this.waterStorageLevel * 10) {
+            this.maxwater += 10;
+            this.spareparts -= (this.waterStorageLevel * 10);
+            this.waterStorageLevel++;
+            document.getElementById("waterstoragelevelsp").innerHTML = "("+(this.waterStorageLevel * 10)+" sp)";
+            document.getElementById("spareparts").innerHTML = this.spareparts;
+            document.getElementById("maxwater").innerHTML = this.maxwater;
+            document.getElementById("waterstoragelevel").innerHTML = this.waterStorageLevel;
+        }
     };
+    
+    this.fuelConsumptionUpgrade = function() {
+        if (this.spareparts >= this.fuelConsumptionLevel * 10) {
+            this.spareparts -= (this.fuelConsumptionLevel * 10);
+            this.fuelConsumptionLevel++;
+            document.getElementById("fuelconsumptionlevelsp").innerHTML = "("+(this.fuelConsumptionLevel * 10)+" sp)";
+            document.getElementById("spareparts").innerHTML = this.spareparts;
+            document.getElementById("fuelconsumptionlevel").innerHTML = this.fuelConsumptionLevel;
+        }
+    };
+
     
     this.updateSpot = function() {
         this.spot = (Math.floor((Math.random() * this.events.length)));
@@ -146,10 +189,10 @@ function MyGame() {
                 this.damage = 4;
             }
             if (this.spot === 2) {
-                this.damage = 8;
+                this.damage = 6;
             }
             if (this.spot === 3) {
-                this.damage = 14;
+                this.damage = 9;
             }
         }
         else {
@@ -157,7 +200,7 @@ function MyGame() {
             
             // FOUND SOME FUEL
             if (this.spot === 5) {
-                var foundFuel = (Math.floor((Math.random() * 6)+1));
+                var foundFuel = (Math.floor((Math.random() * 10)+1));
                 this.fuel += foundFuel;
                 if (this.fuel > this.maxfuel) {
                     this.fuel = this.maxfuel;
@@ -193,8 +236,8 @@ function MyGame() {
             }
             
             // FOUND SOME SPARE PARTS
-            if (this.spot === 9) {
-                var foundSpareParts = (Math.floor((Math.random() * 16)+1));
+            if (this.spot === 9 || this.spot === 14) {
+                var foundSpareParts = (Math.floor((Math.random() * 55)+1));
                 this.spareparts += foundSpareParts;
                 document.getElementById("spareparts").innerHTML = this.spareparts +" (+"+foundSpareParts+")";
             }
@@ -229,10 +272,10 @@ function MyGame() {
 
     this.startGame = function() {
         this.terrains = [
-            new Terrain("Solid ground", 0, 0.2),
-            new Terrain("Sand", 1, 0.4),
-            new Terrain("Mud", 2, 0.6),
-            new Terrain("Rocks", 3, 0.8)
+            new Terrain("Solid ground", 0, 0.6),
+            new Terrain("Sand", 1, 0.85),
+            new Terrain("Mud", 2, 1.15),
+            new Terrain("Rocks", 3, 1.3)
         ];
         var instance = this;
         setInterval(function() {

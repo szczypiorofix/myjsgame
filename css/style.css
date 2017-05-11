@@ -3,55 +3,95 @@
 	@import url('https://fonts.googleapis.com/css?family=Play');
 
 	body {
-		font-family: 'Play', sans-serif;
-		background-color: #1a1a00;
-		color: #cccc00;
-	}
-
-	.maindiv {
-		width: 50%;
-		margin: auto;
-		margin-top: 30px;
+            font-family: 'Play', sans-serif;
+            background-color: #00111a;
+            color: #cceeff;
 	}
 
 	a {
-		color: #99ccff;
-		text-decoration: none;
+            color: #99ccff;
+            text-decoration: none;
 	}
 
 	a:hover {
-		color: #4da6ff;
-		text-decoration: none;
+            color: #4da6ff;
+            text-decoration: none;
 	}
 
-	#gametitle {
-		color: #c6ff1a;
+	.gametitle {
+            color: #c6ff1a;
+            text-align: center;
+        }
+        
+        .setSpeed {
+            text-align: center;
+            margin-top: 50px;
         }
 
+        .maindiv {
+            margin: auto;
+            margin-top: 30px;
+            margin-bottom: 50px;
+            border: 3px solid #00324d;
+            border-radius: 5px;
+            padding: 10px;
+	}
+        
+        .mainpanel {
+        }
+        
+        .leftpanel {
+            width: 25%;
+            float: left;
+            background-color: #002233;
+            margin-top: 30px;
+            height: 250px;
+            padding-left: 1%;
+            border: 3px solid #004466;
+            border-radius: 3px;
+        }
+        
+        .middlepanel {
+            width: 42%;
+            float: left;
+            height: 150px;
+            background-color: #00334d;
+            margin-top: 30px;
+            height: 250px;
+            padding-left: 1%;
+            border: 3px solid #005580;
+            border-radius: 3px;
+        }
+        
+        .rightpanel {
+            width: 28%;
+            float: left;
+            background-color: #002233;
+            margin-top: 30px;
+            height: 250px;
+            padding-left: 1%;
+            border: 3px solid #004466;
+            border-radius: 3px;
+        }
+        
         #spot {
             color: lime;
         }
         
-	#startstopdiv {
-		margin-top: 50px;
-	}
-
 	#slowspeed {
-		color: blue;
+            color: #66ffff;
 	}
 
 	#spotdiv {
-		margin-top: 30px;
+            margin-top: 30px;
 	}
 
 	#mainmenu {
-		display: block;
-		text-align: center;
-		margin-top: 150px;
+            display: block;
+            text-align: center;
+            margin-top: 70px;
 	}
 
 	#game {
-		display: none;
-		margin-top: 100px;
-                width: 50%;
+            display: none;
 	}

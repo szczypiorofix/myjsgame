@@ -12,7 +12,7 @@
 
 	function setSlowSpeedGame() {
 		mygame.setSpeed(1);
-		document.getElementById("slowspeed").style.color = "blue";
+		document.getElementById("slowspeed").style.color = "#66ffff";
 		document.getElementById("mediumspeed").style.color = "#99ccff";
 		document.getElementById("fastspeed").style.color = "#99ccff";
 	}
@@ -20,7 +20,7 @@
 	function setMediumSpeedGame() {
 		mygame.setSpeed(2);
 		document.getElementById("slowspeed").style.color = "#99ccff";
-		document.getElementById("mediumspeed").style.color = "blue";
+		document.getElementById("mediumspeed").style.color = "#66ffff";
 		document.getElementById("fastspeed").style.color = "#99ccff";
 	}
 
@@ -28,7 +28,7 @@
 		mygame.setSpeed(3);
 		document.getElementById("slowspeed").style.color = "#99ccff";
 		document.getElementById("mediumspeed").style.color = "#99ccff";
-		document.getElementById("fastspeed").style.color = "blue";
+		document.getElementById("fastspeed").style.color = "#66ffff";
 	}
         
         function fuelStorageUpgrade() {
@@ -45,4 +45,8 @@
         
         function waterStorageUpgrade() {
             mygame.waterStorageUpgrade();
+        }
+        
+        function fuelConsumptionUpgrade() {
+            mygame.fuelConsumptionUpgrade();
         }
