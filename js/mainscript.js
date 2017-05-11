@@ -30,3 +30,19 @@
 		document.getElementById("mediumspeed").style.color = "#99ccff";
 		document.getElementById("fastspeed").style.color = "blue";
 	}
+        
+        function fuelStorageUpgrade() {
+            mygame.fuelStorageUpgrade();
+        }
+        
+        function shieldUpgrade() {
+            mygame.shieldUpgrade();
+        }
+        
+        function foodStorageUpgrade() {
+            mygame.foodStorageUpgrade();
+        }
+        
+        function waterStorageUpgrade() {
+            mygame.waterStorageUpgrade();
+        }

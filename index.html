@@ -12,21 +12,20 @@
     <meta property="og:image" content="https://wroblewskipiotr.pl/twine/furyroad.png">
     <meta property="og:description" content="Wróblewski Piotr - my first JavaScript game">
     <title>My Game</title>
-	<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-	<div class="maindiv">
+    <div class="maindiv">
+        <div id="mainmenu">
+            <img src="furyroad.png" alt="Fury Road" width="256" height="64">
+            <br><br>
+            <a href="#" onclick="startGame()">Start the engine!</a>
+	</div>
 
-		<div id="mainmenu">
-			<img src="furyroad.png" alt="Fury Road" width="256" height="64">
-			<br><br>
-			<a href="#" onclick="startGame()">Start the engine!</a>
-		</div>
-
-		<div id="game">
-			<h3 id="gametitle">FURY ROAD</h3>
+        <div id="game">
+            <h3 id="gametitle">FURY ROAD</h3>
             <div id="startstopdiv" >
                 <a href="#" id="startstop" onclick="startstop()">PAUSE</a>
             </div>
@@ -37,42 +36,77 @@
                 <a href="#" id="fastspeed" onclick="setFastSpeedGame()"> ->>> </a>
             </div>
             <hr>
-			<div>
-				<span>Distance: </span>
-				<span id="distance">0</span>
+            <div>
+                <span>Distance: </span>
+                <span id="distance">0</span>
                 <span>Step: </span>
                 <span id="step">0</span>
-			</div>
-			<div>
-				<span>Fuel: </span>
-				<span id="fuel">50</span> / <span>50</span>
-				<span>usage (</span>
-				<span id="fuelusage">0</span>
-				<span>)</span>
-			</div>
-			<div>
-				<span>Terrain: </span>
-				<span id="terrain">Solid ground</span>
-			</div>
-			<div>
-				<span>Food: </span>
-				<span id="food">50</span> / <span>50</span>
-			</div>
-			<div>
-				<span>Water: </span>
-				<span id="water">50</span> / <span>50</span>
-			</div>
+            </div>
+            
+            <div>
+                <span>Fuel: </span>
+                <span id="fuel">50</span> / <span id="maxfuel">50</span>
+                <span>usage (</span>
+                <span id="fuelusage">0</span>
+                <span>)</span>
+            </div>
+            <div>
+                <span>Terrain: </span>
+                <span id="terrain">Solid ground</span>
+            </div>
+            <div>
+                <span>Shields: </span>
+                <span id="shield">100</span> / <span id="maxshield">100</span>
+            </div>
+            <div>
+                <span>Food: </span>
+                <span id="food">50</span> / <span id="maxfood">50</span>
+            </div>
+            <div>
+                <span>Water: </span>
+                <span id="water">50</span> / <span id="maxwater">50</span>
+            </div>
+            <div>
+                <span>Spare parts: </span>
+                <span id="spareparts">0</span>
+            </div>
+            <div>
+                <span>Scrap: </span>
+                <span id="scrap">0</span>
+            </div>
             <div id="spotdiv">
                 <span>You spot: </span>
-                <span id="spot"></span>
+                <span id="spot">...</span>
             </div>
-		</div>
-
-	</div>
+            
+            <div>
+                <h4>UPGRADES:</h4>
+                <div>
+                    <a href="#" id="fuelstorageupgrade" onclick="fuelStorageUpgrade()">FUEL STORAGE +1</a>
+                    <span>Level: </span>
+                    <span id="fuelstoragelevel">1</span>
+                </div>
+                <div>
+                    <a href="#" id="shieldsupgrade" onclick="shieldUpgrade()">SHIELDS +1</a>
+                    <span>Level: </span>
+                    <span id="shieldlevel">1</span>
+                </div>
+                 <div>
+                    <a href="#" id="foodstorageupgrade" onclick="foodStorageUpgrade()">FOOD STORAGE +1</a>
+                    <span>Level: </span>
+                    <span id="foodstoragelevel">1</span>
+                </div>
+                <div>
+                    <a href="#" id="waterstorageupgrade" onclick="waterStorageUpgrade()">WATER STORAGE +1</a>
+                    <span>Level: </span>
+                    <span id="waterstoragelevel">1</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/mygame.js"></script>
-	<script src="js/mainscript.js"></script>
+    <script src="js/mainscript.js"></script>
     <script src="js/terrain.js"></script>
-
 </body>
 </html>

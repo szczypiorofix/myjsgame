@@ -5,13 +5,13 @@ function Terrain(name, value, fuelConsumption) {
 
     this.getValue = function() {
         return this.value;
-    }
+    };
 
     this.getName = function() {
         return this.name;
-    }
+    };
 
     this.getFuelConsumption = function() {
         return this.fuelConsumption;
-    }
+    };
 }
