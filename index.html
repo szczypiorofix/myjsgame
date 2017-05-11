@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <META HTTP-EQUIV="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Wróblewski Piotr - my first JavaScript game">
+    <meta name="author" content="Wróblewski Piotr">
+    <meta property="og:title" content="Wróblewski Piotr">
+    <meta property="og:image" content="https://wroblewskipiotr.pl/twine/furyroad.png">
+    <meta property="og:description" content="Wróblewski Piotr - my first JavaScript game">
+    <title>My Game</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+	<div class="maindiv">
+
+		<div id="mainmenu">
+			<img src="furyroad.png" alt="Fury Road" width="256" height="64">
+			<br><br>
+			<a href="#" onclick="startGame()">Start the engine!</a>
+		</div>
+
+		<div id="game">
+			<h3 id="gametitle">FURY ROAD</h3>
+            <div id="startstopdiv" >
+                <a href="#" id="startstop" onclick="startstop()">PAUSE</a>
+            </div>
+            <div>
+                <span>Speed: </span>
+                <a href="#" id="slowspeed" onclick="setSlowSpeedGame()"> -> </a>
+                <a href="#" id="mediumspeed" onclick="setMediumSpeedGame()"> ->> </a>
+                <a href="#" id="fastspeed" onclick="setFastSpeedGame()"> ->>> </a>
+            </div>
+            <hr>
+			<div>
+				<span>Distance: </span>
+				<span id="distance">0</span>
+                <span>Step: </span>
+                <span id="step">0</span>
+			</div>
+			<div>
+				<span>Fuel: </span>
+				<span id="fuel">50</span> / <span>50</span>
+				<span>usage (</span>
+				<span id="fuelusage">0</span>
+				<span>)</span>
+			</div>
+			<div>
+				<span>Terrain: </span>
+				<span id="terrain">Solid ground</span>
+			</div>
+			<div>
+				<span>Food: </span>
+				<span id="food">50</span> / <span>50</span>
+			</div>
+			<div>
+				<span>Water: </span>
+				<span id="water">50</span> / <span>50</span>
+			</div>
+            <div id="spotdiv">
+                <span>You spot: </span>
+                <span id="spot"></span>
+            </div>
+		</div>
+
+	</div>
+
+    <script src="js/mygame.js"></script>
+	<script src="js/mainscript.js"></script>
+    <script src="js/terrain.js"></script>
+
+</body>
+</html>
