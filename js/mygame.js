@@ -17,7 +17,6 @@ function MyGame() {
     this.spareparts = 0;
     this.gameSpeed = 1;
     this.gameStep = 0;
-    this.damage = 0;
     this.spot = 0;
     
     this.fuelConsumptionLevel = 1;
@@ -40,12 +39,12 @@ function MyGame() {
         "You've found some water!",
         "You've found some food!",
         "You've found some scrap!",
-        "Spare parts!",
+        "You've found some spare parts!",
         "Nothing special here",
         "A village?",
         "A trader?",
         "A lone wastelander...",
-        "Another spare parts!"
+        "Found another spare parts!"
     ];
 
 
@@ -82,6 +81,12 @@ function MyGame() {
     };
 
     this.updateSpareParts = function() {
+        if (this.spareparts >= 10 && this.shield < this.maxshield) {
+            document.getElementById("repairbtn").style.visibility = "visible";
+        }
+        else {
+            document.getElementById("repairbtn").style.visibility = "hidden";
+        }
         document.getElementById("spareparts").innerHTML = this.spareparts;
     };
     
@@ -111,6 +116,22 @@ function MyGame() {
         document.getElementById("terrain").innerHTML = this.terrains[randomTerrain].name;
     };
 
+    
+    this.repair = function() {
+        if (this.spareparts >= 10 && this.shield < this.maxshield) {
+            this.spareparts -= 10;
+            this.shield += 10;
+            if (this.shield > this.maxshield) {
+                this.shield = this.maxshield;
+            }
+            if (this.shield === this.maxshield || this.spareparts <= 0) {
+                document.getElementById("repairbtn").style.visibility = "hidden";
+            }
+            document.getElementById("shield").innerHTML = this.shield;
+            document.getElementById("spareparts").innerHTML = this.spareparts;
+        }
+    };
+
 
     // UPGRADES
     
@@ -122,19 +143,23 @@ function MyGame() {
             document.getElementById("fuelstoragelevelsp").innerHTML = "("+(this.fuelStorageLevel * 10)+" sp)";
             document.getElementById("spareparts").innerHTML = this.spareparts;
             document.getElementById("maxfuel").innerHTML = this.maxfuel;
-            document.getElementById("fuelstoragelevel").innerHTML = this.fuelStorageLevel;    
+            document.getElementById("fuelstoragelevel").innerHTML = this.fuelStorageLevel;
+            this.checkAvailableUpgrades();
         } 
     };
     
     this.shieldUpgrade = function() {
         if (this.spareparts >= this.shieldLevel * 10) {
+            this.shield = Math.ceil((this.shield * (this.maxshield + 25)) / this.maxshield);
             this.maxshield += 25;
             this.spareparts -= (this.shieldLevel * 10);
             this.shieldLevel++;
             document.getElementById("shieldlevelsp").innerHTML = "("+(this.shieldLevel * 10)+" sp)";
             document.getElementById("spareparts").innerHTML = this.spareparts;
             document.getElementById("maxshield").innerHTML = this.maxshield;
-            document.getElementById("shieldlevel").innerHTML = this.shieldLevel;            
+            document.getElementById("shield").innerHTML = this.shield;
+            document.getElementById("shieldlevel").innerHTML = this.shieldLevel;
+            this.checkAvailableUpgrades();
         }
     };
     
@@ -146,7 +171,8 @@ function MyGame() {
             document.getElementById("foodstoragelevelsp").innerHTML = "("+(this.foodStorageLevel * 10)+" sp)";
             document.getElementById("spareparts").innerHTML = this.spareparts;
             document.getElementById("maxfood").innerHTML = this.maxfood;
-            document.getElementById("foodstoragelevel").innerHTML = this.foodStorageLevel;            
+            document.getElementById("foodstoragelevel").innerHTML = this.foodStorageLevel;
+            this.checkAvailableUpgrades();
         }
     };
     
@@ -159,6 +185,7 @@ function MyGame() {
             document.getElementById("spareparts").innerHTML = this.spareparts;
             document.getElementById("maxwater").innerHTML = this.maxwater;
             document.getElementById("waterstoragelevel").innerHTML = this.waterStorageLevel;
+            this.checkAvailableUpgrades();
         }
     };
     
@@ -169,9 +196,42 @@ function MyGame() {
             document.getElementById("fuelconsumptionlevelsp").innerHTML = "("+(this.fuelConsumptionLevel * 10)+" sp)";
             document.getElementById("spareparts").innerHTML = this.spareparts;
             document.getElementById("fuelconsumptionlevel").innerHTML = this.fuelConsumptionLevel;
+            this.checkAvailableUpgrades();
         }
     };
 
+    this.checkAvailableUpgrades = function() {
+        if (this.spareparts >= this.fuelStorageLevel * 10) {
+            document.getElementById("fuelstorageupgrade").style.visibility = "visible";
+        }
+        else {
+            document.getElementById("fuelstorageupgrade").style.visibility = "hidden";
+        }
+        if (this.spareparts >= this.shieldLevel * 10) {
+            document.getElementById("shieldupgrade").style.visibility = "visible";
+        }
+        else {
+            document.getElementById("shieldupgrade").style.visibility = "hidden";
+        }
+        if (this.spareparts >= this.waterStorageLevel * 10) {
+            document.getElementById("waterstorageupgrade").style.visibility = "visible";
+        }
+        else {
+            document.getElementById("waterstorageupgrade").style.visibility = "hidden";
+        }
+        if (this.spareparts >= this.foodStorageLevel * 10) {
+            document.getElementById("foodstorageupgrade").style.visibility = "visible";
+        }
+        else {
+            document.getElementById("foodstorageupgrade").style.visibility = "hidden";
+        }
+        if (this.spareparts >= this.fuelConsumptionLevel * 10) {
+            document.getElementById("fuelconsumptionupgrade").style.visibility = "visible";
+        }
+        else {
+            document.getElementById("fuelconsumptionupgrade").style.visibility = "hidden";
+        }
+    };
     
     this.updateSpot = function() {
         this.spot = (Math.floor((Math.random() * this.events.length)));
@@ -239,6 +299,9 @@ function MyGame() {
             if (this.spot === 9 || this.spot === 14) {
                 var foundSpareParts = (Math.floor((Math.random() * 55)+1));
                 this.spareparts += foundSpareParts;
+                if (this.spareparts >= 10 && this.shield < this.maxshield) {
+                    document.getElementById("repairbtn").style.visibility = "visible";
+                }
                 document.getElementById("spareparts").innerHTML = this.spareparts +" (+"+foundSpareParts+")";
             }
         }
@@ -255,6 +318,7 @@ function MyGame() {
         this.updateScrap();
         this.updateSpot();
         this.updateShield(this.damage);
+        this.checkAvailableUpgrades();
     };
 
     this.pausegame = function() {

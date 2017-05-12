@@ -52,7 +52,7 @@
         }
         
         .middlepanel {
-            width: 42%;
+            width: 37%;
             float: left;
             height: 150px;
             background-color: #00334d;
@@ -64,7 +64,7 @@
         }
         
         .rightpanel {
-            width: 28%;
+            width: 33%;
             float: left;
             background-color: #002233;
             margin-top: 30px;
@@ -74,12 +74,64 @@
             border-radius: 3px;
         }
         
+        .stats {
+            color: cornsilk;
+        }
+        
         #spot {
-            color: lime;
+            color: cornsilk;
+        }
+        
+        #repairbtn {
+            visibility: hidden;
+        }
+        
+        #fuelstorageupgrade {
+            visibility: hidden;
+        }
+        
+        #shieldupgrade {
+            visibility: hidden;
+        }
+        
+        #foodstorageupgrade {
+            visibility: hidden;
+        }
+        
+        #waterstorageupgrade {
+            visibility: hidden;
+        }
+        
+        #fuelconsumptionupgrade {
+            visibility: hidden;
+        }
+           
+        .mybutton {
+            border: 1px solid gray;
+            border-radius: 3px;
+            padding: 3px;
+            background-color: slategray;
+            color: #eee;
+            margin-left: 5px;
+        }
+        
+        .mybutton:hover {
+            background-color: dimgray;
+            cursor:pointer;
+            color: #ddd;
         }
         
 	#slowspeed {
             color: #66ffff;
+            font-size: 20px;
+	}
+        
+        #mediumspeed {
+            font-size: 20px;
+	}
+
+        #fastspeed {
+            font-size: 20px;
 	}
 
 	#spotdiv {

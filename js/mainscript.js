@@ -50,3 +50,7 @@
         function fuelConsumptionUpgrade() {
             mygame.fuelConsumptionUpgrade();
         }
+        
+        function repair() {
+            mygame.repair();
+        }
