@@ -30,23 +30,25 @@ function MyGame() {
     this.terrainCount = 0;
     this.terrains = [];
     this.events = [
-        "A pack of vicious dogs!",
-        "Small group of raiders!",
-        "Large group of raiders!",
-        "Immortan Joe!",
-        "A long, long road...",
-        "You've found some fuel!",
-        "You've found some water!",
-        "You've found some food!",
-        "You've found some scrap!",
-        "You've found some spare parts!",
-        "Nothing special here",
-        "A village?",
-        "A trader?",
-        "A lone wastelander...",
-        "Found another spare parts!"
+        "A pack of vicious dogs! Get off my lawn!",
+        "Small group of raiders! Piece of cake!",
+        "A large group of tough raiders! Not so easy to fight.",
+        "Immortan Joe! He never gives up!",
+        "You drove on a solid ground.",
+        "You drove on a sandy path.",
+        "You drove on a muddy road.",
+        "You drove on a rocky path.",
+        "You found some fuel!",
+        "You found some water!",
+        "You found some food!",
+        "You found some scrap!",
+        "You found some spare parts!",
+        "You see a small village. Would you enter?"
     ];
-
+    this.villages = [
+      "Hub", "Klamath", "Nora", "Bunker Hill", "Shady Sands", "Redding", "Junktown", "Modoc", "Den", "Abbey"  
+    ];
+    this.villageName = "";
 
     this.updateDistance = function() {
         this.distanceStep = (4 - (this.terrain.value / 5));
@@ -94,28 +96,9 @@ function MyGame() {
         document.getElementById("scrap").innerHTML = this.scrap;
     };
 
-    this.updateTerrainPeriod = function() {
-
-        if (this.terrainCount <= 0) {
-            this.terrainPeriod = Math.floor((Math.random() * 6) + 3);
-            this.terrainCount = this.terrainPeriod;
-            this.updateTerrain();
-        }
-        else {
-            this.terrainCount -= 1;
-        }
-    };
-
     this.setSpeed = function(speed) {
         this.gameSpeed = speed;
     };
-
-    this.updateTerrain = function() {
-        var randomTerrain = (Math.floor((Math.random() * this.terrains.length)));
-        this.terrain = this.terrains[randomTerrain];
-        document.getElementById("terrain").innerHTML = this.terrains[randomTerrain].name;
-    };
-
     
     this.repair = function() {
         if (this.spareparts >= 10 && this.shield < this.maxshield) {
@@ -134,7 +117,6 @@ function MyGame() {
 
 
     // UPGRADES
-    
     this.fuelStorageUpgrade = function() {
         if (this.spareparts >= this.fuelStorageLevel * 10) {
             this.maxfuel += 10;
@@ -234,8 +216,13 @@ function MyGame() {
     };
     
     this.updateSpot = function() {
-        this.spot = (Math.floor((Math.random() * this.events.length)));
-        document.getElementById("spot").innerHTML = this.events[this.spot];
+        this.spot = (Math.floor((Math.random() * this.events.length) * 3));
+        if (this.spot < this.events.length) {
+            document.getElementById("spot").innerHTML += this.events[this.spot]+"<br>";
+        }
+        //document.getElementById("spotdiv").scrollTop = (Math.floor(this.distance) * 2);
+        var objDiv = document.getElementById("spotdiv");
+        objDiv.scrollTop = objDiv.scrollHeight;
         this.eventsOnTheRoad();
     };
 
@@ -252,14 +239,39 @@ function MyGame() {
                 this.damage = 6;
             }
             if (this.spot === 3) {
-                this.damage = 9;
+                this.damage = 8;
             }
         }
         else {
             this.damage = 0;
             
+            // TERRAINS
+            if (this.spot === 4) { // SOLID GROUND
+                //var randomTerrain = (Math.floor((Math.random() * this.terrains.length)));
+                this.terrain = this.terrains[0];
+                document.getElementById("terrain").innerHTML = this.terrains[0].name;
+            }
+            
+            if (this.spot === 5) { // SAND
+                //var randomTerrain = (Math.floor((Math.random() * this.terrains.length)));
+                this.terrain = this.terrains[1];
+                document.getElementById("terrain").innerHTML = this.terrains[1].name;
+            }
+            
+            if (this.spot === 6) { // MUD
+                //var randomTerrain = (Math.floor((Math.random() * this.terrains.length)));
+                this.terrain = this.terrains[2];
+                document.getElementById("terrain").innerHTML = this.terrains[2].name;
+            }
+            
+            if (this.spot === 7) { // ROCKS
+                //var randomTerrain = (Math.floor((Math.random() * this.terrains.length)));
+                this.terrain = this.terrains[3];
+                document.getElementById("terrain").innerHTML = this.terrains[3].name;
+            }
+            
             // FOUND SOME FUEL
-            if (this.spot === 5) {
+            if (this.spot === 8) {
                 var foundFuel = (Math.floor((Math.random() * 10)+1));
                 this.fuel += foundFuel;
                 if (this.fuel > this.maxfuel) {
@@ -269,7 +281,7 @@ function MyGame() {
             }
             
             // FOUND SOME WATER
-            if (this.spot === 6) {
+            if (this.spot === 9) {
                 var foundWater = (Math.floor((Math.random() * 8)+1));
                 this.water += foundWater;
                 if (this.water > this.maxwater) {
@@ -279,7 +291,7 @@ function MyGame() {
             }
             
             // FOUND SOME FOOD
-            if (this.spot === 7) {
+            if (this.spot === 10) {
                 var foundFood = (Math.floor((Math.random() * 8)+1));
                 this.food += foundFood;
                 if (this.food > this.maxfood) {
@@ -289,26 +301,68 @@ function MyGame() {
             }
             
             // FOUND SOME SCRAP
-            if (this.spot === 8) {
+            if (this.spot === 11) {
                 var foundScrap = (Math.floor((Math.random() * 16)+1));
                 this.scrap += foundScrap;
                 document.getElementById("scrap").innerHTML = this.scrap +" (+"+foundScrap+")";
             }
             
             // FOUND SOME SPARE PARTS
-            if (this.spot === 9 || this.spot === 14) {
-                var foundSpareParts = (Math.floor((Math.random() * 55)+1));
+            if (this.spot === 12) {
+                var foundSpareParts = (Math.floor((Math.random() * 25)+1));
                 this.spareparts += foundSpareParts;
                 if (this.spareparts >= 10 && this.shield < this.maxshield) {
                     document.getElementById("repairbtn").style.visibility = "visible";
                 }
                 document.getElementById("spareparts").innerHTML = this.spareparts +" (+"+foundSpareParts+")";
             }
+            
+            // A SMALL VILLAGE
+            if (this.spot === 13) {
+                this.villageName = this.villages[Math.floor(Math.random() * this.villages.length)];
+                //document.getElementById("entervillagebtn").style.visibility = "visible";
+            }
+            else {
+                //document.getElementById("entervillagebtn").style.visibility = "hidden";
+            }
         }
     };
 
+    // THE VILLAGE
+    this.enterTheVillage = function() {
+        this.pausegame();
+        document.getElementById("villageName").innerHTML = this.villageName;
+        document.getElementById("yourscrap").innerHTML = this.scrap;
+    };
+    
+    this.repairCar = function() {
+        document.getElementById("villageMessage").innerHTML = "Car repaired.";
+    };
+    
+    this.buySpareParts = function() {
+        document.getElementById("villageMessage").innerHTML = "You bought 10 spare parts.";
+    };
+    
+    this.refuelCar = function() {
+        document.getElementById("villageMessage").innerHTML = "Car refueled.";
+    };
+    
+    this.buyWater = function() {
+        document.getElementById("villageMessage").innerHTML = "You bought 10 water.";
+    };
+    
+    this.buyFood = function() {
+        document.getElementById("villageMessage").innerHTML = "You bought 10 food.";
+    };
+    
+    this.backToTheRoad = function() {
+        this.pausegame();
+        
+    };
+
+    // "GAME LOOP"
     this.gameLoop = function() {
-        this.updateTerrainPeriod();
+        this.updateSpot();
         this.updateDistance();
         this.updateFuel();
         this.updateFuelUsage();
@@ -316,7 +370,6 @@ function MyGame() {
         this.updateWater();
         this.updateSpareParts();
         this.updateScrap();
-        this.updateSpot();
         this.updateShield(this.damage);
         this.checkAvailableUpgrades();
     };
@@ -341,6 +394,7 @@ function MyGame() {
             new Terrain("Mud", 2, 1.15),
             new Terrain("Rocks", 3, 1.3)
         ];
+        this.terrain = this.terrains[0];
         var instance = this;
         setInterval(function() {
 

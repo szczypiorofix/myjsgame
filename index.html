@@ -6,12 +6,12 @@
     <META HTTP-EQUIV="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Wróblewski Piotr - my first JavaScript game">
+    <meta name="description" content="Wróblewski Piotr, 'Fury Road' - my first JavaScript game">
     <meta name="author" content="Wróblewski Piotr">
     <meta property="og:title" content="Wróblewski Piotr">
     <meta property="og:image" content="https://wroblewskipiotr.pl/twine/furyroad.png">
-    <meta property="og:description" content="Wróblewski Piotr - my first JavaScript game">
-    <title>My Game</title>
+    <meta property="og:description" content="Wróblewski Piotr, 'Fury Road' - my first JavaScript game">
+    <title>Fury Road</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -24,6 +24,61 @@
             <a href="#" onclick="startGame()">Start the engine!</a>
 	</div>
 
+        <div id="village">
+            <div>
+                <div style="text-align: center;">
+                    <button class="mybutton" id="backtoroad" onclick="backToTheRoad()">POWRÓT NA DROGĘ</button>
+                </div>
+                <div id="villageContent">
+                    <h3 id="villageName">.</h3>
+                    <div>
+                        <p>Where would you like to go?</p>
+                        <hr />
+                        <div>
+                            <span>Your scrap: </span><span id="yourscrap">0</span>
+                        </div>
+                        <div>
+                            <span id="villageMessage"> </span>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <a href="#" onclick="smittysExpand()">SMITTY'S GARAGE</a>
+                            <div id="smittysgarage">
+                                <p>Here's Smitty Garage content</p>
+                                <div>
+                                    <button class="mybutton" onclick="repairCar()">REPAIR YOUR CAR</button>
+                                </div>
+                                <div style="margin-top: 10px;">
+                                    <button class="mybutton" onclick="buySpareParts()">BUY SPARE PARTS</button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <a href="#" onclick="catchagasExpand()">CATCH-A-GAS</a>
+                            <div id="catchagas">
+                                <p>Here's Catch-A-Gas content</p>
+                                <button class="mybutton" onclick="refuelCar()">REFUEL YOUR CAR</button>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <a href="#" onclick="freshwaterExpand()">FRESH WATER STATION</a>
+                            <div id="freshwaterstation">
+                                <p>Here's Fresh Water Station content</p>
+                                <button class="mybutton" onclick="buyWater()">BUY SOME WATER</button>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <a href="#" onclick="iguanaExpand()">IGUANA-ON-STICK RESTAURANT</a>
+                            <div id="iguanaonstickrestaurant">
+                                <p>Here's Iguana-On-Stick content</p>
+                                <button class="mybutton" onclick="buyFood()">BUY SOME FOOD</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div id="game">
             <header class="gametitle">
                 <h1>FURY ROAD</h1>
@@ -34,52 +89,52 @@
                 <div>
                     <a href="#" id="startstop" onclick="startstop()">PAUSE</a>
                 </div>
-                <span>Speed: </span>
-                <a href="#" id="slowspeed" onclick="setSlowSpeedGame()"> -> </a>
-                <a href="#" id="mediumspeed" onclick="setMediumSpeedGame()"> ->> </a>
-                <a href="#" id="fastspeed" onclick="setFastSpeedGame()"> ->>> </a>
+                <span style="font-size: 18px;">Speed: </span>
+                <a href="#" id="veryslowspeed" onclick="setVerySlowSpeedGame()"> -> </a>
+                <a href="#" id="slowspeed" onclick="setSlowSpeedGame()"> ->> </a>
+                <a href="#" id="mediumspeed" onclick="setMediumSpeedGame()"> ->>> </a>
+                <a href="#" id="fastspeed" onclick="setFastSpeedGame()"> ->>>> </a>
             </div>
             
             <div class="mainpanel">
 
             <section class="leftpanel">
                 <h3>STATISTICS</h3>
-                <div>
+                <div style="margin-bottom: 5px;">
                     <span>Distance: </span>
                     <span id="distance" class="stats">0</span>
                     <span>Step: </span>
                     <span id="step" class="stats">0</span>
                 </div>
-
-                <div>
+                <div style="margin-bottom: 5px;">
                     <span>Fuel: </span>
                     <span id="fuel" class="stats">50</span> / <span id="maxfuel" class="stats">50</span>
                     <span>usage (</span>
                     <span id="fuelusage" class="stats">0</span>
                     <span>)</span>
                 </div>
-                <div>
+                <div style="margin-bottom: 5px;">
                     <span>Terrain: </span>
                     <span id="terrain" class="stats">Solid ground</span>
                 </div>
-                <div>
+                <div style="margin-bottom: 5px;">
                     <span>Shields: </span>
                     <span id="shield" class="stats">100</span> / <span id="maxshield" class="stats">100</span>
                     <button id="repairbtn" class="mybutton" onclick="repair()">REPAIR</button>
                 </div>
-                <div>
+                <div style="margin-bottom: 5px;">
                     <span>Food: </span>
                     <span id="food" class="stats">50</span> / <span id="maxfood" class="stats">50</span>
                 </div>
-                <div>
+                <div style="margin-bottom: 5px;">
                     <span>Water: </span>
                     <span id="water" class="stats">50</span> / <span id="maxwater" class="stats">50</span>
                 </div>
-                <div>
+                <div style="margin-bottom: 5px;">
                     <span>Spare parts: </span>
                     <span id="spareparts" class="stats">0</span>
                 </div>
-                <div>
+                <div style="margin-bottom: 5px;">
                     <span>Scrap: </span>
                     <span id="scrap" class="stats">0</span>
                 </div>
@@ -88,38 +143,41 @@
             <section class="middlepanel">
                 <h3>EVENTS:</h3>
                 <div id="spotdiv">
-                    <span>You spot: </span>
-                    <span id="spot">...</span>
+                    <span id="spot">Vroom-vroom !!!<br></span>
+                </div>
+                <div>
+                    <br>
+                    <button class="mybutton" id="entervillagebtn" onclick="enterTheVillage()">ENTER THE VILLAGE</button>
                 </div>
             </section>
             
             <section class="rightpanel">
                 <h3>UPGRADES:</h3>
-                <div>
+                <div style="margin-bottom: 5px;">
                     <span>FUEL STORAGE Level: </span>
                     <span id="fuelstoragelevel">1</span>
                     <span id="fuelstoragelevelsp">(10 sp)</span>
                     <button class="mybutton" id="fuelstorageupgrade" onclick="fuelStorageUpgrade()">UPGRADE</button>
                 </div>
-                <div>
+                <div style="margin-bottom: 5px;">
                     <span>SHIELDS Level: </span>
                     <span id="shieldlevel">1</span>
                     <span id="shieldlevelsp">(10 sp)</span>
                     <button class="mybutton" id="shieldupgrade" onclick="shieldUpgrade()">UPGRADE</button>
                 </div>
-                 <div>
+                 <div style="margin-bottom: 5px;">
                     <span>FOOD STORAGE Level: </span>
                     <span id="foodstoragelevel">1</span>
                     <span id="foodstoragelevelsp">(10 sp)</span>
                     <button class="mybutton" id="foodstorageupgrade" onclick="foodStorageUpgrade()">UPGRADE</button>
                 </div>
-                <div>
+                <div style="margin-bottom: 5px;">
                     <span>WATER STORAGE Level: </span>
                     <span id="waterstoragelevel">1</span>
                     <span id="waterstoragelevelsp">(10 sp)</span>
                     <button class="mybutton" id="waterstorageupgrade" onclick="waterStorageUpgrade()">UPGRADE</button>
                 </div>
-                <div>
+                <div style="margin-bottom: 5px;">
                     <span>FUEL CONSUMPTION Level: </span>
                     <span id="fuelconsumptionlevel">1</span>
                     <span id="fuelconsumptionlevelsp">(10 sp)</span>
