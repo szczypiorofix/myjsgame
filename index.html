@@ -17,17 +17,30 @@
 
 <body>
 
+
     <div class="maindiv">
         <div id="mainmenu">
             <img src="furyroad.png" alt="Fury Road" width="256" height="64">
             <br><br>
-            <a href="#" onclick="startGame()">Start the engine!</a>
+            <button class="mybutton" style="font-size: 16px;" onclick="startGame()">START THE ENGINE !!!</button>
 	</div>
-
+        
+        <div id="helppart">
+            <div id="helpdiv">
+                <button class="mybutton" onclick="exithelp()">EXIT HELP</button>
+                <p>The main goal of this game is to drive as long as you can in a post-apocalyptic world.</p>
+                <p>Your car is your best friend. Take care of it, collect spare parts and scrap!</p>
+                <p>Watch out your resorces: food and water.</p>
+                <p>Fighting enemies can make your shields damaged.</p>
+                <p>Use spare parts to repair or upgrade your car.</p>
+                <p>Driving through a post-apocalyptic world you can spot a village. You can go in to refuel and repair your car, buy some resources and spend some time to talk to the villagers.</p>
+            </div>
+        </div>
+        
         <div id="village">
             <div>
                 <div style="text-align: center;">
-                    <button class="mybutton" id="backtoroad" onclick="backToTheRoad()">POWRÓT NA DROGĘ</button>
+                    <button class="mybutton" id="backtoroad" onclick="backToTheRoad()">RETURN TO THE ROAD</button>
                 </div>
                 <div id="villageContent">
                     <h3 id="villageName">.</h3>
@@ -80,11 +93,13 @@
         </div>
         
         <div id="game">
+            <div>
+                <button class="mybutton helpbtn" onclick="help()">HELP</button>
+            </div>
             <header class="gametitle">
                 <h1>FURY ROAD</h1>
             </header>
-                       
-                
+            
             <div class="setSpeed">
                 <div>
                     <a href="#" id="startstop" onclick="startstop()">PAUSE</a>
@@ -99,60 +114,79 @@
             <div class="mainpanel">
 
             <section class="leftpanel">
-                <h3>STATISTICS</h3>
-                <div style="margin-bottom: 5px;">
+                <h3 class="sectiontitle">STATISTICS</h3>
+                <hr />
+                <div class="sectionpart">
                     <span>Distance: </span>
                     <span id="distance" class="stats">0</span>
                     <span>Step: </span>
                     <span id="step" class="stats">0</span>
                 </div>
-                <div style="margin-bottom: 5px;">
+                <div class="sectionpart">
                     <span>Fuel: </span>
-                    <span id="fuel" class="stats">50</span> / <span id="maxfuel" class="stats">50</span>
+                    <span id="fuel" class="stats">100</span> / <span id="maxfuel" class="stats">100</span>
                     <span>usage (</span>
                     <span id="fuelusage" class="stats">0</span>
                     <span>)</span>
                 </div>
-                <div style="margin-bottom: 5px;">
+                <div class="sectionpart">
                     <span>Terrain: </span>
                     <span id="terrain" class="stats">Solid ground</span>
                 </div>
-                <div style="margin-bottom: 5px;">
+                <hr />
+                <div class="sectionpart">
                     <span>Shields: </span>
                     <span id="shield" class="stats">100</span> / <span id="maxshield" class="stats">100</span>
                     <button id="repairbtn" class="mybutton" onclick="repair()">REPAIR</button>
                 </div>
-                <div style="margin-bottom: 5px;">
+                <div class="sectionpart">
+                    <span>Attack: </span>
+                    <span id="attack" class="stats">1</span>
+                </div>
+                <div class="sectionpart">
+                    <span>Defense </span>
+                    <span id="defense" class="stats">1</span>
+                </div>
+                <hr />
+                <div class="sectionpart">
                     <span>Food: </span>
-                    <span id="food" class="stats">50</span> / <span id="maxfood" class="stats">50</span>
+                    <span id="food" class="stats">100</span> / <span id="maxfood" class="stats">100</span>
                 </div>
-                <div style="margin-bottom: 5px;">
+                <div class="sectionpart">
                     <span>Water: </span>
-                    <span id="water" class="stats">50</span> / <span id="maxwater" class="stats">50</span>
+                    <span id="water" class="stats">100</span> / <span id="maxwater" class="stats">100</span>
                 </div>
-                <div style="margin-bottom: 5px;">
+                <div class="sectionpart">
                     <span>Spare parts: </span>
                     <span id="spareparts" class="stats">0</span>
                 </div>
-                <div style="margin-bottom: 5px;">
+                <div class="sectionpart">
                     <span>Scrap: </span>
                     <span id="scrap" class="stats">0</span>
                 </div>
             </section>
 
             <section class="middlepanel">
-                <h3>EVENTS:</h3>
+                <h3 class="sectiontitle">EVENTS:</h3>
+                <hr />
                 <div id="spotdiv">
-                    <span id="spot">Vroom-vroom !!!<br></span>
+                    <span style="color: burlywood;">0.00 :</span><span id="spot">Vroom-vroom !!!<br></span>
                 </div>
-                <div>
-                    <br>
-                    <button class="mybutton" id="entervillagebtn" onclick="enterTheVillage()">ENTER THE VILLAGE</button>
+                <div class="choicespanel">
+                    <span id="villagebtn">
+                        <button class="mybutton" onclick="enterTheVillage()">ENTER THE VILLAGE</button>
+                        <button class="mybutton" onclick="keepgoing()">KEEP GOING</button>
+                    </span>
+                    <span id="fightfleebtn">
+                        <button class="mybutton" onclick="fight()">FIGHT</button>
+                        <button class="mybutton" onclick="flee()">FLEE</button>
+                    </span>
                 </div>
             </section>
             
             <section class="rightpanel">
-                <h3>UPGRADES:</h3>
+                <h3 class="sectiontitle">UPGRADES:</h3>
+                <hr />
                 <div style="margin-bottom: 5px;">
                     <span>FUEL STORAGE Level: </span>
                     <span id="fuelstoragelevel">1</span>

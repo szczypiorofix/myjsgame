@@ -6,6 +6,13 @@
             font-family: 'Play', sans-serif;
             background-color: #00111a;
             color: #cceeff;
+            background: red; /* For browsers that do not support gradients */
+            background: -webkit-linear-gradient(#002133, #00111a); /* For Safari 5.1 to 6.0 */
+            background: -o-linear-gradient(#002133, #00111a); /* For Opera 11.1 to 12.0 */
+            background: -moz-linear-gradient(#002133, #00111a); /* For Firefox 3.6 to 15 */
+            background: linear-gradient(#002133, #00111a); /* Standard syntax */
+            background-repeat: no-repeat;
+            background-attachment: fixed;
 	}
 
 	a {
@@ -16,6 +23,9 @@
 	a:hover {
             color: #4da6ff;
             text-decoration: none;
+            z-index: -1;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); 
+            
 	}
 
 	.gametitle {
@@ -30,15 +40,23 @@
         
         #startstop {
             font-size: 24px;
+            display: none;
         }
 
         .maindiv {
             margin: auto;
             margin-top: 20px;
             margin-bottom: 30px;
-            /**border: 3px solid #00324d;
-            border-radius: 5px; **/
             padding: 10px;
+        }
+        
+        .sectiontitle {
+            text-align: center;
+        }
+        
+        .sectionpart {
+            padding-left: 5px;
+            margin-bottom: 5px;
         }
         
         .leftpanel {
@@ -46,8 +64,8 @@
             float: left;
             background-color: #002233;
             margin-top: 20px;
-            height: 300px;
-            padding-left: 1%;
+            height: 360px;
+            padding: 5px;
             border: 3px solid #004466;
             border-radius: 3px;
         }
@@ -55,11 +73,10 @@
         .middlepanel {
             width: 37%;
             float: left;
-            height: 150px;
             background-color: #002233;
             margin-top: 20px;
-            height: 300px;
-            padding-left: 1%;
+            height: 360px;
+            padding: 5px;
             border: 3px solid #004466;
             border-radius: 3px;
         }
@@ -69,10 +86,14 @@
             float: left;
             background-color: #002233;
             margin-top: 20px;
-            height: 300px;
-            padding-left: 1%;
+            height: 360px;
             border: 3px solid #004466;
             border-radius: 3px;
+            padding: 5px;
+        }
+        
+        .mainpanel {
+            
         }
         
         .stats {
@@ -87,8 +108,12 @@
             visibility: hidden;
         }
         
-        #entervillagebtn {
-            /** visibility: hidden; **/
+        #villagebtn {
+            display: none;
+        }
+        
+        #fightfleebtn {
+            display: none;
         }
         
         #fuelstorageupgrade {
@@ -122,9 +147,28 @@
         
         .mybutton:hover {
             background-color: #0074b3;
-            border: 2px solid #006399;
             cursor:pointer;
-            color: #ddd;
+            color: #fff;
+            box-shadow: 0px -1px 15px 1px #006399;
+        }
+        
+        .mybutton:active {
+            transform: translate(0px, 2px);
+        }
+        
+        .helpbtn {
+            float: right;
+            margin-right: 30px;
+        }
+        
+        #helppart {
+            display: none;
+        }
+        
+        #helpdiv {
+            width: 600px;
+            margin: auto;
+            margin-top: 30px;            
         }
         
         #veryslowspeed {
@@ -145,16 +189,19 @@
 	}
 
 	#spotdiv {
-            margin-top: 30px;
             overflow-y: auto;
             background-color: #004466;
             border: 3px solid #005580;
             border-radius: 3px;
             padding: 5px;
-            margin-right: 10px;
-            height: 150px;
+            margin: 10px;
+            height: 220px;
 	}
-
+        
+        .choicespanel {
+            margin-left: 6px;
+        }
+        
 	#mainmenu {
             display: block;
             text-align: center;

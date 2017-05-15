@@ -10,6 +10,34 @@
             mygame.pausegame();
 	}
         
+        function help() {
+             
+             document.getElementById('game').style.display = "none";
+             document.getElementById('helppart').style.display = "block";
+        }
+        
+        function exithelp() {
+             
+             document.getElementById('game').style.display = "block";
+             document.getElementById('helppart').style.display = "none";
+        }
+        
+        function fight() {
+            mygame.fight();
+        }
+        
+        function flee() {
+            mygame.flee();
+        }
+        
+        function keepgoing() {
+            document.getElementById("villagebtn").style.display = "none";
+            document.getElementById("spot").innerHTML += mygame.distanceOnSpot() +"You bypassed the village.<br>";
+            var objDiv = document.getElementById("spotdiv");
+            objDiv.scrollTop = objDiv.scrollHeight;
+            mygame.pausegame();
+        }
+        
         function enterTheVillage() {
             document.getElementById('game').style.display = "none";
             document.getElementById('village').style.display = "block";
@@ -74,7 +102,6 @@
         
         function backToTheRoad() {
             document.getElementById('game').style.display = "block";
-            document.getElementById('village').style.display = "none";
             mygame.backToTheRoad();
         }
 

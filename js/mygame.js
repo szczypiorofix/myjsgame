@@ -4,13 +4,14 @@ function MyGame() {
     this.running = true;
     this.distance = 0;
     this.distanceStep = 0;
-    this.fuel = 50;
-    this.maxfuel = 50;
+    this.damage = 0;
+    this.fuel = 100;
+    this.maxfuel = 100;
     this.fuelusage = 0;
-    this.food = 50;
-    this.maxfood = 50;
-    this.water = 50;
-    this.maxwater = 50;
+    this.food = 100;
+    this.maxfood = 100;
+    this.water = 100;
+    this.maxwater = 100;
     this.shield = 100;
     this.maxshield = 100;
     this.scrap = 0;
@@ -25,9 +26,8 @@ function MyGame() {
     this.foodStorageLevel = 1;
     this.shieldLevel = 1;
 
+    this.gameEventStep = Math.floor(Math.random() * 5) +2;
     this.terrain = 0;
-    this.terrainPeriod = 0;
-    this.terrainCount = 0;
     this.terrains = [];
     this.events = [
         "A pack of vicious dogs! Get off my lawn!",
@@ -43,7 +43,7 @@ function MyGame() {
         "You found some food!",
         "You found some scrap!",
         "You found some spare parts!",
-        "You see a small village. Would you enter?"
+        "You see a small village: "
     ];
     this.villages = [
       "Hub", "Klamath", "Nora", "Bunker Hill", "Shady Sands", "Redding", "Junktown", "Modoc", "Den", "Abbey"  
@@ -103,7 +103,7 @@ function MyGame() {
     this.repair = function() {
         if (this.spareparts >= 10 && this.shield < this.maxshield) {
             this.spareparts -= 10;
-            this.shield += 10;
+            this.shield += 25;
             if (this.shield > this.maxshield) {
                 this.shield = this.maxshield;
             }
@@ -216,14 +216,21 @@ function MyGame() {
     };
     
     this.updateSpot = function() {
-        this.spot = (Math.floor((Math.random() * this.events.length) * 3));
-        if (this.spot < this.events.length) {
-            document.getElementById("spot").innerHTML += this.events[this.spot]+"<br>";
+        
+        this.gameEventStep--;
+        
+        if (this.gameEventStep === 0) {
+            this.spot = (Math.floor(Math.random() * this.events.length));
+            if (this.spot !== 13) document.getElementById("spot").innerHTML += this.distanceOnSpot() +this.events[this.spot]+"<br>";
+            var objDiv = document.getElementById("spotdiv");
+            objDiv.scrollTop = objDiv.scrollHeight;
+            this.eventsOnTheRoad();
+            this.gameEventStep = Math.floor(Math.random() * 5) + 2;
         }
-        //document.getElementById("spotdiv").scrollTop = (Math.floor(this.distance) * 2);
-        var objDiv = document.getElementById("spotdiv");
-        objDiv.scrollTop = objDiv.scrollHeight;
-        this.eventsOnTheRoad();
+    };
+
+    this.distanceOnSpot = function() {
+      return '<span style="color: burlywood;">'+this.distance.toFixed(2) +': </span>';
     };
 
     this.eventsOnTheRoad = function() {
@@ -241,31 +248,29 @@ function MyGame() {
             if (this.spot === 3) {
                 this.damage = 8;
             }
+            this.pausegame();
+            document.getElementById("fightfleebtn").style.display = "block";
         }
         else {
             this.damage = 0;
             
             // TERRAINS
             if (this.spot === 4) { // SOLID GROUND
-                //var randomTerrain = (Math.floor((Math.random() * this.terrains.length)));
                 this.terrain = this.terrains[0];
                 document.getElementById("terrain").innerHTML = this.terrains[0].name;
             }
             
             if (this.spot === 5) { // SAND
-                //var randomTerrain = (Math.floor((Math.random() * this.terrains.length)));
                 this.terrain = this.terrains[1];
                 document.getElementById("terrain").innerHTML = this.terrains[1].name;
             }
             
             if (this.spot === 6) { // MUD
-                //var randomTerrain = (Math.floor((Math.random() * this.terrains.length)));
                 this.terrain = this.terrains[2];
                 document.getElementById("terrain").innerHTML = this.terrains[2].name;
             }
             
             if (this.spot === 7) { // ROCKS
-                //var randomTerrain = (Math.floor((Math.random() * this.terrains.length)));
                 this.terrain = this.terrains[3];
                 document.getElementById("terrain").innerHTML = this.terrains[3].name;
             }
@@ -282,7 +287,7 @@ function MyGame() {
             
             // FOUND SOME WATER
             if (this.spot === 9) {
-                var foundWater = (Math.floor((Math.random() * 8)+1));
+                var foundWater = (Math.floor((Math.random() * 15)+1));
                 this.water += foundWater;
                 if (this.water > this.maxwater) {
                     this.water = this.maxwater;
@@ -292,7 +297,7 @@ function MyGame() {
             
             // FOUND SOME FOOD
             if (this.spot === 10) {
-                var foundFood = (Math.floor((Math.random() * 8)+1));
+                var foundFood = (Math.floor((Math.random() * 15)+1));
                 this.food += foundFood;
                 if (this.food > this.maxfood) {
                     this.food = this.maxfood;
@@ -302,7 +307,7 @@ function MyGame() {
             
             // FOUND SOME SCRAP
             if (this.spot === 11) {
-                var foundScrap = (Math.floor((Math.random() * 16)+1));
+                var foundScrap = (Math.floor((Math.random() * 20)+1));
                 this.scrap += foundScrap;
                 document.getElementById("scrap").innerHTML = this.scrap +" (+"+foundScrap+")";
             }
@@ -320,17 +325,21 @@ function MyGame() {
             // A SMALL VILLAGE
             if (this.spot === 13) {
                 this.villageName = this.villages[Math.floor(Math.random() * this.villages.length)];
-                //document.getElementById("entervillagebtn").style.visibility = "visible";
+                document.getElementById("villagebtn").style.display = "block";
+                document.getElementById("spot").innerHTML += this.distanceOnSpot() +this.events[this.spot]+this.villageName+"<br>";
+                var objDiv = document.getElementById("spotdiv");
+                objDiv.scrollTop = objDiv.scrollHeight;
+                this.pausegame();
             }
             else {
-                //document.getElementById("entervillagebtn").style.visibility = "hidden";
+                document.getElementById("villagebtn").style.display = "none";
             }
         }
     };
 
     // THE VILLAGE
     this.enterTheVillage = function() {
-        this.pausegame();
+        document.getElementById("spot").innerHTML += this.distanceOnSpot()+ "Entering the village...<br>";
         document.getElementById("villageName").innerHTML = this.villageName;
         document.getElementById("yourscrap").innerHTML = this.scrap;
     };
@@ -356,8 +365,29 @@ function MyGame() {
     };
     
     this.backToTheRoad = function() {
+        document.getElementById("villageContent").style.display = "none";
+        document.getElementById("villagebtn").style.display = "none";
+        document.getElementById("spot").innerHTML += this.distanceOnSpot() + "Back on the fury road!<br>";
+        var objDiv = document.getElementById("spotdiv");
+        objDiv.scrollTop = objDiv.scrollHeight;
         this.pausegame();
+    };
+    
+    this.fight = function() {
+        document.getElementById("spot").innerHTML += this.distanceOnSpot()+ "You are facing the enemies!<br>";
+        document.getElementById("fightfleebtn").style.display = "none";
         
+        var objDiv = document.getElementById("spotdiv");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        this.pausegame();
+    };
+    
+    this.flee = function() {
+        document.getElementById("spot").innerHTML += this.distanceOnSpot() +"You flee...<br>";
+        document.getElementById("fightfleebtn").style.display = "none";
+        var objDiv = document.getElementById("spotdiv");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        this.pausegame();
     };
 
     // "GAME LOOP"
