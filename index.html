@@ -9,7 +9,7 @@
     <meta name="description" content="Wróblewski Piotr, 'Fury Road' - my first JavaScript game">
     <meta name="author" content="Wróblewski Piotr">
     <meta property="og:title" content="Wróblewski Piotr">
-    <meta property="og:image" content="https://wroblewskipiotr.pl/twine/furyroad.png">
+    <meta property="og:image" content="https://wroblewskipiotr.pl/furyroad/furyroad.png">
     <meta property="og:description" content="Wróblewski Piotr, 'Fury Road' - my first JavaScript game">
     <title>Fury Road</title>
     <link rel="stylesheet" href="css/style.css">
@@ -20,20 +20,20 @@
 
     <div class="maindiv">
         <div id="mainmenu">
-            <img src="furyroad.png" alt="Fury Road" width="256" height="64">
+            <img src="images/furyroad.png" alt="Fury Road" width="256" height="128">
             <br><br>
-            <button class="mybutton" style="font-size: 16px;" onclick="startGame()">START THE ENGINE !!!</button>
+            <button class="mybutton startbutton" onclick="startGame()">START THE ENGINE !!!</button>
 	</div>
         
         <div id="helppart">
             <div id="helpdiv">
                 <button class="mybutton" onclick="exithelp()">EXIT HELP</button>
-                <p>The main goal of this game is to drive as long as you can in a post-apocalyptic world.</p>
+                <p>The main goal of this game is to drive as long as you can through a post-apocalyptic world.</p>
                 <p>Your car is your best friend. Take care of it, collect spare parts and scrap!</p>
                 <p>Watch out your resorces: food and water.</p>
                 <p>Fighting enemies can make your shields damaged.</p>
                 <p>Use spare parts to repair or upgrade your car.</p>
-                <p>Driving through a post-apocalyptic world you can spot a village. You can go in to refuel and repair your car, buy some resources and spend some time to talk to the villagers.</p>
+                <p>Sometimes you spot a village. You can go in to refuel and repair your car, buy some resources and spend some time talking to the villagers.</p>
             </div>
         </div>
         
@@ -97,7 +97,8 @@
                 <button class="mybutton helpbtn" onclick="help()">HELP</button>
             </div>
             <header class="gametitle">
-                <h1>FURY ROAD</h1>
+                <!-- <h1>FURY ROAD</h1> -->
+                <img id="car" src="images/furyroad.png" class="caranimSolid" alt="Fury Road" width="256" height="128">
             </header>
             
             <div class="setSpeed">
@@ -105,10 +106,29 @@
                     <a href="#" id="startstop" onclick="startstop()">PAUSE</a>
                 </div>
                 <span style="font-size: 18px;">Speed: </span>
-                <a href="#" id="veryslowspeed" onclick="setVerySlowSpeedGame()"> -> </a>
-                <a href="#" id="slowspeed" onclick="setSlowSpeedGame()"> ->> </a>
-                <a href="#" id="mediumspeed" onclick="setMediumSpeedGame()"> ->>> </a>
-                <a href="#" id="fastspeed" onclick="setFastSpeedGame()"> ->>>> </a>
+                
+                <div class="tooltip">
+                    <img class="iconimage" id="veryslowspeed" src="images/speed1.png" alt="Shield icon" height="42" onclick="setVerySlowSpeedGame()">
+                    <span class="tooltiptext">Very slow</span>
+                </div>
+                <div class="tooltip">
+                    <img class="iconimage" id="slowspeed" src="images/speed2.png" alt="Shield icon" height="42" onclick="setSlowSpeedGame()">
+                    <span class="tooltiptext">Slow</span>
+                </div>
+                <div class="tooltip">
+                    <img class="iconimage" id="mediumspeed" src="images/speed3.png" alt="Shield icon" height="42" onclick="setMediumSpeedGame()">
+                    <span class="tooltiptext">Medium speed</span>
+                </div>
+                <div class="tooltip">
+                    <img class="iconimage" id="fastspeed" src="images/speed4.png" alt="Shield icon" height="42" onclick="setFastSpeedGame()">
+                    <span class="tooltiptext">Fast</span>
+                </div>
+                
+                
+                <!--<button id="veryslowspeed" class="mybutton" onclick="setVerySlowSpeedGame()"> -> </button>
+                <button id="slowspeed" class="mybutton" onclick="setSlowSpeedGame()"> ->> </button>
+                <button id="mediumspeed" class="mybutton" onclick="setMediumSpeedGame()"> ->>> </button>
+                <button id="fastspeed" class="mybutton" onclick="setFastSpeedGame()"> ->>>> </button> -->
             </div>
             
             <div class="mainpanel">
@@ -117,51 +137,81 @@
                 <h3 class="sectiontitle">STATISTICS</h3>
                 <hr />
                 <div class="sectionpart">
-                    <span>Distance: </span>
+                    <div class="tooltip">
+                        <img src="images/distance.png" alt="Distance icon" height="24">
+                        <span class="tooltiptext">Distance driven</span>
+                    </div>
                     <span id="distance" class="stats">0</span>
                     <span>Step: </span>
                     <span id="step" class="stats">0</span>
                 </div>
                 <div class="sectionpart">
-                    <span>Fuel: </span>
+                    <div class="tooltip">
+                        <img src="images/fuel.png" alt="Fuel icon" height="24">
+                        <span class="tooltiptext">Fuel consumption</span>
+                    </div>
                     <span id="fuel" class="stats">100</span> / <span id="maxfuel" class="stats">100</span>
                     <span>usage (</span>
                     <span id="fuelusage" class="stats">0</span>
                     <span>)</span>
                 </div>
                 <div class="sectionpart">
-                    <span>Terrain: </span>
+                    <div class="tooltip">
+                        <img src="images/terrain.png" alt="Terrain icon" height="24">
+                        <span class="tooltiptext">Terrain type</span>
+                    </div>
                     <span id="terrain" class="stats">Solid ground</span>
                 </div>
                 <hr />
                 <div class="sectionpart">
-                    <span>Shields: </span>
+                    <div class="tooltip">
+                        <img src="images/shield.png" alt="Shield icon" height="24">
+                        <span class="tooltiptext">Shields</span>
+                    </div>
                     <span id="shield" class="stats">100</span> / <span id="maxshield" class="stats">100</span>
                     <button id="repairbtn" class="mybutton" onclick="repair()">REPAIR</button>
                 </div>
                 <div class="sectionpart">
-                    <span>Attack: </span>
+                    <div class="tooltip">
+                        <img src="images/attack.png" alt="Attack icon" height="24">
+                        <span class="tooltiptext">Attack strength</span>
+                    </div>
                     <span id="attack" class="stats">1</span>
                 </div>
                 <div class="sectionpart">
-                    <span>Defense </span>
+                    <div class="tooltip">
+                        <img src="images/defense.png" alt="Defense icon" height="24">
+                        <span class="tooltiptext">Defence strength</span>
+                    </div>
                     <span id="defense" class="stats">1</span>
                 </div>
                 <hr />
                 <div class="sectionpart">
-                    <span>Food: </span>
+                    <div class="tooltip">
+                        <img src="images/food_res.png" alt="Food icon" height="24">
+                        <span class="tooltiptext">Food resources</span>
+                    </div>
                     <span id="food" class="stats">100</span> / <span id="maxfood" class="stats">100</span>
                 </div>
                 <div class="sectionpart">
-                    <span>Water: </span>
+                    <div class="tooltip">
+                        <img src="images/water_res.png" alt="Water icon" height="24">
+                        <span class="tooltiptext">Water resources</span>
+                    </div>
                     <span id="water" class="stats">100</span> / <span id="maxwater" class="stats">100</span>
                 </div>
                 <div class="sectionpart">
-                    <span>Spare parts: </span>
+                    <div class="tooltip">
+                        <img class="iconimage" src="images/spare.png" alt="Spare parts icon" height="24">
+                        <span class="tooltiptext">Spare parts</span>
+                    </div>
                     <span id="spareparts" class="stats">0</span>
                 </div>
                 <div class="sectionpart">
-                    <span>Scrap: </span>
+                    <div class="tooltip">
+                        <img class="iconimage" src="images/scrap.png" alt="Scrap icon" height="24">
+                        <span class="tooltiptext">Scrap</span>
+                    </div>
                     <span id="scrap" class="stats">0</span>
                 </div>
             </section>

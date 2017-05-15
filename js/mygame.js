@@ -256,23 +256,75 @@ function MyGame() {
             
             // TERRAINS
             if (this.spot === 4) { // SOLID GROUND
+                if (this.terrain === 0) {
+                    document.getElementById("car").classList.remove('caranimSolid');
+                }
+                if (this.terrain === 1) {
+                    document.getElementById("car").classList.remove('caranimSand');
+                }
+                if (this.terrain === 2) {
+                    document.getElementById("car").classList.remove('caranimMud');
+                }
+                if (this.terrain === 3) {
+                    document.getElementById("car").classList.remove('caranimRocks');
+                }
                 this.terrain = this.terrains[0];
                 document.getElementById("terrain").innerHTML = this.terrains[0].name;
+                document.getElementById("car").classList.add('caranimSolid');
             }
             
             if (this.spot === 5) { // SAND
+                if (this.terrain === 0) {
+                    document.getElementById("car").classList.remove('caranimSolid');
+                }
+                if (this.terrain === 1) {
+                    document.getElementById("car").classList.remove('caranimSand');
+                }
+                if (this.terrain === 2) {
+                    document.getElementById("car").classList.remove('caranimMud');
+                }
+                if (this.terrain === 3) {
+                    document.getElementById("car").classList.remove('caranimRocks');
+                }
                 this.terrain = this.terrains[1];
                 document.getElementById("terrain").innerHTML = this.terrains[1].name;
+                document.getElementById("car").classList.add('caranimSand');
             }
             
             if (this.spot === 6) { // MUD
+                if (this.terrain === 0) {
+                    document.getElementById("car").classList.remove('caranimSolid');
+                }
+                if (this.terrain === 1) {
+                    document.getElementById("car").classList.remove('caranimSand');
+                }
+                if (this.terrain === 2) {
+                    document.getElementById("car").classList.remove('caranimMud');
+                }
+                if (this.terrain === 3) {
+                    document.getElementById("car").classList.remove('caranimRocks');
+                }
                 this.terrain = this.terrains[2];
                 document.getElementById("terrain").innerHTML = this.terrains[2].name;
+                document.getElementById("car").classList.add('caranimMud');
             }
             
             if (this.spot === 7) { // ROCKS
+                if (this.terrain === 0) {
+                    document.getElementById("car").classList.remove('caranimSolid');
+                }
+                if (this.terrain === 1) {
+                    document.getElementById("car").classList.remove('caranimSand');
+                }
+                if (this.terrain === 2) {
+                    document.getElementById("car").classList.remove('caranimMud');
+                }
+                if (this.terrain === 3) {
+                    document.getElementById("car").classList.remove('caranimRocks');
+                }
                 this.terrain = this.terrains[3];
                 document.getElementById("terrain").innerHTML = this.terrains[3].name;
+                document.getElementById("car").classList.add('caranimRocks');
             }
             
             // FOUND SOME FUEL
