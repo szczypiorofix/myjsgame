@@ -11,13 +11,11 @@
 	}
         
         function help() {
-             
              document.getElementById('game').style.display = "none";
              document.getElementById('helppart').style.display = "block";
         }
         
         function exithelp() {
-             
              document.getElementById('game').style.display = "block";
              document.getElementById('helppart').style.display = "none";
         }
@@ -107,34 +105,38 @@
 
 	function setVerySlowSpeedGame() {
 		mygame.setSpeed(1);
-                document.getElementById("veryslowspeed").style.color = "#66ffff";
-		document.getElementById("slowspeed").style.color = "#99ccff";
-		document.getElementById("mediumspeed").style.color = "#99ccff";
-		document.getElementById("fastspeed").style.color = "#99ccff";
+                document.getElementById("veryslowspeed").classList.remove("bordered");
+		document.getElementById("slowspeed").classList.remove("bordered");
+		document.getElementById("mediumspeed").classList.remove("bordered");
+		document.getElementById("fastspeed").classList.remove("bordered");
+                document.getElementById("veryslowspeed").classList.add("bordered");
 	}
 
 	function setSlowSpeedGame() {
 		mygame.setSpeed(2);
-                document.getElementById("veryslowspeed").style.color = "#99ccff";
-		document.getElementById("slowspeed").style.color = "#66ffff";
-		document.getElementById("mediumspeed").style.color = "#99ccff";
-		document.getElementById("fastspeed").style.color = "#99ccff";
+                document.getElementById("veryslowspeed").classList.remove("bordered");
+		document.getElementById("slowspeed").classList.remove("bordered");
+		document.getElementById("mediumspeed").classList.remove("bordered");
+		document.getElementById("fastspeed").classList.remove("bordered");
+                document.getElementById("slowspeed").classList.add("bordered");
 	}
 
 	function setMediumSpeedGame() {
 		mygame.setSpeed(3);
-                document.getElementById("veryslowspeed").style.color = "#99ccff";
-		document.getElementById("slowspeed").style.color = "#99ccff";
-		document.getElementById("mediumspeed").style.color = "#66ffff";
-		document.getElementById("fastspeed").style.color = "#99ccff";
+                document.getElementById("veryslowspeed").classList.remove("bordered");
+		document.getElementById("slowspeed").classList.remove("bordered");
+		document.getElementById("mediumspeed").classList.remove("bordered");
+		document.getElementById("fastspeed").classList.remove("bordered");
+                document.getElementById("mediumspeed").classList.add("bordered");
 	}
 
 	function setFastSpeedGame() {
 		mygame.setSpeed(4);
-                document.getElementById("veryslowspeed").style.color = "#99ccff";
-		document.getElementById("slowspeed").style.color = "#99ccff";
-		document.getElementById("mediumspeed").style.color = "#99ccff";
-		document.getElementById("fastspeed").style.color = "#66ffff";
+                document.getElementById("veryslowspeed").classList.remove("bordered");
+		document.getElementById("slowspeed").classList.remove("bordered");
+		document.getElementById("mediumspeed").classList.remove("bordered");
+		document.getElementById("fastspeed").classList.remove("bordered");
+                document.getElementById("fastspeed").classList.add("bordered");
 	}
         
         function fuelStorageUpgrade() {

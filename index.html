@@ -63,7 +63,6 @@
                                 <div style="margin-top: 10px;">
                                     <button class="mybutton" onclick="buySpareParts()">BUY SPARE PARTS</button>
                                 </div>
-                                
                             </div>
                         </div>
                         <div style="margin-top: 10px;">
@@ -97,7 +96,6 @@
                 <button class="mybutton helpbtn" onclick="help()">HELP</button>
             </div>
             <header class="gametitle">
-                <!-- <h1>FURY ROAD</h1> -->
                 <img id="car" src="images/furyroad.png" class="caranimSolid" alt="Fury Road" width="256" height="128">
             </header>
             
@@ -108,27 +106,21 @@
                 <span style="font-size: 18px;">Speed: </span>
                 
                 <div class="tooltip">
-                    <img class="iconimage" id="veryslowspeed" src="images/speed1.png" alt="Shield icon" height="42" onclick="setVerySlowSpeedGame()">
+                    <img class="iconimage bordered" id="veryslowspeed" src="images/speed1.png" alt="Shield icon" height="42" onclick="setVerySlowSpeedGame()">
                     <span class="tooltiptext">Very slow</span>
                 </div>
                 <div class="tooltip">
-                    <img class="iconimage" id="slowspeed" src="images/speed2.png" alt="Shield icon" height="42" onclick="setSlowSpeedGame()">
+                    <img class="iconimage noborder" id="slowspeed" src="images/speed2.png" alt="Shield icon" height="42" onclick="setSlowSpeedGame()">
                     <span class="tooltiptext">Slow</span>
                 </div>
                 <div class="tooltip">
-                    <img class="iconimage" id="mediumspeed" src="images/speed3.png" alt="Shield icon" height="42" onclick="setMediumSpeedGame()">
+                    <img class="iconimage noborder" id="mediumspeed" src="images/speed3.png" alt="Shield icon" height="42" onclick="setMediumSpeedGame()">
                     <span class="tooltiptext">Medium speed</span>
                 </div>
                 <div class="tooltip">
-                    <img class="iconimage" id="fastspeed" src="images/speed4.png" alt="Shield icon" height="42" onclick="setFastSpeedGame()">
+                    <img class="iconimage noborder" id="fastspeed" src="images/speed4.png" alt="Shield icon" height="42" onclick="setFastSpeedGame()">
                     <span class="tooltiptext">Fast</span>
                 </div>
-                
-                
-                <!--<button id="veryslowspeed" class="mybutton" onclick="setVerySlowSpeedGame()"> -> </button>
-                <button id="slowspeed" class="mybutton" onclick="setSlowSpeedGame()"> ->> </button>
-                <button id="mediumspeed" class="mybutton" onclick="setMediumSpeedGame()"> ->>> </button>
-                <button id="fastspeed" class="mybutton" onclick="setFastSpeedGame()"> ->>>> </button> -->
             </div>
             
             <div class="mainpanel">
@@ -272,6 +264,7 @@
         </div>
     </div>
 
+    <!-- ########### SCRIPTS ############# -->
     <script src="js/mygame.js"></script>
     <script src="js/mainscript.js"></script>
     <script src="js/terrain.js"></script>

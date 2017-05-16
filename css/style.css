@@ -20,8 +20,7 @@
             text-decoration: none;
 	}
 
-        .iconimage {
-            
+        .iconimage {            
         }
         
         .iconimage:hover {
@@ -43,6 +42,11 @@
         .setSpeed {
             text-align: center;
             margin-top: 50px;
+        }
+        
+        .bordered {
+            border: 1px solid blue;
+            border-radius: 10px;
         }
         
         #startstop {
@@ -205,7 +209,7 @@
             border-radius: 3px;
             padding: 5px;
             margin: 10px;
-            height: 230px;
+            height: 300px;
 	}
         
         .choicespanel {
@@ -288,6 +292,8 @@
         .tooltip {
             position: relative;
             display: inline-block;
+            margin-right: 10px;
+            top: 5px;
         }
 
         .tooltip .tooltiptext {
@@ -352,7 +358,8 @@
         }
         @keyframes animationFramesRocks {
                 0% { transform:  translate(0px, 0px) rotate(0deg); }
-                25% { transform:  translate(1px, 1px) rotate(-5deg); }
-                50% { transform:  translate(-1px, -3px) rotate(5deg); }
-                75% { transform: translate(0px, 1px) rotate(-2deg); }
+                25% { transform:  translate(1px, -5px) rotate(-5deg); }
+                50% { transform:  translate(-1px, 6px) rotate(8deg); }
+                75% { transform: translate(0px, 10px) rotate(-5deg); }
         }
+        
