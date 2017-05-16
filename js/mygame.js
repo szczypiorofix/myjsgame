@@ -18,7 +18,7 @@ function MyGame() {
     this.spareparts = 0;
     this.gameSpeed = 1;
     this.gameStep = 0;
-    this.spot = 0;
+    this.gameEvent = 0; // Integer - random value from events array
     
     this.fuelConsumptionLevel = 1;
     this.fuelStorageLevel = 1;
@@ -26,27 +26,46 @@ function MyGame() {
     this.foodStorageLevel = 1;
     this.shieldLevel = 1;
 
-    this.gameEventStep = Math.floor(Math.random() * 5) +2;
+    this.gameEventStep = Math.floor(Math.random() * 4) +2;
     this.terrain = 0;
     this.terrains = [];
+    
     this.events = [
-        "A pack of vicious dogs! Get off my lawn!",
-        "Small group of raiders! Piece of cake!",
-        "A large group of tough raiders! Not so easy to fight.",
-        "Immortan Joe! He never gives up!",
-        "You drove on a solid ground.",
-        "You drove on a sandy path.",
-        "You drove on a muddy road.",
-        "You drove on a rocky path.",
-        "You found some fuel!",
-        "You found some water!",
-        "You found some food!",
-        "You found some scrap!",
-        "You found some spare parts!",
-        "You see a small village: "
+        new EventOnRoad("A pack of vicious dogs", 85),
+        new EventOnRoad("Small group of bandits", 65),
+        new EventOnRoad("Raiders: 'Skullz'.", 45),
+        new EventOnRoad("Raiders: 'Khans'.", 45),
+        new EventOnRoad("Immortan Joe gang!", 20),
+        new EventOnRoad("You drove on a solid ground.", 50),
+        new EventOnRoad("You drove on a sandy path.", 60),
+        new EventOnRoad("You drove on a muddy road.", 30),
+        new EventOnRoad("You drove on a rocky path.", 40),
+        new EventOnRoad("You found some fuel!", 60),
+        new EventOnRoad("You found some water!", 60),
+        new EventOnRoad("You found some food!", 60),
+        new EventOnRoad("You found some scrap!", 50),
+        new EventOnRoad("You found some spare parts!", 50),
+        new EventOnRoad("You see a Lone Wanderer.", 20),
+        new EventOnRoad("You see a dog.", 20),
+        new EventOnRoad("You see a corpse.", 25),
+        new EventOnRoad("You see a dead body, half-rotten.", 25),
+        new EventOnRoad("Is that a river nearby?", 20),
+        new EventOnRoad("Spain Inquisition?", 10),
+        new EventOnRoad("Skywalker Ranch", 5),
+        new EventOnRoad("A small village", 65)
     ];
+    
+    this.terrains = [
+            new Terrain("Solid ground", 0, 0.6),
+            new Terrain("Sand", 1, 0.85),
+            new Terrain("Mud", 2, 1.15),
+            new Terrain("Rocks", 3, 1.3)
+        ];
+    
     this.villages = [
-      "Hub", "Klamath", "Nora", "Bunker Hill", "Shady Sands", "Redding", "Junktown", "Modoc", "Den", "Abbey", "New Reno", "Broken Hills"  
+      "Hub", "Klamath", "Nora", "Bunker Hill", "Shady Sands", "Redding", 
+      "Junktown", "Modoc", "Den", "Abbey", "New Reno", "Broken Hills", "Goodsprings",
+      "Bitter Springs"
     ];
     this.villageName = "";
 
@@ -216,16 +235,22 @@ function MyGame() {
     };
     
     this.updateSpot = function() {
-        
         this.gameEventStep--;
-        
-        if (this.gameEventStep === 0) {
-            this.spot = (Math.floor(Math.random() * this.events.length));
-            if (this.spot !== 13) document.getElementById("spot").innerHTML += this.distanceOnSpot() +this.events[this.spot]+"<br>";
-            var objDiv = document.getElementById("spotdiv");
-            objDiv.scrollTop = objDiv.scrollHeight;
-            this.eventsOnTheRoad();
-            this.gameEventStep = Math.floor(Math.random() * 5) + 2;
+        if (this.gameEventStep <= 0) {
+            this.gameEvent = (Math.floor(Math.random() * this.events.length));
+            
+            var chance = (Math.floor(Math.random() * 100));
+            if (chance <= this.events[this.gameEvent].chance) {
+                document.getElementById("spot").innerHTML += this.distanceOnSpot() +this.events[this.gameEvent].name+"<br>";
+                var objDiv = document.getElementById("spotdiv");
+                objDiv.scrollTop = objDiv.scrollHeight;
+                console.log("Event: "+this.events[this.gameEvent].name+" ("+this.events[this.gameEvent].chance+"/100) succeed! Roll: "+chance+" / 100");
+                //this.eventsOnTheRoad();
+                this.gameEventStep = Math.floor(Math.random() * 4) + 2;
+            }
+            else {
+                console.log("Event: "+this.events[this.gameEvent].name+" ("+this.events[this.gameEvent].chance+"/100) failed. Roll: "+chance+" / 100");
+            }
         }
     };
 
@@ -235,17 +260,17 @@ function MyGame() {
 
     this.eventsOnTheRoad = function() {
         // FIGHTS
-        if (this.spot < 4) {
-            if (this.spot === 0) {
+        if (this.gameEvent < 4) {
+            if (this.gameEvent === 0) {
                 this.damage = 2;
             }
-            if (this.spot === 1) {
+            if (this.gameEvent === 1) {
                 this.damage = 4;
             }
-            if (this.spot === 2) {
+            if (this.gameEvent === 2) {
                 this.damage = 6;
             }
-            if (this.spot === 3) {
+            if (this.gameEvent === 3) {
                 this.damage = 8;
             }
             this.pausegame();
@@ -255,80 +280,48 @@ function MyGame() {
             this.damage = 0;
             
             // TERRAINS
-            if (this.spot === 4) { // SOLID GROUND
-                if (this.terrain.value === 0) {
-                    document.getElementById("car").classList.remove('caranimSolid');
-                }
-                if (this.terrain.value === 1) {
-                    document.getElementById("car").classList.remove('caranimSand');
-                }
-                if (this.terrain.value === 2) {
-                    document.getElementById("car").classList.remove('caranimMud');
-                }
-                if (this.terrain.value === 3) {
-                    document.getElementById("car").classList.remove('caranimRocks');
-                }
+            if (this.gameEvent === 4) { // SOLID GROUND
+                document.getElementById("car").classList.remove('caranimSolid');
+                document.getElementById("car").classList.remove('caranimSand');
+                document.getElementById("car").classList.remove('caranimMud');
+                document.getElementById("car").classList.remove('caranimRocks');
                 this.terrain = this.terrains[0];
                 document.getElementById("terrain").innerHTML = this.terrains[0].name;
                 document.getElementById("car").classList.add('caranimSolid');
             }
             
-            if (this.spot === 5) { // SAND
-                if (this.terrain.value === 0) {
-                    document.getElementById("car").classList.remove('caranimSolid');
-                }
-                if (this.terrain.value === 1) {
-                    document.getElementById("car").classList.remove('caranimSand');
-                }
-                if (this.terrain.value === 2) {
-                    document.getElementById("car").classList.remove('caranimMud');
-                }
-                if (this.terrain.value === 3) {
-                    document.getElementById("car").classList.remove('caranimRocks');
-                }
+            if (this.gameEvent === 5) { // SAND
+                document.getElementById("car").classList.remove('caranimSolid');
+                document.getElementById("car").classList.remove('caranimSand');
+                document.getElementById("car").classList.remove('caranimMud');
+                document.getElementById("car").classList.remove('caranimRocks');
                 this.terrain = this.terrains[1];
                 document.getElementById("terrain").innerHTML = this.terrains[1].name;
                 document.getElementById("car").classList.add('caranimSand');
             }
             
-            if (this.spot === 6) { // MUD
-                if (this.terrain.value === 0) {
-                    document.getElementById("car").classList.remove('caranimSolid');
-                }
-                if (this.terrain.value === 1) {
-                    document.getElementById("car").classList.remove('caranimSand');
-                }
-                if (this.terrain.value === 2) {
-                    document.getElementById("car").classList.remove('caranimMud');
-                }
-                if (this.terrain.value === 3) {
-                    document.getElementById("car").classList.remove('caranimRocks');
-                }
+            if (this.gameEvent === 6) { // MUD
+                document.getElementById("car").classList.remove('caranimSolid');
+                document.getElementById("car").classList.remove('caranimSand');
+                document.getElementById("car").classList.remove('caranimMud');
+                document.getElementById("car").classList.remove('caranimRocks');
                 this.terrain = this.terrains[2];
                 document.getElementById("terrain").innerHTML = this.terrains[2].name;
                 document.getElementById("car").classList.add('caranimMud');
             }
             
-            if (this.spot === 7) { // ROCKS
-                if (this.terrain.value === 0) {
-                    document.getElementById("car").classList.remove('caranimSolid');
-                }
-                if (this.terrain.value === 1) {
-                    document.getElementById("car").classList.remove('caranimSand');
-                }
-                if (this.terrain.value === 2) {
-                    document.getElementById("car").classList.remove('caranimMud');
-                }
-                if (this.terrain.value === 3) {
-                    document.getElementById("car").classList.remove('caranimRocks');
-                }
+            if (this.gameEvent === 7) { // ROCKS
+                document.getElementById("car").classList.remove('caranimSolid');
+                document.getElementById("car").classList.remove('caranimSand');
+                document.getElementById("car").classList.remove('caranimMud');
+                document.getElementById("car").classList.remove('caranimRocks');
                 this.terrain = this.terrains[3];
                 document.getElementById("terrain").innerHTML = this.terrains[3].name;
                 document.getElementById("car").classList.add('caranimRocks');
             }
             
             // FOUND SOME FUEL
-            if (this.spot === 8) {
+            if (this.gameEvent === 8) {
                 var foundFuel = (Math.floor((Math.random() * 10)+1));
                 this.fuel += foundFuel;
                 if (this.fuel > this.maxfuel) {
@@ -338,7 +331,7 @@ function MyGame() {
             }
             
             // FOUND SOME WATER
-            if (this.spot === 9) {
+            if (this.gameEvent === 9) {
                 var foundWater = (Math.floor((Math.random() * 25)+1));
                 this.water += foundWater;
                 if (this.water > this.maxwater) {
@@ -348,7 +341,7 @@ function MyGame() {
             }
             
             // FOUND SOME FOOD
-            if (this.spot === 10) {
+            if (this.gameEvent === 10) {
                 var foundFood = (Math.floor((Math.random() * 25)+1));
                 this.food += foundFood;
                 if (this.food > this.maxfood) {
@@ -358,14 +351,14 @@ function MyGame() {
             }
             
             // FOUND SOME SCRAP
-            if (this.spot === 11) {
+            if (this.gameEvent === 11) {
                 var foundScrap = (Math.floor((Math.random() * 20)+1));
                 this.scrap += foundScrap;
                 document.getElementById("scrap").innerHTML = this.scrap +" (+"+foundScrap+")";
             }
             
             // FOUND SOME SPARE PARTS
-            if (this.spot === 12) {
+            if (this.gameEvent === 12) {
                 var foundSpareParts = (Math.floor((Math.random() * 25)+1));
                 this.spareparts += foundSpareParts;
                 if (this.spareparts >= 10 && this.shield < this.maxshield) {
@@ -375,10 +368,10 @@ function MyGame() {
             }
             
             // A SMALL VILLAGE
-            if (this.spot === 13) {
+            if (this.gameEvent === 13) {
                 this.villageName = this.villages[Math.floor(Math.random() * this.villages.length)];
                 document.getElementById("villagebtn").style.display = "block";
-                document.getElementById("spot").innerHTML += this.distanceOnSpot() +this.events[this.spot]+this.villageName+"<br>";
+                document.getElementById("spot").innerHTML += this.distanceOnSpot() +this.events[this.spot].getName()+this.villageName+"<br>";
                 var objDiv = document.getElementById("spotdiv");
                 objDiv.scrollTop = objDiv.scrollHeight;
                 this.pausegame();
@@ -461,25 +454,19 @@ function MyGame() {
     this.pausegame = function() {
         if (this.running === true) {
             this.running = false;
-            document.getElementById("startstop").innerHTML = "START";
-            document.getElementById("startstop").style.color = "gray";
         }
         else {
             this.running = true;
-            document.getElementById("startstop").innerHTML = "PAUSE";
-            document.getElementById("startstop").style.color = "#99ccff";
         }
     };
 
     this.startGame = function() {
-        this.terrains = [
-            new Terrain("Solid ground", 0, 0.6),
-            new Terrain("Sand", 1, 0.85),
-            new Terrain("Mud", 2, 1.15),
-            new Terrain("Rocks", 3, 1.3)
-        ];
+        
+        document.getElementById('mainmenu').style.display = "none";
+        document.getElementById('game').style.display = "block";
         this.terrain = this.terrains[0];
         var instance = this;
+        
         setInterval(function() {
 
             instance.gameStep++;

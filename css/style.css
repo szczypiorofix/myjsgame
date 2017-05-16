@@ -20,11 +20,24 @@
             text-decoration: none;
 	}
 
-        .iconimage {            
+        .iconimage {
+            
         }
         
         .iconimage:hover {
             cursor:pointer;
+        }
+        
+        .iconimage {
+            padding: 2px;
+            border: 3px solid #334d4d;
+            border-radius: 10px;
+        }
+        
+        .iconimage.active {
+            padding: 2px;
+            border: 3px solid #007399;
+            border-radius: 10px;
         }
         
 	a:hover {
@@ -41,12 +54,6 @@
         
         .setSpeed {
             text-align: center;
-            margin-top: 50px;
-        }
-        
-        .bordered {
-            border: 1px solid blue;
-            border-radius: 10px;
         }
         
         #startstop {
@@ -73,7 +80,7 @@
             float: left;
             background-color: #002233;
             margin-top: 10px;
-            height: 430px;
+            height: 450px;
             padding: 5px;
             border: 3px solid #004466;
             border-radius: 3px;
@@ -84,7 +91,7 @@
             float: left;
             background-color: #002233;
             margin-top: 10px;
-            height: 430px;
+            height: 450px;
             padding: 5px;
             border: 3px solid #004466;
             border-radius: 3px;
@@ -95,7 +102,7 @@
             float: left;
             background-color: #002233;
             margin-top: 10px;
-            height: 430px;
+            height: 450px;
             border: 3px solid #004466;
             border-radius: 3px;
             padding: 5px;
@@ -186,7 +193,6 @@
         }
         
         #veryslowspeed {
-            color: #66ffff;
             font-size: 20px;
 	}
         
@@ -209,7 +215,7 @@
             border-radius: 3px;
             padding: 5px;
             margin: 10px;
-            height: 300px;
+            height: 320px;
 	}
         
         .choicespanel {
@@ -224,7 +230,6 @@
 
 	#game {
             display: none;
-            margin-top: 20px;
 	}
         
         #village {

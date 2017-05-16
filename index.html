@@ -22,12 +22,12 @@
         <div id="mainmenu">
             <img src="images/furyroad.png" alt="Fury Road" width="256" height="128">
             <br><br>
-            <button class="mybutton startbutton" onclick="startGame()">START THE ENGINE !!!</button>
+            <button id="startgamebtn" class="mybutton startbutton">START THE ENGINE !!!</button>
 	</div>
         
         <div id="helppart">
             <div id="helpdiv">
-                <button class="mybutton" onclick="exithelp()">EXIT HELP</button>
+                <button class="mybutton" id="helpexit">EXIT HELP</button>
                 <p>The main goal of this game is to drive as long as you can through a post-apocalyptic world.</p>
                 <p>Your car is your best friend. Take care of it, collect spare parts and scrap!</p>
                 <p>Watch out your resorces: food and water.</p>
@@ -40,7 +40,7 @@
         <div id="village">
             <div>
                 <div style="text-align: center;">
-                    <button class="mybutton" id="backtoroad" onclick="backToTheRoad()">RETURN TO THE ROAD</button>
+                    <button class="mybutton" id="backtoroadbtn">RETURN TO THE ROAD</button>
                 </div>
                 <div id="villageContent">
                     <h3 id="villageName">.</h3>
@@ -54,36 +54,36 @@
                             <span id="villageMessage"> </span>
                         </div>
                         <div style="margin-top: 10px;">
-                            <a href="#" onclick="smittysExpand()">SMITTY'S GARAGE</a>
+                            <a href="#" id="smittyexpandbtn">SMITTY'S GARAGE</a>
                             <div id="smittysgarage">
                                 <p>Here's Smitty Garage content</p>
                                 <div>
-                                    <button class="mybutton" onclick="repairCar()">REPAIR YOUR CAR</button>
+                                    <button class="mybutton" id="repaircarbtn">REPAIR YOUR CAR</button>
                                 </div>
                                 <div style="margin-top: 10px;">
-                                    <button class="mybutton" onclick="buySpareParts()">BUY SPARE PARTS</button>
+                                    <button class="mybutton" id="buysparepartsbtn">BUY SPARE PARTS</button>
                                 </div>
                             </div>
                         </div>
                         <div style="margin-top: 10px;">
-                            <a href="#" onclick="catchagasExpand()">CATCH-A-GAS</a>
+                            <a href="#" id="catchagasbtn">CATCH-A-GAS</a>
                             <div id="catchagas">
                                 <p>Here's Catch-A-Gas content</p>
-                                <button class="mybutton" onclick="refuelCar()">REFUEL YOUR CAR</button>
+                                <button class="mybutton" id="refuelcarbtn">REFUEL YOUR CAR</button>
                             </div>
                         </div>
                         <div style="margin-top: 10px;">
-                            <a href="#" onclick="freshwaterExpand()">FRESH WATER STATION</a>
+                            <a href="#" id="freshwaterstationbtn">FRESH WATER STATION</a>
                             <div id="freshwaterstation">
                                 <p>Here's Fresh Water Station content</p>
-                                <button class="mybutton" onclick="buyWater()">BUY SOME WATER</button>
+                                <button class="mybutton" id="buywaterbtn">BUY SOME WATER</button>
                             </div>
                         </div>
                         <div style="margin-top: 10px;">
-                            <a href="#" onclick="iguanaExpand()">IGUANA-ON-STICK RESTAURANT</a>
+                            <a href="#" id="iguanarestaurantbtn">IGUANA-ON-STICK RESTAURANT</a>
                             <div id="iguanaonstickrestaurant">
                                 <p>Here's Iguana-On-Stick content</p>
-                                <button class="mybutton" onclick="buyFood()">BUY SOME FOOD</button>
+                                <button class="mybutton" id="buyfoodbtn">BUY SOME FOOD</button>
                             </div>
                         </div>
                     </div>
@@ -92,33 +92,28 @@
         </div>
         
         <div id="game">
-            <div>
-                <button class="mybutton helpbtn" onclick="help()">HELP</button>
-            </div>
             <header class="gametitle">
-                <img id="car" src="images/furyroad.png" class="caranimSolid" alt="Fury Road" width="256" height="128">
+                <img id="car" src="images/furyroad.png" class="caranimSolid" alt="Fury Road" width="128" height="64">
+                <button class="mybutton helpbtn" id="buttonhelp">HELP</button>
             </header>
             
             <div class="setSpeed">
-                <div>
-                    <a href="#" id="startstop" onclick="startstop()">PAUSE</a>
-                </div>
                 <span style="font-size: 18px;">Speed: </span>
                 
                 <div class="tooltip">
-                    <img class="iconimage bordered" id="veryslowspeed" src="images/speed1.png" alt="Shield icon" height="42" onclick="setVerySlowSpeedGame()">
+                    <img class="iconimage active" id="veryslowspeed" src="images/speed1.png" alt="Shield icon" height="36">
                     <span class="tooltiptext">Very slow</span>
                 </div>
                 <div class="tooltip">
-                    <img class="iconimage noborder" id="slowspeed" src="images/speed2.png" alt="Shield icon" height="42" onclick="setSlowSpeedGame()">
+                    <img class="iconimage" id="slowspeed" src="images/speed2.png" alt="Shield icon" height="36">
                     <span class="tooltiptext">Slow</span>
                 </div>
                 <div class="tooltip">
-                    <img class="iconimage noborder" id="mediumspeed" src="images/speed3.png" alt="Shield icon" height="42" onclick="setMediumSpeedGame()">
+                    <img class="iconimage" id="mediumspeed" src="images/speed3.png" alt="Shield icon" height="36">
                     <span class="tooltiptext">Medium speed</span>
                 </div>
                 <div class="tooltip">
-                    <img class="iconimage noborder" id="fastspeed" src="images/speed4.png" alt="Shield icon" height="42" onclick="setFastSpeedGame()">
+                    <img class="iconimage" id="fastspeed" src="images/speed4.png" alt="Shield icon" height="36">
                     <span class="tooltiptext">Fast</span>
                 </div>
             </div>
@@ -161,7 +156,7 @@
                         <span class="tooltiptext">Shields</span>
                     </div>
                     <span id="shield" class="stats">100</span> / <span id="maxshield" class="stats">100</span>
-                    <button id="repairbtn" class="mybutton" onclick="repair()">REPAIR</button>
+                    <button id="repairbtn" class="mybutton">REPAIR</button>
                 </div>
                 <div class="sectionpart">
                     <div class="tooltip">
@@ -194,14 +189,14 @@
                 </div>
                 <div class="sectionpart">
                     <div class="tooltip">
-                        <img class="iconimage" src="images/spare.png" alt="Spare parts icon" height="24">
+                        <img src="images/spare.png" alt="Spare parts icon" height="24">
                         <span class="tooltiptext">Spare parts</span>
                     </div>
                     <span id="spareparts" class="stats">0</span>
                 </div>
                 <div class="sectionpart">
                     <div class="tooltip">
-                        <img class="iconimage" src="images/scrap.png" alt="Scrap icon" height="24">
+                        <img src="images/scrap.png" alt="Scrap icon" height="24">
                         <span class="tooltiptext">Scrap</span>
                     </div>
                     <span id="scrap" class="stats">0</span>
@@ -216,12 +211,12 @@
                 </div>
                 <div class="choicespanel">
                     <span id="villagebtn">
-                        <button class="mybutton" onclick="enterTheVillage()">ENTER THE VILLAGE</button>
-                        <button class="mybutton" onclick="keepgoing()">KEEP GOING</button>
+                        <button class="mybutton" id="entervillagebtn">ENTER THE VILLAGE</button>
+                        <button class="mybutton" id="keepgoingbtn">KEEP GOING</button>
                     </span>
                     <span id="fightfleebtn">
-                        <button class="mybutton" onclick="fight()">FIGHT</button>
-                        <button class="mybutton" onclick="flee()">FLEE</button>
+                        <button class="mybutton" id="fightbtn">FIGHT</button>
+                        <button class="mybutton" id="fleebtn">FLEE</button>
                     </span>
                 </div>
             </section>
@@ -233,31 +228,31 @@
                     <span>FUEL STORAGE Level: </span>
                     <span id="fuelstoragelevel">1</span>
                     <span id="fuelstoragelevelsp">(10 sp)</span>
-                    <button class="mybutton" id="fuelstorageupgrade" onclick="fuelStorageUpgrade()">UPGRADE</button>
+                    <button class="mybutton" id="fuelstorageupgrade">UPGRADE</button>
                 </div>
                 <div style="margin-bottom: 5px;">
                     <span>SHIELDS Level: </span>
                     <span id="shieldlevel">1</span>
                     <span id="shieldlevelsp">(10 sp)</span>
-                    <button class="mybutton" id="shieldupgrade" onclick="shieldUpgrade()">UPGRADE</button>
+                    <button class="mybutton" id="shieldupgrade">UPGRADE</button>
                 </div>
                  <div style="margin-bottom: 5px;">
                     <span>FOOD STORAGE Level: </span>
                     <span id="foodstoragelevel">1</span>
                     <span id="foodstoragelevelsp">(10 sp)</span>
-                    <button class="mybutton" id="foodstorageupgrade" onclick="foodStorageUpgrade()">UPGRADE</button>
+                    <button class="mybutton" id="foodstorageupgrade">UPGRADE</button>
                 </div>
                 <div style="margin-bottom: 5px;">
                     <span>WATER STORAGE Level: </span>
                     <span id="waterstoragelevel">1</span>
                     <span id="waterstoragelevelsp">(10 sp)</span>
-                    <button class="mybutton" id="waterstorageupgrade" onclick="waterStorageUpgrade()">UPGRADE</button>
+                    <button class="mybutton" id="waterstorageupgrade">UPGRADE</button>
                 </div>
                 <div style="margin-bottom: 5px;">
                     <span>FUEL CONSUMPTION Level: </span>
                     <span id="fuelconsumptionlevel">1</span>
                     <span id="fuelconsumptionlevelsp">(10 sp)</span>
-                    <button class="mybutton" id="fuelconsumptionupgrade" onclick="fuelConsumptionUpgrade()">UPGRADE</button>
+                    <button class="mybutton" id="fuelconsumptionupgrade">UPGRADE</button>
                 </div>
             </section>
            </div>
@@ -265,8 +260,149 @@
     </div>
 
     <!-- ########### SCRIPTS ############# -->
+    <script src="js/terrain.js"></script>
+    <script src="js/eventonroad.js"></script>
     <script src="js/mygame.js"></script>
     <script src="js/mainscript.js"></script>
-    <script src="js/terrain.js"></script>
+    
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var mygame = new MyGame();
+            
+            document.getElementById('startgamebtn').addEventListener('click', function() { 
+                document.getElementById('mainmenu').style.display = "none";
+                document.getElementById('game').style.display = "block";
+                mygame.startGame();
+            });
+            
+            document.getElementById('buttonhelp').addEventListener('click', function() { 
+                document.getElementById('game').style.display = "none";
+                document.getElementById('helppart').style.display = "block";
+            });
+            
+            document.getElementById('helpexit').addEventListener('click', function() { 
+                document.getElementById('game').style.display = "block";
+                document.getElementById('helppart').style.display = "none";
+            });
+            
+            document.getElementById('fightbtn').addEventListener('click', function() { 
+                mygame.fight();
+            });
+            
+            document.getElementById('fleebtn').addEventListener('click', function() { 
+                mygame.flee();
+            });
+            
+            document.getElementById('keepgoingbtn').addEventListener('click', function() { 
+                document.getElementById("villagebtn").style.display = "none";
+                document.getElementById("spot").innerHTML += mygame.distanceOnSpot() +"You bypassed the village.<br>";
+                var objDiv = document.getElementById("spotdiv");
+                objDiv.scrollTop = objDiv.scrollHeight;
+                mygame.pausegame();
+            });
+            
+            document.getElementById('entervillagebtn').addEventListener('click', function() { 
+                document.getElementById('game').style.display = "none";
+                document.getElementById('village').style.display = "block";
+                mygame.enterTheVillage();
+            });
+            
+            document.getElementById('smittyexpandbtn').addEventListener('click', function() { 
+                if (document.getElementById('smittysgarage').style.display === "block") {
+                document.getElementById('smittysgarage').style.display = "none";
+                }
+                else {
+                    document.getElementById('smittysgarage').style.display = "block";
+                }
+            });
+            
+            document.getElementById('catchagasbtn').addEventListener('click', function() { 
+                if (document.getElementById('catchagas').style.display === "block") {
+                document.getElementById('catchagas').style.display = "none";
+                }
+                else {
+                    document.getElementById('catchagas').style.display = "block";
+                }
+            });
+            
+            document.getElementById('freshwaterstationbtn').addEventListener('click', function() { 
+                if (document.getElementById('freshwaterstation').style.display === "block") {
+                    document.getElementById('freshwaterstation').style.display = "none";
+                }
+                else {
+                    document.getElementById('freshwaterstation').style.display = "block";
+                }
+            });
+            
+            document.getElementById('iguanarestaurantbtn').addEventListener('click', function() { 
+                if (document.getElementById('iguanaonstickrestaurant').style.display === "block") {
+                    document.getElementById('iguanaonstickrestaurant').style.display = "none";
+                }
+                else {
+                    document.getElementById('iguanaonstickrestaurant').style.display = "block";
+                }
+            });
+            
+            document.getElementById('repaircarbtn').addEventListener('click', function() { 
+               mygame.repairCar();
+            });
+            
+            document.getElementById('buysparepartsbtn').addEventListener('click', function() { 
+               mygame.buySpareParts();
+            });
+            
+            document.getElementById('refuelcarbtn').addEventListener('click', function() { 
+               mygame.refuelCar();
+            });
+            
+            document.getElementById('buywaterbtn').addEventListener('click', function() { 
+               mygame.buyWater();
+            });
+            
+            document.getElementById('buyfoodbtn').addEventListener('click', function() { 
+               mygame.buyFood();
+            });
+            
+            document.getElementById('backtoroadbtn').addEventListener('click', function() { 
+               document.getElementById('game').style.display = "block";
+                mygame.backToTheRoad();
+            });
+            
+            document.getElementById('veryslowspeed').addEventListener('click', function() { 
+                mygame.setSpeed(1);
+                document.getElementById("veryslowspeed").classList.remove("active");
+		document.getElementById("slowspeed").classList.remove("active");
+		document.getElementById("mediumspeed").classList.remove("active");
+		document.getElementById("fastspeed").classList.remove("active");
+                document.getElementById("veryslowspeed").classList.add("active");
+            });
+            document.getElementById('slowspeed').addEventListener('click', function() { 
+                mygame.setSpeed(2);
+                document.getElementById("veryslowspeed").classList.remove("active");
+		document.getElementById("slowspeed").classList.remove("active");
+		document.getElementById("mediumspeed").classList.remove("active");
+		document.getElementById("fastspeed").classList.remove("active");
+                document.getElementById("slowspeed").classList.add("active");
+            });
+            document.getElementById('mediumspeed').addEventListener('click', function() { 
+                mygame.setSpeed(3);
+                document.getElementById("veryslowspeed").classList.remove("active");
+		document.getElementById("slowspeed").classList.remove("active");
+		document.getElementById("mediumspeed").classList.remove("active");
+		document.getElementById("fastspeed").classList.remove("active");
+                document.getElementById("mediumspeed").classList.add("active");
+            });
+            document.getElementById('fastspeed').addEventListener('click', function() { 
+                mygame.setSpeed(4);
+                document.getElementById("veryslowspeed").classList.remove("active");
+		document.getElementById("slowspeed").classList.remove("active");
+		document.getElementById("mediumspeed").classList.remove("active");
+		document.getElementById("fastspeed").classList.remove("active");
+                document.getElementById("fastspeed").classList.add("active");
+            });
+        });
+    </script>
+    
 </body>
 </html>
