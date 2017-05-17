@@ -1,3 +1,7 @@
+function e(element) {
+    return document.getElementById(element);
+}
+
 
 function MyGame() {
 
@@ -14,11 +18,15 @@ function MyGame() {
     this.maxwater = 100;
     this.shield = 100;
     this.maxshield = 100;
-    this.scrap = 0;
+    this.scrap = 50;
     this.spareparts = 0;
+    this.attack = 1;
+    this.defense = 1;
+    
     this.gameSpeed = 1;
     this.gameStep = 0;
     this.gameEvent = 0; // Integer - random value from events array
+    this.gameEventObject; // object EventOnRoad
     
     this.fuelConsumptionLevel = 1;
     this.fuelStorageLevel = 1;
@@ -29,31 +37,45 @@ function MyGame() {
     this.gameEventStep = Math.floor(Math.random() * 4) +2;
     this.terrain = 0;
     this.terrains = [];
+    this.TYPE = {
+      PLACE: 0,
+      FIGHT: 1,
+      FOUND: 2,
+      TERRAIN: 3,
+      ENCOUNTER: 4
+    };
+    
+    this.viciousDogsAttack = 2;
+    this.smallRaidersAttack = 3;
+    this.skulzAttack = 4;
+    this.khansAttack = 5;
+    this.immortanAttack = 6;
     
     this.events = [
-        new EventOnRoad("You see a small village in a distance.", 65),
-        new EventOnRoad("You are attacked by a pack of vicious dogs", 85),
-        new EventOnRoad("You are attacked by a small group of bandits", 65),
-        new EventOnRoad("You are attacked by raiders: 'Skullz'.", 45),
-        new EventOnRoad("You are attacked by raiders: 'Khans'.", 45),
-        new EventOnRoad("Oh no! It's Immortan Joe gang!", 15),
-        new EventOnRoad("You drove on a solid ground.", 50),
-        new EventOnRoad("You drove on a sandy path.", 60),
-        new EventOnRoad("You drove on a muddy road.", 30),
-        new EventOnRoad("You drove on a rocky path.", 40),
-        new EventOnRoad("You found some fuel!", 60),
-        new EventOnRoad("You found some water!", 60),
-        new EventOnRoad("You found some food!", 60),
-        new EventOnRoad("You found some scrap!", 50),
-        new EventOnRoad("You found some spare parts!", 50),
-        new EventOnRoad("You see a Lone Wanderer.", 20),
-        new EventOnRoad("You see a dog.", 20),
-        new EventOnRoad("You see a corpse.", 25),
-        new EventOnRoad("You see a dead body, half-rotten.", 25),
-        new EventOnRoad("Is that a river nearby?", 20),
-        new EventOnRoad("You see an old, damaged car.", 25),
-        new EventOnRoad("You see two wanderers.", 10),
-        new EventOnRoad("What??? Skywalker Ranch???", 5)
+        new EventOnRoad("You see a small village in a distance", 85, this.TYPE.PLACE),
+        new EventOnRoad("You are attacked by a pack of vicious dogs", 85, this.TYPE.FIGHT),
+        new EventOnRoad("You are attacked by a small group of bandits", 65, this.TYPE.FIGHT),
+        new EventOnRoad("You are attacked by raiders: 'Skulz'.", 40, this.TYPE.FIGHT),
+        new EventOnRoad("You are attacked by raiders: 'Khans'.", 40, this.TYPE.FIGHT),
+        new EventOnRoad("Oh no! It's Immortan Joe gang!", 15, this.TYPE.FIGHT),
+        new EventOnRoad("You drove on a solid ground.", 50, this.TYPE.TERRAIN),
+        new EventOnRoad("You drove on a sandy path.", 60, this.TYPE.TERRAIN),
+        new EventOnRoad("You drove on a muddy road.", 30, this.TYPE.TERRAIN),
+        new EventOnRoad("You drove on a rocky path.", 40, this.TYPE.TERRAIN),
+        new EventOnRoad("You found some fuel!", 60, this.TYPE.FOUND),
+        new EventOnRoad("You found some water!", 60, this.TYPE.FOUND),
+        new EventOnRoad("You found some food!", 60, this.TYPE.FOUND),
+        new EventOnRoad("You found some scrap!", 65, this.TYPE.FOUND),
+        new EventOnRoad("You found some spare parts!", 65, this.TYPE.FOUND),
+        new EventOnRoad("You see a Lone Wanderer.", 20, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see a dog.", 20, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see a corpse.", 25, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see a dead body, half-rotten.", 25, this.TYPE.ENCOUNTER),
+        new EventOnRoad("Is that a river nearby?", 20, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see an old, damaged car.", 25, this.TYPE.ENCOUNTER),
+        new EventOnRoad("What??? Skywalker Ranch???", 5, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see a group of followers of the Flying Spaghetti Monster.", 10, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see two wanderers.", 20, this.TYPE.ENCOUNTER)
     ];
     
     this.terrains = [
@@ -73,47 +95,41 @@ function MyGame() {
     this.updateDistance = function() {
         this.distanceStep = (4 - (this.terrain.value / 5));
         this.distance += this.distanceStep;
-        document.getElementById("distance").innerHTML = this.distance.toFixed(2);
-        document.getElementById("step").innerHTML = (this.distanceStep).toFixed(2);
+        e("distance").innerHTML = this.distance.toFixed(2);
+        e("step").innerHTML = (this.distanceStep).toFixed(2);
     };
 
     this.updateFood = function() {
-        this.food--;
-        document.getElementById("food").innerHTML = this.food;
+        this.food -= 0.5;
+        e("food").innerHTML = this.food.toFixed(2);
     };
 
     this.updateWater = function() {
-        this.water--;
-        document.getElementById("water").innerHTML = this.water;
+        this.water -= 0.5;
+        e("water").innerHTML = this.water.toFixed(2);
     };
 
     this.updateFuel = function() {
         this.fuel -= this.fuelusage;
-        document.getElementById("fuel").innerHTML = this.fuel.toFixed(2);
+        e("fuel").innerHTML = this.fuel.toFixed(2);
     };
 
     this.updateFuelUsage = function() {
         this.fuelusage = this.terrain.fuelConsumption - (this.fuelConsumptionLevel * 0.04);
-        document.getElementById("fuelusage").innerHTML = this.fuelusage.toFixed(2);
+        e("fuelusage").innerHTML = this.fuelusage.toFixed(2);
     };
     
     this.updateShield = function(dmg) {
         this.shield -= dmg;
-        document.getElementById("shield").innerHTML = this.shield;
+        e("shield").innerHTML = this.shield;
     };
 
     this.updateSpareParts = function() {
-        if (this.spareparts >= 10 && this.shield < this.maxshield) {
-            document.getElementById("repairbtn").style.visibility = "visible";
-        }
-        else {
-            document.getElementById("repairbtn").style.visibility = "hidden";
-        }
-        document.getElementById("spareparts").innerHTML = this.spareparts;
+        e("spareparts").innerHTML = this.spareparts;
     };
     
     this.updateScrap = function() {
-        document.getElementById("scrap").innerHTML = this.scrap;
+        e("scrap").innerHTML = this.scrap;
     };
 
     this.setSpeed = function(speed) {
@@ -130,8 +146,8 @@ function MyGame() {
             if (this.shield === this.maxshield || this.spareparts <= 0) {
                 document.getElementById("repairbtn").style.visibility = "hidden";
             }
-            document.getElementById("shield").innerHTML = this.shield;
-            document.getElementById("spareparts").innerHTML = this.spareparts;
+            e("shield").innerHTML = this.shield;
+            e("spareparts").innerHTML = this.spareparts;
         }
     };
 
@@ -142,39 +158,45 @@ function MyGame() {
             this.maxfuel += 10;
             this.spareparts -= (this.fuelStorageLevel * 10);
             this.fuelStorageLevel++;
-            document.getElementById("fuelstoragelevelsp").innerHTML = "("+(this.fuelStorageLevel * 10)+" sp)";
-            document.getElementById("spareparts").innerHTML = this.spareparts;
-            document.getElementById("maxfuel").innerHTML = this.maxfuel;
-            document.getElementById("fuelstoragelevel").innerHTML = this.fuelStorageLevel;
-            this.checkAvailableUpgrades();
+            e("fuelstoragelevelsp").innerHTML = "("+(this.fuelStorageLevel * 10)+" sp)";
+            e("spareparts").innerHTML = this.spareparts;
+            e("maxfuel").innerHTML = this.maxfuel;
+            e("fuelstoragelevel").innerHTML = this.fuelStorageLevel;
         } 
     };
     
     this.shieldUpgrade = function() {
-        if (this.spareparts >= this.shieldLevel * 10) {
+        if (this.scrap >= this.shieldLevel * 10) {
             this.shield = Math.ceil((this.shield * (this.maxshield + 25)) / this.maxshield);
             this.maxshield += 25;
-            this.spareparts -= (this.shieldLevel * 10);
+            this.scrap -= (this.shieldLevel * 10);
             this.shieldLevel++;
-            document.getElementById("shieldlevelsp").innerHTML = "("+(this.shieldLevel * 10)+" sp)";
-            document.getElementById("spareparts").innerHTML = this.spareparts;
-            document.getElementById("maxshield").innerHTML = this.maxshield;
-            document.getElementById("shield").innerHTML = this.shield;
-            document.getElementById("shieldlevel").innerHTML = this.shieldLevel;
-            this.checkAvailableUpgrades();
+            e("scrap").innerHTML = this.scrap;
+            e("maxshield").innerHTML = this.maxshield;
+            e("shield").innerHTML = this.shield;
+            e("shieldlevel").innerHTML = this.shieldLevel;
+            e("villageMessage").innerHTML = "Shield upgrade +1";
+            e('shieldsupgradecost').innerHTML = (this.shieldLevel * 10);
+            e('shieldsupgradelevel').innerHTML = this.shieldLevel;
+            e('yourscrap').innerHTML = this.scrap;
+        }
+        else {
+            e("villageMessage").innerHTML = "No enough scrap!";
         }
     };
     
     this.foodStorageUpgrade = function() {
-        if (this.spareparts >= this.foodStorageLevel * 10) {
+        if (this.scrap >= this.foodStorageLevel * 10) {
             this.maxfood += 10;
-            this.spareparts -= (this.foodStorageLevel * 10);
+            this.scrap -= (this.foodStorageLevel * 10);
             this.foodStorageLevel++;
-            document.getElementById("foodstoragelevelsp").innerHTML = "("+(this.foodStorageLevel * 10)+" sp)";
-            document.getElementById("spareparts").innerHTML = this.spareparts;
-            document.getElementById("maxfood").innerHTML = this.maxfood;
-            document.getElementById("foodstoragelevel").innerHTML = this.foodStorageLevel;
-            this.checkAvailableUpgrades();
+            e("scrap").innerHTML = this.scrap;
+            e("maxfood").innerHTML = this.maxfood;
+            e("foodstoragelevel").innerHTML = this.foodStorageLevel;
+            e('yourscrap').innerHTML = this.scrap;
+        }
+        else {
+            e("villageMessage").innerHTML = "No enough scrap!";
         }
     };
     
@@ -183,11 +205,9 @@ function MyGame() {
             this.maxwater += 10;
             this.spareparts -= (this.waterStorageLevel * 10);
             this.waterStorageLevel++;
-            document.getElementById("waterstoragelevelsp").innerHTML = "("+(this.waterStorageLevel * 10)+" sp)";
-            document.getElementById("spareparts").innerHTML = this.spareparts;
-            document.getElementById("maxwater").innerHTML = this.maxwater;
-            document.getElementById("waterstoragelevel").innerHTML = this.waterStorageLevel;
-            this.checkAvailableUpgrades();
+            e("spareparts").innerHTML = this.spareparts;
+            e("maxwater").innerHTML = this.maxwater;
+            e("waterstoragelevel").innerHTML = this.waterStorageLevel;
         }
     };
     
@@ -195,64 +215,29 @@ function MyGame() {
         if (this.spareparts >= this.fuelConsumptionLevel * 10) {
             this.spareparts -= (this.fuelConsumptionLevel * 10);
             this.fuelConsumptionLevel++;
-            document.getElementById("fuelconsumptionlevelsp").innerHTML = "("+(this.fuelConsumptionLevel * 10)+" sp)";
-            document.getElementById("spareparts").innerHTML = this.spareparts;
-            document.getElementById("fuelconsumptionlevel").innerHTML = this.fuelConsumptionLevel;
-            this.checkAvailableUpgrades();
-        }
-    };
-
-    this.checkAvailableUpgrades = function() {
-        if (this.spareparts >= this.fuelStorageLevel * 10) {
-            document.getElementById("fuelstorageupgrade").style.visibility = "visible";
-        }
-        else {
-            document.getElementById("fuelstorageupgrade").style.visibility = "hidden";
-        }
-        if (this.spareparts >= this.shieldLevel * 10) {
-            document.getElementById("shieldupgrade").style.visibility = "visible";
-        }
-        else {
-            document.getElementById("shieldupgrade").style.visibility = "hidden";
-        }
-        if (this.spareparts >= this.waterStorageLevel * 10) {
-            document.getElementById("waterstorageupgrade").style.visibility = "visible";
-        }
-        else {
-            document.getElementById("waterstorageupgrade").style.visibility = "hidden";
-        }
-        if (this.spareparts >= this.foodStorageLevel * 10) {
-            document.getElementById("foodstorageupgrade").style.visibility = "visible";
-        }
-        else {
-            document.getElementById("foodstorageupgrade").style.visibility = "hidden";
-        }
-        if (this.spareparts >= this.fuelConsumptionLevel * 10) {
-            document.getElementById("fuelconsumptionupgrade").style.visibility = "visible";
-        }
-        else {
-            document.getElementById("fuelconsumptionupgrade").style.visibility = "hidden";
+            e("spareparts").innerHTML = this.spareparts;
+            e("fuelconsumptionlevel").innerHTML = this.fuelConsumptionLevel;
         }
     };
     
     this.updateSpot = function() {
         this.gameEventStep--;
         if (this.gameEventStep <= 0) {
+            
             this.gameEvent = (Math.floor(Math.random() * this.events.length));
+            
+            this.gameEvent = 0; // HACK !!!
             
             var chance = (Math.floor(Math.random() * 100));
             if (chance <= this.events[this.gameEvent].chance) {
-                if (this.gameEvent > 0) document.getElementById("spot").innerHTML += this.distanceOnSpot() +this.events[this.gameEvent].name+"<br>";
-                var objDiv = document.getElementById("spotdiv");
-                objDiv.scrollTop = objDiv.scrollHeight;
-                //console.log("Event: "+this.events[this.gameEvent].name+" ("+this.events[this.gameEvent].chance+"/100) succeed! Roll: "+chance+" / 100");
+                
+                this.gameEventObject = this.events[this.gameEvent];
+                if (this.gameEvent > 0) e("spot").innerHTML += this.distanceOnSpot() +this.gameEventObject.name+"<br>";
                 this.eventsOnTheRoad();
                 this.gameEventStep = Math.floor(Math.random() * 4) + 2;
             }
-            else {
-                //console.log("Event: "+this.events[this.gameEvent].name+" ("+this.events[this.gameEvent].chance+"/100) failed. Roll: "+chance+" / 100");
-            }
         }
+        e("spotdiv").scrollTop = e("spotdiv").scrollHeight;
     };
 
     this.distanceOnSpot = function() {
@@ -260,192 +245,234 @@ function MyGame() {
     };
 
     this.eventsOnTheRoad = function() {
-        // FIGHTS
-        if (this.gameEvent < 5 && this.gameEvent > 0) {
-//            if (this.gameEvent === 1) {
-//                this.damage = 2;
-//            }
-//            if (this.gameEvent === 2) {
-//                this.damage = 4;
-//            }
-//            if (this.gameEvent === 3) {
-//                this.damage = 6;
-//            }
-//            if (this.gameEvent === 4) {
-//                this.damage = 8;
-//            }
-//            this.pausegame();
-//            document.getElementById("fightfleebtn").style.display = "block";
-        }
-        else {
-            this.damage = 0;
-            
+        
+        // LOCATIONS
+        if (this.gameEventObject.type === this.TYPE.PLACE) {
+
             if (this.gameEvent === 0) {
-                var villageName = (Math.floor(Math.random() * this.villages.length));
-                document.getElementById("spot").innerHTML += this.distanceOnSpot() +this.events[this.gameEvent].name+": " +this.villages[villageName]+"<br>";
+                this.villageName = this.villages[Math.floor(Math.random() * this.villages.length)];
+                e("villagebtn").style.display = "block";
+                e("spot").innerHTML += this.distanceOnSpot() +this.events[this.gameEvent].name+": " +this.villageName+".<br>";
+                this.pausegame();
             }
             
-            // TERRAINS
-//            if (this.gameEvent === 4) { // SOLID GROUND
-//                document.getElementById("car").classList.remove('caranimSolid');
-//                document.getElementById("car").classList.remove('caranimSand');
-//                document.getElementById("car").classList.remove('caranimMud');
-//                document.getElementById("car").classList.remove('caranimRocks');
-//                this.terrain = this.terrains[0];
-//                document.getElementById("terrain").innerHTML = this.terrains[0].name;
-//                document.getElementById("car").classList.add('caranimSolid');
-//            }
-//            
-//            if (this.gameEvent === 5) { // SAND
-//                document.getElementById("car").classList.remove('caranimSolid');
-//                document.getElementById("car").classList.remove('caranimSand');
-//                document.getElementById("car").classList.remove('caranimMud');
-//                document.getElementById("car").classList.remove('caranimRocks');
-//                this.terrain = this.terrains[1];
-//                document.getElementById("terrain").innerHTML = this.terrains[1].name;
-//                document.getElementById("car").classList.add('caranimSand');
-//            }
-//            
-//            if (this.gameEvent === 6) { // MUD
-//                document.getElementById("car").classList.remove('caranimSolid');
-//                document.getElementById("car").classList.remove('caranimSand');
-//                document.getElementById("car").classList.remove('caranimMud');
-//                document.getElementById("car").classList.remove('caranimRocks');
-//                this.terrain = this.terrains[2];
-//                document.getElementById("terrain").innerHTML = this.terrains[2].name;
-//                document.getElementById("car").classList.add('caranimMud');
-//            }
-//            
-//            if (this.gameEvent === 7) { // ROCKS
-//                document.getElementById("car").classList.remove('caranimSolid');
-//                document.getElementById("car").classList.remove('caranimSand');
-//                document.getElementById("car").classList.remove('caranimMud');
-//                document.getElementById("car").classList.remove('caranimRocks');
-//                this.terrain = this.terrains[3];
-//                document.getElementById("terrain").innerHTML = this.terrains[3].name;
-//                document.getElementById("car").classList.add('caranimRocks');
-//            }
+        } else {
+            e("villagebtn").style.display = "none";
+        }
+
+        // FIGHTS
+        if (this.gameEventObject.type === this.TYPE.FIGHT) {
+            this.pausegame();
+            e("fightfleebtn").style.display = "block";
+        }
+        
+        // TERRAIN UPDATE
+        if (this.gameEventObject.type === this.TYPE.TERRAIN) {
+
+            if (this.gameEvent === 6) { // SOLID GROUND
+                e("car").classList.remove('caranimSolid');
+                e("car").classList.remove('caranimSand');
+                e("car").classList.remove('caranimMud');
+                e("car").classList.remove('caranimRocks');
+                this.terrain = this.terrains[0];
+                e("terrain").innerHTML = this.terrains[0].name;
+                e("car").classList.add('caranimSolid');
+            }
             
-            // FOUND SOME FUEL
-//            if (this.gameEvent === 8) {
-//                var foundFuel = (Math.floor((Math.random() * 10)+1));
-//                this.fuel += foundFuel;
-//                if (this.fuel > this.maxfuel) {
-//                    this.fuel = this.maxfuel;
-//                }
-//                document.getElementById("fuel").innerHTML = this.fuel.toFixed(2) +" (+"+foundFuel+")";
-//            }
+            if (this.gameEvent === 7) { // SAND
+                e("car").classList.remove('caranimSolid');
+                e("car").classList.remove('caranimSand');
+                e("car").classList.remove('caranimMud');
+                e("car").classList.remove('caranimRocks');
+                this.terrain = this.terrains[1];
+                e("terrain").innerHTML = this.terrains[1].name;
+                e("car").classList.add('caranimSand');
+            }
             
-            // FOUND SOME WATER
-//            if (this.gameEvent === 9) {
-//                var foundWater = (Math.floor((Math.random() * 25)+1));
-//                this.water += foundWater;
-//                if (this.water > this.maxwater) {
-//                    this.water = this.maxwater;
-//                }
-//                document.getElementById("water").innerHTML = this.water +" (+"+foundWater+")";
-//            }
-//            
-//            // FOUND SOME FOOD
-//            if (this.gameEvent === 10) {
-//                var foundFood = (Math.floor((Math.random() * 25)+1));
-//                this.food += foundFood;
-//                if (this.food > this.maxfood) {
-//                    this.food = this.maxfood;
-//                }
-//                document.getElementById("food").innerHTML = this.food +" (+"+foundFood+")";
-//            }
-//            
-//            // FOUND SOME SCRAP
-//            if (this.gameEvent === 11) {
-//                var foundScrap = (Math.floor((Math.random() * 20)+1));
-//                this.scrap += foundScrap;
-//                document.getElementById("scrap").innerHTML = this.scrap +" (+"+foundScrap+")";
-//            }
-//            
-//            // FOUND SOME SPARE PARTS
-//            if (this.gameEvent === 12) {
-//                var foundSpareParts = (Math.floor((Math.random() * 25)+1));
-//                this.spareparts += foundSpareParts;
-//                if (this.spareparts >= 10 && this.shield < this.maxshield) {
-//                    document.getElementById("repairbtn").style.visibility = "visible";
-//                }
-//                document.getElementById("spareparts").innerHTML = this.spareparts +" (+"+foundSpareParts+")";
-//            }
-//            
-//            // A SMALL VILLAGE
-//            if (this.gameEvent === 13) {
-//                this.villageName = this.villages[Math.floor(Math.random() * this.villages.length)];
-//                document.getElementById("villagebtn").style.display = "block";
-//                document.getElementById("spot").innerHTML += this.distanceOnSpot() +this.events[this.spot].getName()+this.villageName+"<br>";
-//                var objDiv = document.getElementById("spotdiv");
-//                objDiv.scrollTop = objDiv.scrollHeight;
-//                this.pausegame();
-//            }
-//            else {
-//                document.getElementById("villagebtn").style.display = "none";
-//            }
+            if (this.gameEvent === 8) { // MUD
+                e("car").classList.remove('caranimSolid');
+                e("car").classList.remove('caranimSand');
+                e("car").classList.remove('caranimMud');
+                e("car").classList.remove('caranimRocks');
+                this.terrain = this.terrains[2];
+                e("terrain").innerHTML = this.terrains[2].name;
+                e("car").classList.add('caranimMud');
+            }
+            
+            if (this.gameEvent === 9) { // ROCKS
+                e("car").classList.remove('caranimSolid');
+                e("car").classList.remove('caranimSand');
+                e("car").classList.remove('caranimMud');
+                e("car").classList.remove('caranimRocks');
+                this.terrain = this.terrains[3];
+                e("terrain").innerHTML = this.terrains[3].name;
+                e("car").classList.add('caranimRocks');
+            }
+        }
+
+
+        // YOU FOUND ...
+        if (this.gameEventObject.type === this.TYPE.FOUND) {
+            
+            if (this.gameEvent === 10) { // FUEL
+                var foundFuel = (Math.floor((Math.random() * 15)+5));
+                this.fuel += foundFuel;
+                if (this.fuel > this.maxfuel) {
+                    this.fuel = this.maxfuel;
+                }
+                e("fuel").innerHTML = this.fuel.toFixed(2) +" (+"+foundFuel+")";               
+            }
+            
+            if (this.gameEvent === 11) { // WATER
+                var foundWater = (Math.floor((Math.random() * 25)+5));
+                this.water += foundWater;
+                if (this.water > this.maxwater) {
+                    this.water = this.maxwater;
+                }
+                e("water").innerHTML = this.water +" (+"+foundWater+")";              
+            }
+            
+            if (this.gameEvent === 12) { // FOOD
+                var foundFood = (Math.floor((Math.random() * 25)+5));
+                this.food += foundFood;
+                if (this.food > this.maxfood) {
+                    this.food = this.maxfood;
+                }
+                e("food").innerHTML = this.food +" (+"+foundFood+")";            
+            }
+            
+            if (this.gameEvent === 13) { // SCRAP
+                var foundScrap = (Math.floor((Math.random() * 20)+5));
+                this.scrap += foundScrap;
+                e("scrap").innerHTML = this.scrap +" (+"+foundScrap+")";          
+            }
+            
+            if (this.gameEvent === 14) { // SPARE PARTS
+                var foundSpareParts = (Math.floor((Math.random() * 25)+5));
+                this.spareparts += foundSpareParts;
+                e("spareparts").innerHTML = this.spareparts +" (+"+foundSpareParts+")";
+            }
         }
     };
 
     // THE VILLAGE
     this.enterTheVillage = function() {
-        document.getElementById("spot").innerHTML += this.distanceOnSpot()+ "Entering the village...<br>";
-        document.getElementById("villageName").innerHTML = this.villageName;
-        document.getElementById("yourscrap").innerHTML = this.scrap;
+        e("spot").innerHTML += this.distanceOnSpot()+ "Entering the village...<br>";
+        e("villageName").innerHTML = this.villageName;
+        e("yourscrap").innerHTML = this.scrap;
     };
     
     this.repairCar = function() {
-        document.getElementById("villageMessage").innerHTML = "Car repaired.";
+        e("villageMessage").innerHTML = "Car repaired.";
     };
     
     this.buySpareParts = function() {
-        document.getElementById("villageMessage").innerHTML = "You bought 10 spare parts.";
+        e("villageMessage").innerHTML = "You bought 10 spare parts.";
     };
     
     this.refuelCar = function() {
-        document.getElementById("villageMessage").innerHTML = "Car refueled.";
+        e("villageMessage").innerHTML = "Car refueled.";
     };
     
     this.buyWater = function() {
-        document.getElementById("villageMessage").innerHTML = "You bought 10 water.";
+        e("villageMessage").innerHTML = "You bought 10 water.";
     };
     
     this.buyFood = function() {
-        document.getElementById("villageMessage").innerHTML = "You bought 10 food.";
+        e("villageMessage").innerHTML = "You bought 10 food.";
     };
     
     this.backToTheRoad = function() {
-        document.getElementById("village").style.display = "none";
-        document.getElementById("villagebtn").style.display = "none";
-        document.getElementById("spot").innerHTML += this.distanceOnSpot() + "Back on the fury road!<br>";
-        var objDiv = document.getElementById("spotdiv");
-        objDiv.scrollTop = objDiv.scrollHeight;
+        e("village").style.display = "none";
+        e("villagebtn").style.display = "none";
+        e("spot").innerHTML += this.distanceOnSpot() + "Back on the fury road!<br>";
+        e("spotdiv").scrollTop = e("spotdiv").scrollHeight;
         this.pausegame();
     };
     
     this.fight = function() {
-        document.getElementById("spot").innerHTML += this.distanceOnSpot()+ "You are facing the enemies!<br>";
-        document.getElementById("fightfleebtn").style.display = "none";
+        e("spot").innerHTML += this.distanceOnSpot()+ "You are facing the enemies!<br>";
+        e("fightfleebtn").style.display = "none";
         
-        var objDiv = document.getElementById("spotdiv");
-        objDiv.scrollTop = objDiv.scrollHeight;
+        if (this.gameEvent === 1) { // VICIOUS DOGS
+            if (this.attack + (Math.round((Math.random() * this.viciousDogsAttack))) >= this.viciousDogsAttack) {
+                e("spot").innerHTML += this.distanceOnSpot()+ "Dogs, You win!<br>";
+            }
+            else {
+                e("spot").innerHTML += this.distanceOnSpot()+ "Dogs, You loose...<br>";
+                this.damage = Math.floor((Math.random() * (this.viciousDogsAttack * 2)+1));
+            }
+        }
+        
+        if (this.gameEvent === 2) { // SMALL RAIDERS
+            if (this.attack + (Math.round((Math.random() * this.smallRaidersAttack))) >= this.smallRaidersAttack) {
+                e("spot").innerHTML += this.distanceOnSpot()+ "Small Raiders, You win!<br>";
+            }
+            else {
+                e("spot").innerHTML += this.distanceOnSpot()+ "Small Raiders, You loose...<br>";
+                this.damage = Math.floor((Math.random() * (this.smallRaidersAttack * 2)+1));
+            }
+        }
+        
+        if (this.gameEvent === 3) { // SKULZ RAIDERS
+            if (this.attack + (Math.round((Math.random() * this.skulzAttack))) >= this.skulzAttack) {
+                e("spot").innerHTML += this.distanceOnSpot()+ "Skulz Raiders, You win!<br>";
+            }
+            else {
+                e("spot").innerHTML += this.distanceOnSpot()+ "Skulz Raiders, You loose...<br>";
+                this.damage = Math.floor((Math.random() * (this.skulzAttack * 2)+1));
+            }
+        }
+        
+        if (this.gameEvent === 4) { // KHANS RAIDERS
+            if (this.attack + (Math.round((Math.random() * this.khansAttack))) >= this.khansAttack) {
+                e("spot").innerHTML += this.distanceOnSpot()+ "Khans Raiders, You win!<br>";
+                this.damage = Math.round((Math.random() * (this.khansAttack * 2)+1));
+            }
+            else {
+                e("spot").innerHTML += this.distanceOnSpot()+ "Khans Raiders, You loose...<br>";
+                this.damage = Math.floor((Math.random() * (this.khansAttack * 2)+1));
+            }
+        }
+        
+        if (this.gameEvent === 5) { // IMMORTAN JOE
+            if (this.attack + (Math.round((Math.random() * this.immortanAttack))) >= this.immortanAttack) {
+                e("spot").innerHTML += this.distanceOnSpot()+ "Immortan Joe, You win!<br>";
+            }
+            else {
+                e("spot").innerHTML += this.distanceOnSpot()+ "Immortan Joe, You loose...<br>";
+                this.damage = Math.floor((Math.random() * (this.immortanAttack * 2)+1));
+            }
+        }
+        
+        e("spotdiv").scrollTop = e("spotdiv").scrollHeight;
+    
         this.pausegame();
-        this.damage = 0;
+        
+//        this.viciousDogsAttack = 1;
+//        this.smallRaidersAttack = 2;
+//        this.skulzAttack = 3;
+//        this.khansAttack = 4;
+//        this.immortanAttack = 5;
     };
     
     this.flee = function() {
-        document.getElementById("spot").innerHTML += this.distanceOnSpot() +"You flee...<br>";
-        document.getElementById("fightfleebtn").style.display = "none";
-        var objDiv = document.getElementById("spotdiv");
-        objDiv.scrollTop = objDiv.scrollHeight;
+        e("spot").innerHTML += this.distanceOnSpot() +"You flee...<br>";
+        e("fightfleebtn").style.display = "none";
+        e("spotdiv").scrollTop = e("spotdiv").scrollHeight;
+        
+        if (this.gameEvent === 1) this.damage = (this.viciousDogsAttack * 2);
+        else if (this.gameEvent === 2) this.damage = (this.smallRaidersAttack * 2);
+        else if (this.gameEvent === 3) this.damage = (this.skulzAttack * 2);
+        else if (this.gameEvent === 4) this.damage = (this.khansAttack * 2);
+        else if (this.gameEvent === 5) this.damage = (this.immortanAttack * 2);
+        
         this.pausegame();
-        this.damage = 0;
     };
 
     // "GAME LOOP"
     this.gameLoop = function() {
-        this.updateSpot();
+        
         this.updateDistance();
         this.updateFuel();
         this.updateFuelUsage();
@@ -454,7 +481,8 @@ function MyGame() {
         this.updateSpareParts();
         this.updateScrap();
         this.updateShield(this.damage);
-        this.checkAvailableUpgrades();
+        this.updateSpot();
+        this.damage = 0;
     };
 
     this.pausegame = function() {
@@ -468,8 +496,8 @@ function MyGame() {
 
     this.startGame = function() {
         
-        document.getElementById('mainmenu').style.display = "none";
-        document.getElementById('game').style.display = "block";
+        e('mainmenu').style.display = "none";
+        e('game').style.display = "block";
         this.terrain = this.terrains[0];
         var instance = this;
         

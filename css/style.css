@@ -1,370 +1,351 @@
 @CHARSET "UTF-8";
 
-	@import url('https://fonts.googleapis.com/css?family=Play');
+    @import url('https://fonts.googleapis.com/css?family=Play');
 
-	body {
-            font-family: 'Play', sans-serif;
-            background-color: #00111a;
-            color: #cceeff;
-            background: red; /* For browsers that do not support gradients */
-            background: -webkit-linear-gradient(#002133, #00111a); /* For Safari 5.1 to 6.0 */
-            background: -o-linear-gradient(#002133, #00111a); /* For Opera 11.1 to 12.0 */
-            background: -moz-linear-gradient(#002133, #00111a); /* For Firefox 3.6 to 15 */
-            background: linear-gradient(#002133, #00111a); /* Standard syntax */
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-	}
+    body {
+        font-family: 'Play', sans-serif;
+        background-color: #00111a;
+        color: #cceeff;
+        background: red; /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(#002133, #00111a); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(#002133, #00111a); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(#002133, #00111a); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(#002133, #00111a); /* Standard syntax */
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
 
-	a {
-            color: #99ccff;
-            text-decoration: none;
-	}
+    a {
+        color: #99ccff;
+        text-decoration: none;
+    }
 
-        .iconimage {
-            
-        }
-        
-        .iconimage:hover {
-            cursor:pointer;
-        }
-        
-        .iconimage {
-            padding: 2px;
-            border: 3px solid #334d4d;
-            border-radius: 10px;
-        }
-        
-        .iconimage.active {
-            padding: 2px;
-            border: 3px solid #007399;
-            border-radius: 10px;
-        }
-        
-	a:hover {
-            color: #4da6ff;
-            text-decoration: none;
-            z-index: -1;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); 
-	}
+    .iconimage {
 
-	.gametitle {
-            color: #c6ff1a;
-            text-align: center;
-        }
-        
-        .setSpeed {
-            text-align: center;
-        }
-        
-        #startstop {
-            font-size: 24px;
-            display: none;
-        }
+    }
 
-        .maindiv {
-            margin: auto;
-            padding: 10px;
-        }
-        
-        .sectiontitle {
-            text-align: center;
-        }
-        
-        .sectionpart {
-            padding-left: 5px;
-            margin-bottom: 5px;
-        }
-        
-        .leftpanel {
-            width: 25%;
-            float: left;
-            background-color: #002233;
-            margin-top: 10px;
-            height: 450px;
-            padding: 5px;
-            border: 3px solid #004466;
-            border-radius: 3px;
-        }
-        
-        .middlepanel {
-            width: 37%;
-            float: left;
-            background-color: #002233;
-            margin-top: 10px;
-            height: 450px;
-            padding: 5px;
-            border: 3px solid #004466;
-            border-radius: 3px;
-        }
-        
-        .rightpanel {
-            width: 33%;
-            float: left;
-            background-color: #002233;
-            margin-top: 10px;
-            height: 450px;
-            border: 3px solid #004466;
-            border-radius: 3px;
-            padding: 5px;
-        }
-        
-        .mainpanel {
-            
-        }
-        
-        .stats {
-            color: cornsilk;
-        }
-        
-        #spot {
-            color: cornsilk;
-        }
-        
-        #repairbtn {
-            visibility: hidden;
-        }
-        
-        #villagebtn {
-            display: none;
-        }
-        
-        #fightfleebtn {
-            display: none;
-        }
-        
-        #fuelstorageupgrade {
-            visibility: hidden;
-        }
-        
-        #shieldupgrade {
-            visibility: hidden;
-        }
-        
-        #foodstorageupgrade {
-            visibility: hidden;
-        }
-        
-        #waterstorageupgrade {
-            visibility: hidden;
-        }
-        
-        #fuelconsumptionupgrade {
-            visibility: hidden;
-        }
-           
-        .mybutton {
-            border: 2px solid #0085cc;
-            border-radius: 3px;
-            padding: 5px;
-            background-color: #0074b3;
-            color: #eee;
-            margin-left: 5px;
-        }
-        
-        .mybutton:hover {
-            background-color: #0074b3;
-            cursor:pointer;
-            color: #fff;
-            box-shadow: 0px -1px 15px 1px #006399;
-        }
-        
-        .mybutton:active {
-            transform: translate(0px, 2px);
-        }
-        
-        .startbutton {
-            font-size: 18px;
-            border-radius: 6px;
-        }
-        
-        .helpbtn {
-            float: right;
-            margin-right: 30px;
-        }
-        
-        #helppart {
-            display: none;
-        }
-        
-        #helpdiv {
-            width: 600px;
-            margin: auto;
-            margin-top: 30px;            
-        }
-        
-        #veryslowspeed {
-            font-size: 20px;
-	}
-        
-	#slowspeed {
-            font-size: 20px;
-	}
-        
-        #mediumspeed {
-            font-size: 20px;
-	}
+    .iconimage:hover {
+        cursor:pointer;
+    }
 
-        #fastspeed {
-            font-size: 20px;
-	}
+    .iconimage {
+        padding: 2px;
+        border: 3px solid #334d4d;
+        border-radius: 10px;
+    }
 
-	#spotdiv {
-            overflow-y: auto;
-            background-color: #004466;
-            border: 3px solid #005580;
-            border-radius: 3px;
-            padding: 5px;
-            margin: 10px;
-            height: 320px;
-	}
-        
-        .choicespanel {
-            margin-left: 6px;
-        }
-        
-	#mainmenu {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-	}
+    .iconimage.active {
+        padding: 2px;
+        border: 3px solid #007399;
+        border-radius: 10px;
+    }
 
-	#game {
-            display: none;
-	}
-        
-        #village {
-            display: none;
-        }
-        
-        #villageContent {
-            display: block;
-            margin-top: 50px;
-            margin-left: 30px;
-            margin-right: 30px;
-            background-color: #00334d;
-            border: 1px solid #00334d;
-            border-radius: 5px;
-            min-height: 400px;
-            padding: 10px;
-        }
-        
-        #villageName {
-            text-align: center;
-        }
-        
-        #smittysgarage {
-            display: none;
-            background-color:#004466;
-            padding: 10px;
-            border: 2px solid #005580;
-            border-radius: 3px;
-        }
-        
-        #catchagas {
-            display: none;
-            background-color:#004466;
-            padding: 10px;
-            border: 2px solid #005580;
-            border-radius: 3px;
-        }
-        
-        #freshwaterstation {
-            display: none;
-            background-color:#004466;
-            padding: 10px;
-            border: 2px solid #005580;
-            border-radius: 3px;
-        }
-        
-        #iguanaonstickrestaurant {
-            display: none;
-            background-color:#004466;
-            padding: 10px;
-            border: 2px solid #005580;
-            border-radius: 3px;
-        }
-        
-        #villageMessage {
-            margin-top: 20px;
-            margin-bottom: 20px;
-            padding: 10px;
-            display: block;
-            background-color: #004466;
-            border: 2px solid #005580;
-            border-radius: 3px;
-        }
+    a:hover {
+        color: #4da6ff;
+        text-decoration: none;
+    }
 
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            margin-right: 10px;
-            top: 5px;
-        }
+    .gametitle {
+        color: #c6ff1a;
+        text-align: center;
+    }
 
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 120px;
-            background-color:  #004466;
-            color: #fff;
-            text-align: center;
-            border: 1px solid #005580;
-            opacity: 0.9;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-        }
+    .setSpeed {
+        text-align: center;
+    }
 
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-        }
-        
-        
-        .caranimSolid {
-                animation: animationFramesSolid linear 3s;
-                animation-iteration-count: infinite;
-                transform-origin: 50% 50%;
-        }
-        @keyframes animationFramesSolid {
-                0% { transform:  translate(0px, 0px) rotate(0deg); }
-                25% { transform:  translate(0px,-3px) rotate(0deg); }
-                50% { transform:  translate(0px, 0px) rotate(0deg); }
-                75% { transform: translate(0px, 3px) rotate(0deg); }
-        }
-        
-        .caranimSand {
-                animation: animationFramesSand linear 2s;
-                animation-iteration-count: infinite;
-                transform-origin: 50% 50%;
-        }
-        @keyframes animationFramesSand {
-                0% { transform:  translate(0px, 0px) rotate(0deg); }
-                25% { transform:  translate(0px,-1px) rotate(-1deg); }
-                50% { transform:  translate(0px, 0px) rotate(1deg); }
-                75% { transform: translate(0px, 1px) rotate(-1deg); }
-        }
-        
-        .caranimMud {
-                animation: animationFramesMud linear 2s;
-                animation-iteration-count: infinite;
-                transform-origin: 50% 50%;
-        }
-        @keyframes animationFramesMud {
-                0% { transform:  translate(0px, 1px) rotate(0deg); }
-                25% { transform:  translate(0px,-1px) rotate(-3deg); }
-                50% { transform:  translate(0px, -2px) rotate(2deg); }
-                75% { transform: translate(0px, 1px) rotate(-3deg); }
-        }
-        
-        .caranimRocks {
-                animation: animationFramesRocks linear 2s;
-                animation-iteration-count: infinite;
-                transform-origin: 50% 50%;
-        }
-        @keyframes animationFramesRocks {
-                0% { transform:  translate(0px, 0px) rotate(0deg); }
-                25% { transform:  translate(1px, -5px) rotate(-5deg); }
-                50% { transform:  translate(-1px, 6px) rotate(8deg); }
-                75% { transform: translate(0px, 10px) rotate(-5deg); }
-        }
-        
+    #startstop {
+        font-size: 24px;
+        display: none;
+    }
+
+    .maindiv {
+        margin: auto;
+        padding: 10px;
+    }
+
+    .sectiontitle {
+        text-align: center;
+    }
+
+    .sectionpart {
+        padding-left: 5px;
+        margin-bottom: 5px;
+    }
+
+    .leftpanel {
+        width: 25%;
+        float: left;
+        background-color: #002233;
+        margin-top: 10px;
+        height: 450px;
+        padding: 5px;
+        border: 3px solid #004466;
+        border-radius: 3px;
+    }
+
+    .middlepanel {
+        width: 37%;
+        float: left;
+        background-color: #002233;
+        margin-top: 10px;
+        height: 450px;
+        padding: 5px;
+        border: 3px solid #004466;
+        border-radius: 3px;
+    }
+
+    .rightpanel {
+        width: 33%;
+        float: left;
+        background-color: #002233;
+        margin-top: 10px;
+        height: 450px;
+        border: 3px solid #004466;
+        border-radius: 3px;
+        padding: 5px;
+    }
+
+    .mainpanel {
+
+    }
+
+    .stats {
+        color: cornsilk;
+    }
+
+    #spot {
+        color: cornsilk;
+    }
+
+    #villagebtn {
+        display: none;
+    }
+
+    #fightfleebtn {
+        display: none;
+    }
+
+    .mybutton {
+        border: 2px solid #0085cc;
+        border-radius: 3px;
+        padding: 5px;
+        background-color: #0074b3;
+        color: #eee;
+        margin-left: 5px;
+    }
+
+    .mybutton:hover {
+        background-color: #0074b3;
+        cursor:pointer;
+        color: #fff;
+        box-shadow: 0px -1px 15px 1px #006399;
+    }
+
+    .mybutton:active {
+        transform: translate(0px, 2px);
+    }
+
+    .startbutton {
+        font-size: 18px;
+        border-radius: 6px;
+    }
+
+    .helpbtn {
+        float: right;
+        margin-right: 30px;
+    }
+
+    #helppart {
+        display: none;
+    }
+
+    #helpdiv {
+        width: 600px;
+        margin: auto;
+        margin-top: 30px;            
+    }
+
+    #veryslowspeed {
+        font-size: 20px;
+    }
+
+    #slowspeed {
+        font-size: 20px;
+    }
+
+    #mediumspeed {
+        font-size: 20px;
+    }
+
+    #fastspeed {
+        font-size: 20px;
+    }
+
+    #spotdiv {
+        overflow-y: auto;
+        background-color: #004466;
+        border: 3px solid #005580;
+        border-radius: 3px;
+        padding: 5px;
+        margin: 10px;
+        height: 320px;
+    }
+
+    .choicespanel {
+        margin-left: 6px;
+    }
+
+    #mainmenu {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    #game {
+        display: none;
+    }
+
+    #village {
+        display: none;
+    }
+
+    #villageContent {
+        display: block;
+        margin-top: 50px;
+        margin-left: 30px;
+        margin-right: 30px;
+        background-color: #00334d;
+        border: 1px solid #00334d;
+        border-radius: 5px;
+        min-height: 400px;
+        padding: 10px;
+    }
+
+    #villageName {
+        text-align: center;
+    }
+
+    #smittysgarage {
+        display: none;
+        background-color:#004466;
+        padding: 10px;
+        border: 2px solid #005580;
+        border-radius: 3px;
+    }
+    
+    #pimpmyride {
+        display: none;
+        background-color:#004466;
+        padding: 10px;
+        border: 2px solid #005580;
+        border-radius: 3px;
+    }
+
+    #catchagas {
+        display: none;
+        background-color:#004466;
+        padding: 10px;
+        border: 2px solid #005580;
+        border-radius: 3px;
+    }
+
+    #freshwaterstation {
+        display: none;
+        background-color:#004466;
+        padding: 10px;
+        border: 2px solid #005580;
+        border-radius: 3px;
+    }
+
+    #iguanaonstickrestaurant {
+        display: none;
+        background-color:#004466;
+        padding: 10px;
+        border: 2px solid #005580;
+        border-radius: 3px;
+    }
+
+    #villageMessage {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+        display: block;
+        background-color: #004466;
+        border: 2px solid #005580;
+        border-radius: 3px;
+    }
+
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        margin-right: 10px;
+        top: 5px;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color:  #004466;
+        color: #fff;
+        text-align: center;
+        border: 1px solid #005580;
+        opacity: 0.9;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+
+
+    .caranimSolid {
+            animation: animationFramesSolid linear 3s;
+            animation-iteration-count: infinite;
+            transform-origin: 50% 50%;
+    }
+    @keyframes animationFramesSolid {
+            0% { transform:  translate(0px, 0px) rotate(0deg); }
+            25% { transform:  translate(0px,-3px) rotate(0deg); }
+            50% { transform:  translate(0px, 0px) rotate(0deg); }
+            75% { transform: translate(0px, 3px) rotate(0deg); }
+    }
+
+    .caranimSand {
+            animation: animationFramesSand linear 2s;
+            animation-iteration-count: infinite;
+            transform-origin: 50% 50%;
+    }
+    @keyframes animationFramesSand {
+            0% { transform:  translate(0px, 0px) rotate(0deg); }
+            25% { transform:  translate(0px,-1px) rotate(-1deg); }
+            50% { transform:  translate(0px, 0px) rotate(1deg); }
+            75% { transform: translate(0px, 1px) rotate(-1deg); }
+    }
+
+    .caranimMud {
+            animation: animationFramesMud linear 2s;
+            animation-iteration-count: infinite;
+            transform-origin: 50% 50%;
+    }
+    @keyframes animationFramesMud {
+            0% { transform:  translate(0px, 1px) rotate(0deg); }
+            25% { transform:  translate(0px,-1px) rotate(-3deg); }
+            50% { transform:  translate(0px, -2px) rotate(2deg); }
+            75% { transform: translate(0px, 1px) rotate(-3deg); }
+    }
+
+    .caranimRocks {
+            animation: animationFramesRocks linear 2s;
+            animation-iteration-count: infinite;
+            transform-origin: 50% 50%;
+    }
+    @keyframes animationFramesRocks {
+            0% { transform:  translate(0px, 0px) rotate(0deg); }
+            25% { transform:  translate(1px, -5px) rotate(-5deg); }
+            50% { transform:  translate(-1px, 6px) rotate(8deg); }
+            75% { transform: translate(0px, 10px) rotate(-5deg); }
+    }
