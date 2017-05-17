@@ -301,23 +301,35 @@
         visibility: visible;
     }
 
+    #wheelicon {
+        animation: wheelRotation linear 2s;
+        animation-iteration-count: infinite;
+        transform-origin: 50% 50%;        
+    }
+    @keyframes wheelRotation {
+        0% { transform: translate(0px, 0px) rotate(0deg); }
+        25% { transform: translate(0px, 10px) rotate(90deg); }
+        50% { transform: translate(0px, 0px) rotate(180deg); }
+        75% { transform: translate(0px, -10px) rotate(270deg); }
+        100% { transform: translate(0px, 0px) rotate(360deg); }
+    }
 
     .caranimSolid {
-            animation: animationFramesSolid linear 3s;
-            animation-iteration-count: infinite;
-            transform-origin: 50% 50%;
+        animation: animationFramesSolid linear 3s;
+        animation-iteration-count: infinite;
+        transform-origin: 50% 50%;
     }
     @keyframes animationFramesSolid {
-            0% { transform:  translate(0px, 0px) rotate(0deg); }
-            25% { transform:  translate(0px,-3px) rotate(0deg); }
-            50% { transform:  translate(0px, 0px) rotate(0deg); }
-            75% { transform: translate(0px, 3px) rotate(0deg); }
+        0% { transform:  translate(0px, 0px) rotate(0deg); }
+        25% { transform:  translate(0px,-3px) rotate(0deg); }
+        50% { transform:  translate(0px, 0px) rotate(0deg); }
+        75% { transform: translate(0px, 3px) rotate(0deg); }
     }
 
     .caranimSand {
-            animation: animationFramesSand linear 2s;
-            animation-iteration-count: infinite;
-            transform-origin: 50% 50%;
+        animation: animationFramesSand linear 2s;
+        animation-iteration-count: infinite;
+        transform-origin: 50% 50%;
     }
     @keyframes animationFramesSand {
             0% { transform:  translate(0px, 0px) rotate(0deg); }
