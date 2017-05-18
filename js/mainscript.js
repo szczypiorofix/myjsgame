@@ -5,6 +5,24 @@
     
     document.addEventListener("DOMContentLoaded", function(event) {
         var mygame = new MyGame();
+        
+        
+//        if (typeof(window.localStorage) !== "undefined") {
+//            console.log('Store support - ok');
+//        } else {
+//            console.log('No Storage support.');
+//        }
+        
+        var scores = [
+            {name: "Janek", score: 100},
+            {name: "Antek", score: 200}
+        ];
+        localStorage.setItem("highscores", JSON.stringify(scores));
+        var highscores = JSON.parse(localStorage.getItem("highscores"));
+        for (var i = 0; i < highscores.length; i++) {
+            console.log("Imię: "+highscores[i].name +", wynik: "+highscores[i].score);
+        }
+        
 
         e('startgamebtn').addEventListener('click', function() { 
             e('mainmenu').style.display = "none";

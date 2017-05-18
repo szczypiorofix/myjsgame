@@ -25,7 +25,7 @@ function MyGame() {
     this.gameSpeed = 1;
     this.gameStep = 0;
     this.gameEvent = 0; // Integer - random value from events array
-    this.gameEventObject; // object EventOnRoad
+    this.gameEventObject = 0; // object EventOnRoad
     
     this.fuelConsumptionLevel = 1;
     this.fuelStorageLevel = 1;
