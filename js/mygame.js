@@ -75,7 +75,9 @@ function MyGame() {
         new EventOnRoad("You see an old, damaged car.", 25, this.TYPE.ENCOUNTER),
         new EventOnRoad("What??? Skywalker Ranch???", 5, this.TYPE.ENCOUNTER),
         new EventOnRoad("You see a group of followers of the Flying Spaghetti Monster.", 10, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see two wanderers.", 20, this.TYPE.ENCOUNTER)
+        new EventOnRoad("You see two wanderers.", 20, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see abandoned shack.", 20, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see bandit camp.", 20, this.TYPE.ENCOUNTER)
     ];
     
     this.terrains = [
