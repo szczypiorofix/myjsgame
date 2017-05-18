@@ -89,26 +89,51 @@
             }
         });
 
+        // SMITTY'S GARAGE
         e('repaircarbtn').addEventListener('click', function() { 
            mygame.repairCar();
         });
-
-        e('buysparepartsbtn').addEventListener('click', function() { 
-           mygame.buySpareParts();
-        });
         
+        // PIMP MY RIDE
         e('shieldsupgradebtn').addEventListener('click', function() { 
            mygame.shieldUpgrade();
         });
+        
+        e('fuelconsumptionupgradebtn').addEventListener('click', function() { 
+           mygame.fuelConsumptionUpgrade();
+        });
+        
+        e('attackupgradebtn').addEventListener('click', function() { 
+           mygame.attackUpgrade();
+        });
+        
+        e('defenseupgradebtn').addEventListener('click', function() { 
+           mygame.defenseUpgrade();
+        });
+        
+        e('fuelstorageupgradebtn').addEventListener('click', function() { 
+           mygame.fuelStorageUpgrade();
+        });
+        
+        e('foodstorageupgradebtn').addEventListener('click', function() { 
+           mygame.foodStorageUpgrade();
+        });
+        
+        e('waterstorageupgradebtn').addEventListener('click', function() { 
+           mygame.waterStorageUpgrade();
+        });
 
+        // CATCH-A-GAS STATION
         e('refuelcarbtn').addEventListener('click', function() { 
            mygame.refuelCar();
         });
 
+        // FRESH WATER STATION
         e('buywaterbtn').addEventListener('click', function() { 
            mygame.buyWater();
         });
 
+        // IGUANA-ON-STICK RESTAURANT
         e('buyfoodbtn').addEventListener('click', function() { 
            mygame.buyFood();
         });
@@ -126,7 +151,7 @@
             e("fastspeed").classList.remove("active");
             e("veryslowspeed").classList.add("active");
         });
-        document.getElementById('slowspeed').addEventListener('click', function() { 
+        e('slowspeed').addEventListener('click', function() { 
             mygame.setSpeed(2);
             e("veryslowspeed").classList.remove("active");
             e("slowspeed").classList.remove("active");
@@ -151,24 +176,3 @@
             e("fastspeed").classList.add("active");
         });
     });
-
-
-        function fuelStorageUpgrade() {
-            mygame.fuelStorageUpgrade();
-        }
-        
-        function shieldUpgrade() {
-            mygame.shieldUpgrade();
-        }
-        
-        function foodStorageUpgrade() {
-            mygame.foodStorageUpgrade();
-        }
-        
-        function waterStorageUpgrade() {
-            mygame.waterStorageUpgrade();
-        }
-        
-        function fuelConsumptionUpgrade() {
-            mygame.fuelConsumptionUpgrade();
-        }

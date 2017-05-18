@@ -18,26 +18,34 @@
 
 <body>
 
-
+    <audio src="music/17-My_Chrysalis_Highwayman.mp3" loop autoplay></audio>
     <div class="maindiv">
         <div id="mainmenu">
-            <img src="images/furyroad.png" alt="Fury Road" width="256" height="128">
-            <br><br>
-            <button id="startgamebtn" class="mybutton startbutton">START THE ENGINE !!!</button>
-            <div style="padding: 10px; width: 80px; margin: auto; margin-top: 50px;">
+            <img src="images/wasteland.jpg" id="backgroundimage" alt="Car wheel">
+            <div style="padding: 10px; width: 80px; margin: auto; margin-top: 50px; margin-bottom: 0px;">
                 <img src="images/wheel.png" id="wheelicon" alt="Car wheel" width="64" height="64">
             </div>
+            <button id="startgamebtn" class="mybutton startbutton">Shut up and drive!</button>
 	</div>
         
         <div id="helppart">
-            <div id="helpdiv">
+            <div class="centertextdiv">
                 <button class="mybutton" id="helpexit">EXIT HELP</button>
                 <p>The main goal of this game is to drive as long as you can through a post-apocalyptic world.</p>
                 <p>Your car is your best friend. Take care of it, collect spare parts and scrap!</p>
                 <p>Watch out your resorces: food and water.</p>
                 <p>Fighting enemies can make your shields damaged.</p>
-                <p>Use spare parts to repair or upgrade your car.</p>
                 <p>Sometimes you spot a village. You can go in to refuel and repair your car, buy some resources and spend some time talking to the villagers.</p>
+                <p>Also you can upgrade your car in the 'Pimp My Ride' workshop. Be prepared for a dangerous world outside!</p>
+            </div>
+        </div>
+        
+        <div id="gameoverpart">
+            <div class="centertextdiv">
+                <h1>GAME OVER</h1>
+                <p>Distance driven: </p><span id="distancedriven">0</span>
+                <p id="reasongameover"></p>
+                <button class="mybutton" onclick="location.reload();">TRY AGAIN?</button>
             </div>
         </div>
         
@@ -55,6 +63,34 @@
                             <span>Your scrap: </span><span id="yourscrap">0</span>
                         </div>
                         <div>
+                            <span>Fuel </span>
+                            <span id="yourfuel">0</span> / 
+                            <span id="yourmaxfuel">0</span>
+                        </div>
+                        <div>
+                            <span>Attack </span>
+                            <span id="yourattack">0</span>
+                        </div>
+                        <div>
+                            <span>Defense </span>
+                            <span id="yourdefense">0</span>
+                        </div>
+                        <div>
+                            <span>Shields: </span>
+                            <span id="yourshield">0</span> / 
+                            <span id="yourmaxshield">0</span>
+                        </div>
+                        <div>
+                            <span>Food: </span>
+                            <span id="yourfood">0</span> / 
+                            <span id="yourmaxfood">0</span>
+                        </div>
+                        <div>
+                            <span>Water </span>
+                            <span id="yourwater">0</span> / 
+                            <span id="yourmaxwater">0</span>
+                        </div>
+                        <div>
                             <span id="villageMessage"> </span>
                         </div>
                         <div style="margin-top: 10px;">
@@ -63,9 +99,7 @@
                                 <p>Here's Smitty Garage content</p>
                                 <div>
                                     <button class="mybutton" id="repaircarbtn">REPAIR YOUR CAR</button>
-                                </div>
-                                <div style="margin-top: 10px;">
-                                    <button class="mybutton" id="buysparepartsbtn">BUY SPARE PARTS</button>
+                                    <span> +25 shields, cost: 10 scrap</span>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +113,7 @@
                                     <span id="shieldsupgradelevel">1</span>
                                     <span>, Cost: </span>
                                     <span id="shieldsupgradecost">10</span>
-                                    <span> spare parts</span>
+                                    <span> scrap</span>
                                 </div>
                                 <div style="margin-top: 10px;">
                                     <button class="mybutton" id="fuelconsumptionupgradebtn">UPGRADE FUEL CONSUMPTION +1</button>
@@ -87,7 +121,7 @@
                                     <span id="fuelconsumptionupgradelevel">1</span>
                                     <span>, Cost: </span>
                                     <span id="fuelconsumptionupgradecost">10</span>
-                                    <span> spare parts</span>
+                                    <span> scrap</span>
                                 </div>
                                 <div style="margin-top: 10px;">
                                     <button class="mybutton" id="attackupgradebtn">UPGRADE GUN POWER +1</button>
@@ -95,7 +129,7 @@
                                     <span id="attackupgradelevel">1</span>
                                     <span>, Cost: </span>
                                     <span id="attackupgradecost">10</span>
-                                    <span> spare parts</span>
+                                    <span> scrap</span>
                                 </div>
                                 <div style="margin-top: 10px;">
                                     <button class="mybutton" id="defenseupgradebtn">UPGRADE DEFENSE +1</button>
@@ -103,7 +137,7 @@
                                     <span id="defenseupgradelevel">1</span>
                                     <span>, Cost: </span>
                                     <span id="defenseupgradecost">10</span>
-                                    <span> spare parts</span>
+                                    <span> scrap</span>
                                 </div>
                                 <div style="margin-top: 10px;">
                                     <button class="mybutton" id="fuelstorageupgradebtn">UPGRADE FUEL STORAGE +1</button>
@@ -111,7 +145,7 @@
                                     <span id="fuelstorageupgradelevel">1</span>
                                     <span>, Cost: </span>
                                     <span id="fuelstorageupgradecost">10</span>
-                                    <span> spare parts</span>
+                                    <span> scrap</span>
                                 </div>
                                 <div style="margin-top: 10px;">
                                     <button class="mybutton" id="foodstorageupgradebtn">UPGRADE FOOD STORAGE +1</button>
@@ -119,7 +153,7 @@
                                     <span id="foodstorageupgradelevel">1</span>
                                     <span>, Cost: </span>
                                     <span id="foodstorageupgradecost">10</span>
-                                    <span> spare parts</span>
+                                    <span> scrap</span>
                                 </div>
                                 <div style="margin-top: 10px;">
                                     <button class="mybutton" id="waterstorageupgradebtn">UPGRADE WATER STORAGE +1</button>
@@ -127,7 +161,7 @@
                                     <span id="waterstorageupgradelevel">1</span>
                                     <span>, Cost: </span>
                                     <span id="waterstorageupgradecost">10</span>
-                                    <span> spare parts</span>
+                                    <span> scrap</span>
                                 </div>
                             </div>
                         </div>
@@ -136,13 +170,7 @@
                             <div id="catchagas">
                                 <p>Here's Catch-A-Gas content</p>
                                 <button class="mybutton" id="refuelcarbtn">REFUEL YOUR CAR</button>
-                            </div>
-                        </div>
-                        <div style="margin-top: 10px;">
-                            <a href="#" id="freshwaterstationbtn">FRESH WATER STATION</a>
-                            <div id="freshwaterstation">
-                                <p>Here's Fresh Water Station content</p>
-                                <button class="mybutton" id="buywaterbtn">BUY SOME WATER</button>
+                                <span> +25 fuel, cost: 10 scrap</span>
                             </div>
                         </div>
                         <div style="margin-top: 10px;">
@@ -150,6 +178,15 @@
                             <div id="iguanaonstickrestaurant">
                                 <p>Here's Iguana-On-Stick content</p>
                                 <button class="mybutton" id="buyfoodbtn">BUY SOME FOOD</button>
+                                <span> +25 food, cost: 10 scrap</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <a href="#" id="freshwaterstationbtn">FRESH WATER STATION</a>
+                            <div id="freshwaterstation">
+                                <p>Here's Fresh Water Station content</p>
+                                <button class="mybutton" id="buywaterbtn">BUY SOME WATER</button>
+                                <span> +25 water, cost: 10 scrap</span>
                             </div>
                         </div>
                     </div>
@@ -159,12 +196,13 @@
         
         <div id="game">
             <header class="gametitle">
+                <img id="horizon" src="images/horizon.png" alt="Horizon">
                 <img id="car" src="images/furyroad.png" class="caranimSolid" alt="Fury Road" width="256" height="128">
                 <button class="mybutton helpbtn" id="buttonhelp">HELP</button>
             </header>
             
             <div class="setSpeed">
-                <span style="font-size: 18px;">Speed: </span>
+                <span style="font-size: 18px; position: relative;">Speed: </span>
                 
                 <div class="tooltip">
                     <img class="iconimage active" id="veryslowspeed" src="images/speed1.png" alt="Shield icon" height="36">
@@ -186,137 +224,137 @@
             
             <div class="mainpanel">
 
-            <section class="leftpanel">
-                <h3 class="sectiontitle">STATISTICS</h3>
-                <hr />
-                <div class="sectionpart">
-                    <div class="tooltip">
-                        <img src="images/distance.png" alt="Distance icon" height="24">
-                        <span class="tooltiptext">Distance driven</span>
+            <div class="leftpanel">
+                <p class="sectiontitle">STATISTICS:</p>
+                <hr class="myhr"/>
+                <div style="padding: 5px;">
+                    <div class="sectionpart">
+                        <div class="tooltip">
+                            <img src="images/distance.png" alt="Distance icon" height="24">
+                            <span class="tooltiptext">Distance driven</span>
+                        </div>
+                        <span id="distance" class="stats">0</span>
+                        <span>step: </span>
+                        <span id="step" class="stats">0</span>
                     </div>
-                    <span id="distance" class="stats">0</span>
-                    <span>Step: </span>
-                    <span id="step" class="stats">0</span>
-                </div>
-                <div class="sectionpart">
-                    <div class="tooltip">
-                        <img src="images/fuel.png" alt="Fuel icon" height="24">
-                        <span class="tooltiptext">Fuel consumption</span>
+                    <div class="sectionpart">
+                        <div class="tooltip">
+                            <img src="images/fuel.png" alt="Fuel icon" height="24">
+                            <span class="tooltiptext">Fuel consumption</span>
+                        </div>
+                        <span id="fuel" class="stats">100</span> / <span id="maxfuel" class="stats">100</span>
+                        <span>usage (</span>
+                        <span id="fuelusage" class="stats">0</span>
+                        <span>)</span>
                     </div>
-                    <span id="fuel" class="stats">100</span> / <span id="maxfuel" class="stats">100</span>
-                    <span>usage (</span>
-                    <span id="fuelusage" class="stats">0</span>
-                    <span>)</span>
-                </div>
-                <div class="sectionpart">
-                    <div class="tooltip">
-                        <img src="images/terrain.png" alt="Terrain icon" height="24">
-                        <span class="tooltiptext">Terrain type</span>
+                    <div class="sectionpart">
+                        <div class="tooltip">
+                            <img src="images/terrain.png" alt="Terrain icon" height="24">
+                            <span class="tooltiptext">Terrain type</span>
+                        </div>
+                        <span id="terrain" class="stats">Solid ground</span>
                     </div>
-                    <span id="terrain" class="stats">Solid ground</span>
-                </div>
-                <hr />
-                <div class="sectionpart">
-                    <div class="tooltip">
-                        <img src="images/shield.png" alt="Shield icon" height="24">
-                        <span class="tooltiptext">Shields</span>
+                    <hr />
+                    <div class="sectionpart">
+                        <div class="tooltip">
+                            <img src="images/shield.png" alt="Shield icon" height="24">
+                            <span class="tooltiptext">Shields</span>
+                        </div>
+                        <span id="shield" class="stats">100</span> / <span id="maxshield" class="stats">100</span>
                     </div>
-                    <span id="shield" class="stats">100</span> / <span id="maxshield" class="stats">100</span>
-                </div>
-                <div class="sectionpart">
-                    <div class="tooltip">
-                        <img src="images/attack.png" alt="Attack icon" height="24">
-                        <span class="tooltiptext">Attack strength</span>
+                    <div class="sectionpart">
+                        <div class="tooltip">
+                            <img src="images/attack.png" alt="Attack icon" height="24">
+                            <span class="tooltiptext">Attack strength</span>
+                        </div>
+                        <span id="attack" class="stats">1</span>
                     </div>
-                    <span id="attack" class="stats">1</span>
-                </div>
-                <div class="sectionpart">
-                    <div class="tooltip">
-                        <img src="images/defense.png" alt="Defense icon" height="24">
-                        <span class="tooltiptext">Defence strength</span>
+                    <div class="sectionpart">
+                        <div class="tooltip">
+                            <img src="images/defense.png" alt="Defense icon" height="24">
+                            <span class="tooltiptext">Defence strength</span>
+                        </div>
+                        <span id="defense" class="stats">1</span>
                     </div>
-                    <span id="defense" class="stats">1</span>
-                </div>
-                <hr />
-                <div class="sectionpart">
-                    <div class="tooltip">
-                        <img src="images/food_res.png" alt="Food icon" height="24">
-                        <span class="tooltiptext">Food resources</span>
+                    <hr />
+                    <div class="sectionpart">
+                        <div class="tooltip">
+                            <img src="images/food_res.png" alt="Food icon" height="24">
+                            <span class="tooltiptext">Food resources</span>
+                        </div>
+                        <span id="food" class="stats">100</span> / <span id="maxfood" class="stats">100</span>
                     </div>
-                    <span id="food" class="stats">100</span> / <span id="maxfood" class="stats">100</span>
-                </div>
-                <div class="sectionpart">
-                    <div class="tooltip">
-                        <img src="images/water_res.png" alt="Water icon" height="24">
-                        <span class="tooltiptext">Water resources</span>
+                    <div class="sectionpart">
+                        <div class="tooltip">
+                            <img src="images/water_res.png" alt="Water icon" height="24">
+                            <span class="tooltiptext">Water resources</span>
+                        </div>
+                        <span id="water" class="stats">100</span> / <span id="maxwater" class="stats">100</span>
                     </div>
-                    <span id="water" class="stats">100</span> / <span id="maxwater" class="stats">100</span>
-                </div>
-                <div class="sectionpart">
-                    <div class="tooltip">
-                        <img src="images/spare.png" alt="Spare parts icon" height="24">
-                        <span class="tooltiptext">Spare parts</span>
+                    <div class="sectionpart">
+                        <div class="tooltip">
+                            <img src="images/scrap.png" alt="Scrap icon" height="24">
+                            <span class="tooltiptext">Scrap</span>
+                        </div>
+                        <span id="scrap" class="stats">0</span>
                     </div>
-                    <span id="spareparts" class="stats">0</span>
                 </div>
-                <div class="sectionpart">
-                    <div class="tooltip">
-                        <img src="images/scrap.png" alt="Scrap icon" height="24">
-                        <span class="tooltiptext">Scrap</span>
-                    </div>
-                    <span id="scrap" class="stats">0</span>
-                </div>
-            </section>
+            </div>
 
-            <section class="middlepanel">
-                <h3 class="sectiontitle">EVENTS:</h3>
-                <hr />
-                <div id="spotdiv">
-                    <span style="color: burlywood;">0.00 :</span><span id="spot">Vroom-vroom !!!<br></span>
+            <div class="middlepanel">
+                <p class="sectiontitle">EVENTS:</p>
+                <hr class="myhr"/>
+                <div style="padding: 5px;">
+                    <div id="spotdiv">
+                        <span style="color: burlywood;">0.00 :</span><span id="spot">Vroom-vroom !!!<br></span>
+                    </div>
+                    <div class="choicespanel">
+                        <span id="villagebtn">
+                            <button class="mybutton" id="entervillagebtn">ENTER THE VILLAGE</button>
+                            <button class="mybutton" id="keepgoingbtn">KEEP GOING</button>
+                        </span>
+                        <span id="fightfleebtn">
+                            <button class="mybutton" id="fightbtn">FIGHT</button>
+                            <button class="mybutton" id="fleebtn">FLEE</button>
+                        </span>
+                    </div>
                 </div>
-                <div class="choicespanel">
-                    <span id="villagebtn">
-                        <button class="mybutton" id="entervillagebtn">ENTER THE VILLAGE</button>
-                        <button class="mybutton" id="keepgoingbtn">KEEP GOING</button>
-                    </span>
-                    <span id="fightfleebtn">
-                        <button class="mybutton" id="fightbtn">FIGHT</button>
-                        <button class="mybutton" id="fleebtn">FLEE</button>
-                    </span>
-                </div>
-            </section>
+            </div>
             
-            <section class="rightpanel">
-                <h3 class="sectiontitle">UPGRADES:</h3>
-                <hr />
-                <div style="margin-bottom: 5px;">
-                    <span>SHIELDS Level: </span>
-                    <span id="shieldlevel">1</span>
+            <div class="rightpanel">
+                <p class="sectiontitle">UPGRADES:</p>
+                <hr class="myhr"/>
+                <div style="padding: 5px;">
+                    <div style="margin-bottom: 15px;">
+                        <span>SHIELDS Level: </span>
+                        <span id="shieldlevel">1</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span>FUEL CONSUMPTION Level: </span>
+                        <span id="fuelconsumptionlevel">1</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span>GUN POWER Level: </span>
+                        <span id="attacklevel">1</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span>DEFENSE Level: </span>
+                        <span id="defenselevel">1</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span>FUEL STORAGE Level: </span>
+                        <span id="fuelstoragelevel">1</span>
+                    </div>
+                     <div style="margin-bottom: 15px;">
+                        <span>FOOD STORAGE Level: </span>
+                        <span id="foodstoragelevel">1</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span>WATER STORAGE Level: </span>
+                        <span id="waterstoragelevel">1</span>
+                    </div>
                 </div>
-                <div style="margin-bottom: 5px;">
-                    <span>GUN POWER Level: </span>
-                    <span id="attacklevel">1</span>
-                </div>
-                <div style="margin-bottom: 5px;">
-                    <span>DEFENSE Level: </span>
-                    <span id="defenselevel">1</span>
-                </div>
-                <div style="margin-bottom: 5px;">
-                    <span>FUEL STORAGE Level: </span>
-                    <span id="fuelstoragelevel">1</span>
-                </div>
-                 <div style="margin-bottom: 5px;">
-                    <span>FOOD STORAGE Level: </span>
-                </div>
-                <div style="margin-bottom: 5px;">
-                    <span>WATER STORAGE Level: </span>
-                    <span id="waterstoragelevel">1</span>
-                </div>
-                <div style="margin-bottom: 5px;">
-                    <span>FUEL CONSUMPTION Level: </span>
-                    <span id="fuelconsumptionlevel">1</span>
-                </div>
-            </section>
+            </div>
            </div>
         </div>
     </div>

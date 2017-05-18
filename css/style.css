@@ -1,18 +1,27 @@
 @CHARSET "UTF-8";
 
     @import url('https://fonts.googleapis.com/css?family=Play');
+    @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
     body {
         font-family: 'Play', sans-serif;
         background-color: #00111a;
         color: #cceeff;
         background: red; /* For browsers that do not support gradients */
-        background: -webkit-linear-gradient(#002133, #00111a); /* For Safari 5.1 to 6.0 */
-        background: -o-linear-gradient(#002133, #00111a); /* For Opera 11.1 to 12.0 */
-        background: -moz-linear-gradient(#002133, #00111a); /* For Firefox 3.6 to 15 */
-        background: linear-gradient(#002133, #00111a); /* Standard syntax */
+        background: -webkit-linear-gradient(#001a33, #0f1f3d); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(#001a33, #0f1f3d); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(#001a33, #0f1f3d); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(#001539, #001a33); /* Standard syntax */
         background-repeat: no-repeat;
         background-attachment: fixed;
+    }
+    
+    #startgamebtn {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #004080;
+        border: 2px solid #004d99;
+        padding: 10px;
+        position: relative;
     }
 
     a {
@@ -30,7 +39,7 @@
 
     .iconimage {
         padding: 2px;
-        border: 3px solid #334d4d;
+        border: 3px solid #00264d;
         border-radius: 10px;
     }
 
@@ -48,6 +57,8 @@
     .gametitle {
         color: #c6ff1a;
         text-align: center;
+        /**background-color: #234233;
+        border-radius: 3px; **/
     }
 
     .setSpeed {
@@ -64,8 +75,18 @@
         padding: 10px;
     }
 
+    .myhr {
+        margin-top: 0px;
+        margin-bottom: 5px;
+    }
+    
     .sectiontitle {
         text-align: center;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        background-color: #00334d;
+        border-radius: 3px;
+        padding: 10px;
     }
 
     .sectionpart {
@@ -74,23 +95,21 @@
     }
 
     .leftpanel {
-        width: 260px;
+        width: 290px;
         float: left;
-        background-color: #002233;
+        background-color: #002040;
         margin-top: 10px;
-        height: 450px;
-        padding: 5px;
+        height: 380px;
         border: 3px solid #004466;
         border-radius: 3px;
     }
 
     .middlepanel {
-        width: calc(100% - 550px);
+        width: calc(100% - 580px);
         float: left;
-        background-color: #002233;
+        background-color: #002040;
         margin-top: 10px;
-        height: 450px;
-        padding: 5px;
+        height: 380px;
         border: 3px solid #004466;
         border-radius: 3px;
     }
@@ -98,12 +117,11 @@
     .rightpanel {
         width: 240px;
         float: left;
-        background-color: #002233;
+        background-color: #002040;
         margin-top: 10px;
-        height: 450px;
+        height: 380px;
         border: 3px solid #004466;
         border-radius: 3px;
-        padding: 5px;
     }
 
     .mainpanel {
@@ -139,7 +157,7 @@
         background-color: #0074b3;
         cursor:pointer;
         color: #fff;
-        box-shadow: 0px -1px 15px 1px #006399;
+        box-shadow: 0px 0px 10px 1px #006399;
     }
 
     .mybutton:active {
@@ -153,17 +171,24 @@
 
     .helpbtn {
         float: right;
-        margin-right: 30px;
+        margin-right: 5px;
+        margin-top: 5px;
+        position: relative;
     }
 
     #helppart {
         display: none;
     }
 
-    #helpdiv {
+    .centertextdiv {
         width: 600px;
         margin: auto;
         margin-top: 30px;            
+    }
+    
+    #gameoverpart {
+        display: none;
+        text-align: center;
     }
 
     #veryslowspeed {
@@ -189,7 +214,8 @@
         border-radius: 3px;
         padding: 5px;
         margin: 10px;
-        height: 320px;
+        margin-top: 5px;
+        height: 250px;
     }
 
     .choicespanel {
@@ -314,6 +340,28 @@
         100% { transform: translate(0px, 0px) rotate(360deg); }
     }
 
+    #backgroundimage {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    
+    #car {
+        position: relative;
+        top: -17px;
+        left: 0;
+    }
+    
+    #horizon {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: 205px;
+        left: 0px;
+    }
+    
     .caranimSolid {
         animation: animationFramesSolid linear 3s;
         animation-iteration-count: infinite;
