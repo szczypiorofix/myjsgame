@@ -19,15 +19,31 @@
 <body>
 
     <audio src="music/highwayman.mp3" loop autoplay></audio>
-    
+        
     <div class="maindiv">
+                
         <div id="mainmenu">
-            <img src="images/wasteland.jpg" id="backgroundimage" alt="Car wheel">
+            <!-- <img src="images/wasteland.jpg" id="backgroundimage" alt="Car wheel"> -->
             <div style="padding: 10px; width: 80px; margin: auto; margin-top: 50px; margin-bottom: 0px;">
                 <img src="images/wheel.png" id="wheelicon" alt="Car wheel" width="64" height="64">
             </div>
-            <button id="startgamebtn" class="mybutton startbutton">Shut up and drive!</button>
+            <div>
+                <button id="startgamebtn" class="mybutton startbutton">Shut up and drive!</button>
+            </div>
+            <div>
+                <button id="highscoresbtn" class="mybutton">High Scores</button>
+            </div>
 	</div>
+        
+        <div id="highscorespart">
+            <div  class="centertextdiv">
+                <button class="mybutton" id="highscoresexit">BACK</button>
+                <p>High Scores:</p>
+                <div id="highscorestable">
+                </div>
+                <button class="mybutton" id="clearscores">Clear scores</button>
+            </div>
+        </div>
         
         <div id="helppart">
             <div class="centertextdiv">
@@ -46,6 +62,12 @@
                 <h1>GAME OVER</h1>
                 <p>Distance driven: </p><span id="distancedriven">0</span>
                 <p id="reasongameover"></p>
+                <div class="inputname">
+                    <p>Please input your name:</p>
+                    <input type="text" id="playername" name="playername"/>
+                    <button id="submitscorebtn" class="mybutton">Submit</button>
+                </div>
+                
                 <button class="mybutton" onclick="location.reload();">TRY AGAIN?</button>
             </div>
         </div>
@@ -196,15 +218,26 @@
         </div>
         
         <div id="game">
-            <header class="gametitle">
-                <img id="horizon" src="images/horizon.png" alt="Horizon">
-                <img id="car" src="images/furyroad.png" class="caranimSolid" alt="Fury Road" width="256" height="128">
-                <button class="mybutton helpbtn" id="buttonhelp">HELP</button>
-            </header>
             
-            <div class="setSpeed">
-                <span style="font-size: 18px; position: relative;">Speed: </span>
+            <header class="gametitle">
+                <button class="mybutton helpbtn" id="buttonhelp">HELP</button>
                 
+                <div>
+                    <div class="distancepart">
+                        <span>Distance</span>
+                        <div class="sectionpart distancedriven tooltip">
+                            <span id="distanceBig">0</span>
+                             <span class="tooltiptext">Distance driven</span>
+                        </div>
+                       
+                    </div>
+                    <div class="carpart">
+                        <img id="car" src="images/furyroad.png" class="caranimSolid" alt="Fury Road" width="256" height="128">
+                    </div>
+                </div>
+            </header>
+                          
+            <div class="setSpeed">
                 <div class="tooltip">
                     <img class="iconimage active" id="veryslowspeed" src="images/speed1.png" alt="Shield icon" height="36">
                     <span class="tooltiptext">Very slow</span>
@@ -223,10 +256,9 @@
                 </div>
             </div>
             
-            <div class="mainpanel">
-
+            <div class="mainpanel">  
             <div class="leftpanel">
-                <p class="sectiontitle">STATISTICS:</p>
+                <p class="sectiontitle">STATISTICS</p>
                 <hr class="myhr"/>
                 <div style="padding: 5px;">
                     <div class="sectionpart">
@@ -235,8 +267,9 @@
                             <span class="tooltiptext">Distance driven</span>
                         </div>
                         <span id="distance" class="stats">0</span>
-                        <span>step: </span>
+                        <span>Speed (</span>
                         <span id="step" class="stats">0</span>
+                        <span>)</span>
                     </div>
                     <div class="sectionpart">
                         <div class="tooltip">
@@ -303,7 +336,7 @@
             </div>
 
             <div class="middlepanel">
-                <p class="sectiontitle">EVENTS:</p>
+                <p class="sectiontitle">EVENTS</p>
                 <hr class="myhr"/>
                 <div style="padding: 5px;">
                     <div id="spotdiv">
@@ -323,7 +356,7 @@
             </div>
             
             <div class="rightpanel">
-                <p class="sectiontitle">UPGRADES:</p>
+                <p class="sectiontitle">UPGRADES</p>
                 <hr class="myhr"/>
                 <div style="padding: 5px;">
                     <div style="margin-bottom: 15px;">

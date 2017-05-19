@@ -104,6 +104,7 @@ function MyGame() {
         this.distance += this.distanceStep;
         e("distance").innerHTML = this.distance.toFixed(2);
         e("step").innerHTML = (this.distanceStep).toFixed(2);
+        e("distanceBig").innerHTML = this.distance.toFixed(2);
     };
 
     this.updateFood = function() {
@@ -590,12 +591,6 @@ function MyGame() {
         e("spotdiv").scrollTop = e("spotdiv").scrollHeight;
     
         this.pausegame();
-        
-//        this.viciousDogsAttack = 1;
-//        this.smallRaidersAttack = 2;
-//        this.skulzAttack = 3;
-//        this.khansAttack = 4;
-//        this.immortanAttack = 5;
     };
     
     this.flee = function() {
@@ -622,6 +617,71 @@ function MyGame() {
             else if (this.water <= 0) e('reasongameover').innerHTML = 'You died of dehydration !';
             else if (this.shield <= 0) e('reasongameover').innerHTML = 'Your car has exploded !';
             else if (this.fuel <= 0) e('reasongameover').innerHTML = 'Your fuel has run out, and after a few days of wandering you have died of exhaustion.';
+        }
+    };
+    
+    this.showHighScores = function() {
+              
+        if (typeof(window.localStorage) !== "undefined") {
+
+            // RETRIVE FROM STORAGE
+            var highscores = JSON.parse(localStorage.getItem("highscores"));
+            var table = 0;
+
+            if (highscores !== null) {
+                table = document.createElement('table');
+
+                // FIRST ROW WITH COLUMN TITLES
+                var trtitles = document.createElement('tr');
+
+                var thname = document.createElement('th');
+                var textthname = document.createTextNode('Name');
+                thname.appendChild(textthname);
+                thname.className = "thname";
+
+                var thscore = document.createElement('th');
+                var textthscore = document.createTextNode('Score');
+                thscore.appendChild(textthscore);
+                thscore.className = "thscore";
+
+                var thdate = document.createElement('th');
+                var textthdate = document.createTextNode('Date');
+                thdate.appendChild(textthdate);
+                thdate.className = "thdate";
+
+                trtitles.appendChild(thname);
+                trtitles.appendChild(thscore);
+                trtitles.appendChild(thdate);
+
+                table.appendChild(trtitles);
+
+                // NEXT ROWS
+                for (i = 0; i < highscores.length; i++) {
+                    var trrow1 = document.createElement('tr'); 
+                    var td1 = document.createElement('td');
+                    var td2 = document.createElement('td');
+                    var td3 = document.createElement('td');
+                    var text1 = document.createTextNode(highscores[i].name);
+                    var text2 = document.createTextNode(highscores[i].score);
+                    var text3 = document.createTextNode(highscores[i].date);
+                    td1.appendChild(text1);
+                    td2.appendChild(text2);
+                    td3.appendChild(text3);
+                    trrow1.appendChild(td1);
+                    trrow1.appendChild(td2);
+                    trrow1.appendChild(td3);
+                    table.appendChild(trrow1);          
+                }    
+            }
+            else {
+                table = document.createElement('p');
+                table.appendChild(document.createTextNode("No scores detected!"));
+            }
+            e('highscorestable').appendChild(table);
+            
+        } else {
+            alert('Warning! No Local Storage support!');
+            location.reload();
         }
     };
 
@@ -656,6 +716,7 @@ function MyGame() {
         this.terrain = this.terrains[0];
         var instance = this;
         
+        //this.fuel = 1; // HACK !!!
         setInterval(function() {
 
             instance.gameStep++;

@@ -4,30 +4,69 @@
     }
     
     document.addEventListener("DOMContentLoaded", function(event) {
-        var mygame = new MyGame();
-        
-        
-//        if (typeof(window.localStorage) !== "undefined") {
-//            console.log('Store support - ok');
-//        } else {
-//            console.log('No Storage support.');
-//        }
-        
-        var scores = [
-            {name: "Janek", score: 100},
-            {name: "Antek", score: 200}
-        ];
-        localStorage.setItem("highscores", JSON.stringify(scores));
-        var highscores = JSON.parse(localStorage.getItem("highscores"));
-        for (var i = 0; i < highscores.length; i++) {
-            console.log("Imię: "+highscores[i].name +", wynik: "+highscores[i].score);
-        }
-        
+        var mygame = new MyGame();    
 
         e('startgamebtn').addEventListener('click', function() { 
             e('mainmenu').style.display = "none";
             e('game').style.display = "block";
             mygame.startGame();
+        });
+        
+        e('highscoresbtn').addEventListener('click', function() { 
+            e('mainmenu').style.display = "none";
+            e('highscorespart').style.display = "block";
+            if (typeof(window.localStorage) !== "undefined") {
+                mygame.showHighScores();
+            }
+            else {
+                alert('Warning! No Local Storage support!');
+            }
+        });
+        
+        e('highscoresexit').addEventListener('click', function() { 
+            e('mainmenu').style.display = "block";
+            e('highscorestable').innerHTML = '';
+            e('highscorespart').style.display = "none";
+        });
+        
+        e('submitscorebtn').addEventListener('click', function() {
+            
+            if (typeof(window.localStorage) !== "undefined") {
+                alert('Congratulations!');
+                var highScores = JSON.parse(localStorage.getItem("highscores"));
+                var temp = new Object;
+                temp.name = e('playername').value;
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth()+1; //January is 0!
+                var yyyy = today.getFullYear();
+                if(dd<10) {
+                    dd='0'+dd;
+                } 
+                if(mm<10) {
+                    mm='0'+mm;
+                } 
+                today = mm+'/'+dd+'/'+yyyy;
+                temp.date = today;
+                temp.score = mygame.distance.toFixed(2);
+
+                if (highScores === null) highScores = [];
+
+                highScores.push(temp);
+                localStorage.setItem("highscores", JSON.stringify(highScores));   
+            }
+            else {
+                alert('Warning! No Local Storage support!');
+            }
+            location.reload();
+        });
+
+        e('clearscores').addEventListener('click', function() {
+            var r = confirm('Delete all scores?');
+            if (r === true) {
+                localStorage.setItem("highscores", JSON.stringify(null));
+                location.reload();
+            }
         });
 
         e('buttonhelp').addEventListener('click', function() { 
