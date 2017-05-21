@@ -451,7 +451,7 @@
     #wheelicon {
         animation: wheelRotation linear 2s;
         animation-iteration-count: infinite;
-        transform-origin: 50% 50%;        
+        transform-origin: 50% 50%;
     }
     @keyframes wheelRotation {
         0% { transform: translate(0px, 0px) rotate(0deg); }
@@ -470,7 +470,6 @@
     }
     
     #car {
-        
     }
 
     

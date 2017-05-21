@@ -5,35 +5,14 @@ function e(element) {
 
 function MyGame() {
 
+    var player = new Player();
+
     this.running = true;
-    this.distance = 0;
-    this.distanceStep = 0;
-    this.damage = 0;
-    this.fuel = 100;
-    this.maxfuel = 100;
-    this.fuelusage = 0;
-    this.food = 100;
-    this.maxfood = 100;
-    this.water = 100;
-    this.maxwater = 100;
-    this.shield = 100;
-    this.maxshield = 100;
-    this.scrap = 0;
-    this.attack = 1;
-    this.defense = 1;
     
     this.gameSpeed = 1;
     this.gameStep = 0;
     this.gameEvent = 0; // Integer - random value from events array
     this.gameEventObject = 0; // object EventOnRoad
-    
-    this.fuelConsumptionLevel = 1;
-    this.fuelStorageLevel = 1;
-    this.waterStorageLevel = 1;
-    this.foodStorageLevel = 1;
-    this.shieldLevel = 1;
-    this.attackLevel = 1;
-    this.defenseLevel = 1;
 
     this.gameEventStep = Math.floor(Math.random() * 4) +2;
     this.terrain = 0;
@@ -53,7 +32,7 @@ function MyGame() {
     this.immortanAttack = 6;
     
     this.events = [
-        new EventOnRoad("You see a small village in a distance", 85, this.TYPE.PLACE),
+        new EventOnRoad("You see a small village in a distance", 95, this.TYPE.PLACE),
         new EventOnRoad("You are attacked by a pack of vicious dogs", 85, this.TYPE.FIGHT),
         new EventOnRoad("You are attacked by a small group of bandits", 65, this.TYPE.FIGHT),
         new EventOnRoad("You are attacked by raiders: 'Skulz'.", 40, this.TYPE.FIGHT),
@@ -80,9 +59,15 @@ function MyGame() {
         new EventOnRoad("You see a ruins of a village nearby.", 20, this.TYPE.ENCOUNTER),
         new EventOnRoad("You see a ruins of a big house nearby.", 20, this.TYPE.ENCOUNTER),
         new EventOnRoad("You see a ruined house", 30, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see a ruined supermarket.", 25, this.TYPE.ENCOUNTER),
         new EventOnRoad("You see a ruins of old chapel.", 25, this.TYPE.ENCOUNTER),
         new EventOnRoad("You see a slave hunter who leads two slaves on chains.", 15, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see a bandit camp.", 20, this.TYPE.ENCOUNTER)
+        new EventOnRoad("You see a bandit camp.", 20, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see a damaged car.", 20, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see a damaged truck.", 20, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see an empty bangit camp.", 20, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see an old graveyard.", 15, this.TYPE.ENCOUNTER),
+        new EventOnRoad("You see an old railway siding.", 20, this.TYPE.ENCOUNTER)
     ];
     
     this.terrains = [
@@ -99,47 +84,9 @@ function MyGame() {
     ];
     this.villageName = "";
 
-    this.updateDistance = function() {
-        this.distanceStep = (4 - (this.terrain.value / 5));
-        this.distance += this.distanceStep;
-        e("distance").innerHTML = this.distance.toFixed(2);
-        e("step").innerHTML = (this.distanceStep).toFixed(2);
-        e("distanceBig").innerHTML = this.distance.toFixed(2);
-    };
-
-    this.updateFood = function() {
-        this.food -= 0.5;
-        e("food").innerHTML = this.food.toFixed(2);
-    };
-
-    this.updateWater = function() {
-        this.water -= 0.5;
-        e("water").innerHTML = this.water.toFixed(2);
-    };
-
-    this.updateFuel = function() {
-        this.fuel -= this.fuelusage;
-        e("fuel").innerHTML = this.fuel.toFixed(2);
-    };
-
-    this.updateFuelUsage = function() {
-        this.fuelusage = this.terrain.fuelConsumption - (this.fuelConsumptionLevel * 0.04);
-        e("fuelusage").innerHTML = this.fuelusage.toFixed(2);
-    };
-    
-    this.updateShield = function(dmg) {
-        this.shield -= dmg;
-        e("shield").innerHTML = this.shield;
-    };
-    
-    this.updateScrap = function() {
-        e("scrap").innerHTML = this.scrap;
-    };
-
     this.setSpeed = function(speed) {
         this.gameSpeed = speed;
     };
-    
       
 
     
@@ -164,7 +111,7 @@ function MyGame() {
     };
 
     this.distanceOnSpot = function() {
-      return '<span style="color: burlywood;">'+this.distance.toFixed(2) +': </span>';
+      return '<span style="color: burlywood;">'+player.distance.toFixed(2) +': </span>';
     };
 
     this.eventsOnTheRoad = function() {
@@ -174,7 +121,7 @@ function MyGame() {
 
             if (this.gameEvent === 0) {
                 this.villageName = this.villages[Math.floor(Math.random() * this.villages.length)];
-                e("villagebtn").style.display = "block";
+                e("villagebtn").style.display = "block";                
                 e("spot").innerHTML += this.distanceOnSpot() +this.events[this.gameEvent].name+": " +this.villageName+".<br>";
                 this.pausegame();
             }
@@ -239,36 +186,41 @@ function MyGame() {
             
             if (this.gameEvent === 10) { // FUEL
                 var foundFuel = (Math.floor((Math.random() * 15)+5));
-                this.fuel += foundFuel;
-                if (this.fuel > this.maxfuel) {
-                    this.fuel = this.maxfuel;
+                player.fuel += foundFuel;
+                if (player.fuel > player.maxfuel) {
+                    player.fuel = player.maxfuel;
                 }
-                e("fuel").innerHTML = this.fuel.toFixed(2) +" (+"+foundFuel+")";               
+                e("fuel").innerHTML = player.fuel.toFixed(2) +" (+"+foundFuel+")";               
             }
             
             if (this.gameEvent === 11) { // WATER
                 var foundWater = (Math.floor((Math.random() * 25)+5));
-                this.water += foundWater;
-                if (this.water > this.maxwater) {
-                    this.water = this.maxwater;
+                player.water += foundWater;
+                if (player.water > player.maxwater) {
+                    player.water = player.maxwater;
                 }
-                e("water").innerHTML = this.water +" (+"+foundWater+")";              
+                e("water").innerHTML = player.water +" (+"+foundWater+")";              
             }
             
             if (this.gameEvent === 12) { // FOOD
                 var foundFood = (Math.floor((Math.random() * 25)+5));
-                this.food += foundFood;
-                if (this.food > this.maxfood) {
-                    this.food = this.maxfood;
+                player.food += foundFood;
+                if (player.food > player.maxfood) {
+                    player.food = player.maxfood;
                 }
-                e("food").innerHTML = this.food +" (+"+foundFood+")";            
+                e("food").innerHTML = player.food +" (+"+foundFood+")";            
             }
             
             if (this.gameEvent === 13) { // SCRAP
                 var foundScrap = (Math.floor((Math.random() * 20)+5));
-                this.scrap += foundScrap;
-                e("scrap").innerHTML = this.scrap +" (+"+foundScrap+")";          
+                player.scrap += foundScrap;
+                e("scrap").innerHTML = player.scrap +" (+"+foundScrap+")";          
             }
+        }
+        
+         // ENCOUNTERS ...
+        if (this.gameEventObject.type === this.TYPE.ENCOUNTER) {
+            
         }
     };
 
@@ -276,22 +228,22 @@ function MyGame() {
     this.enterTheVillage = function() {
         e("spot").innerHTML += this.distanceOnSpot()+ "Entering the village...<br>";
         e("villageName").innerHTML = this.villageName;
-        e("yourscrap").innerHTML = this.scrap;
-        e("yourfuel").innerHTML = this.fuel.toFixed(2);
-        e("yourmaxfuel").innerHTML = this.maxfuel;
-        e("yourattack").innerHTML = this.attack;
-        e("yourdefense").innerHTML = this.defense;
-        e("yourshield").innerHTML = this.shield;
-        e("yourmaxshield").innerHTML = this.maxshield;
-        e("yourfood").innerHTML = this.food.toFixed(2);
-        e("yourmaxfood").innerHTML = this.maxfood;
-        e("yourwater").innerHTML = this.water.toFixed(2);
-        e("yourmaxwater").innerHTML = this.maxwater;
+        e("yourscrap").innerHTML = player.scrap;
+        e("yourfuel").innerHTML = player.fuel.toFixed(2);
+        e("yourmaxfuel").innerHTML = player.maxfuel;
+        e("yourattack").innerHTML = player.attack;
+        e("yourdefense").innerHTML = player.defense;
+        e("yourshield").innerHTML = player.shield;
+        e("yourmaxshield").innerHTML = player.maxshield;
+        e("yourfood").innerHTML = player.food.toFixed(2);
+        e("yourmaxfood").innerHTML = player.maxfood;
+        e("yourwater").innerHTML = player.water.toFixed(2);
+        e("yourmaxwater").innerHTML = player.maxwater;
     };
     
     //SMITTY'S GARAGE
     this.repairCar = function() {
-        if (this.shield < this.maxshield) {
+        if (player.shield < player.maxshield) {
             if (this.scrap >= 10) {
                 this.scrap -= 10;
                 this.shield += 25;
@@ -315,19 +267,19 @@ function MyGame() {
     
     // PIMP MY RIDE UPGRADES   
     this.shieldUpgrade = function() {
-        if (this.scrap >= this.shieldLevel * 10) {
-            this.shield = Math.ceil((this.shield * (this.maxshield + 25)) / this.maxshield);
-            this.maxshield += 25;
-            this.scrap -= (this.shieldLevel * 10);
-            this.shieldLevel++;
-            e("scrap").innerHTML = this.scrap;
-            e("maxshield").innerHTML = this.maxshield;
-            e("shield").innerHTML = this.shield;
-            e("shieldlevel").innerHTML = this.shieldLevel;
+        if (player.scrap >= player.shieldLevel * 10) {
+            player.shield = Math.ceil((player.shield * (player.maxshield + 25)) / player.maxshield);
+            player.maxshield += 25;
+            player.scrap -= (player.shieldLevel * 10);
+            player.shieldLevel++;
+            e("scrap").innerHTML = player.scrap;
+            e("maxshield").innerHTML = player.maxshield;
+            e("shield").innerHTML = player.shield;
+            e("shieldlevel").innerHTML = player.shieldLevel;
             e("villageMessage").innerHTML = "Shield upgrade +1";
-            e('shieldsupgradecost').innerHTML = (this.shieldLevel * 10);
-            e('shieldsupgradelevel').innerHTML = this.shieldLevel;
-            e('yourscrap').innerHTML = this.scrap;
+            e('shieldsupgradecost').innerHTML = (player.shieldLevel * 10);
+            e('shieldsupgradelevel').innerHTML = player.shieldLevel;
+            e('yourscrap').innerHTML = player.scrap;
         }
         else {
             e("villageMessage").innerHTML = "No enough scrap!";
@@ -351,15 +303,15 @@ function MyGame() {
     };
     
     this.attackUpgrade = function() {
-        if (this.scrap >= this.attackLevel * 10) {
-            this.scrap -= (this.attackLevel * 10);
-            this.attackLevel++;
-            e("scrap").innerHTML = this.scrap;
-            e("attacklevel").innerHTML = this.attackLevel;
+        if (player.scrap >= player.attackLevel * 10) {
+            player.scrap -= (player.attackLevel * 10);
+            player.attackLevel++;
+            e("scrap").innerHTML = player.scrap;
+            e("attacklevel").innerHTML = player.attackLevel;
             e("villageMessage").innerHTML = "Attack upgrade +1";
-            e('attackupgradecost').innerHTML = (this.attackLevel * 10);
-            e('attackupgradelevel').innerHTML = this.attackLevel;
-            e('yourscrap').innerHTML = this.scrap;
+            e('attackupgradecost').innerHTML = (player.attackLevel * 10);
+            e('attackupgradelevel').innerHTML = player.attackLevel;
+            e('yourscrap').innerHTML = player.scrap;
         }
         else {
             e("villageMessage").innerHTML = "No enough scrap!";
@@ -367,15 +319,15 @@ function MyGame() {
     };
     
     this.defenseUpgrade = function() {
-        if (this.scrap >= this.defenseLevel * 10) {
-            this.scrap -= (this.defenseLevel * 10);
-            this.defenseLevel++;
-            e("scrap").innerHTML = this.scrap;
-            e("defenselevel").innerHTML = this.defenseLevel;
+        if (player.scrap >= player.defenseLevel * 10) {
+            player.scrap -= (player.defenseLevel * 10);
+            player.defenseLevel++;
+            e("scrap").innerHTML = player.scrap;
+            e("defenselevel").innerHTML = player.defenseLevel;
             e("villageMessage").innerHTML = "Defense upgrade +1";
-            e('defenseupgradecost').innerHTML = (this.defenseLevel * 10);
-            e('defenseupgradelevel').innerHTML = this.defenseLevel;
-            e('yourscrap').innerHTML = this.scrap;
+            e('defenseupgradecost').innerHTML = (player.defenseLevel * 10);
+            e('defenseupgradelevel').innerHTML = player.defenseLevel;
+            e('yourscrap').innerHTML = player.scrap;
         }
         else {
             e("villageMessage").innerHTML = "No enough scrap!";
@@ -383,17 +335,17 @@ function MyGame() {
     };
  
     this.fuelStorageUpgrade = function() {
-        if (this.scrap >= this.fuelStorageLevel * 10) {
-            this.scrap -= (this.fuelStorageLevel * 10);
-            this.fuelStorageLevel++;
-            this.maxfuel += 15;
-            e('maxfuel').innerHTML = this.maxfuel;
-            e("scrap").innerHTML = this.scrap;
-            e("fuelstoragelevel").innerHTML = this.fuelStorageLevel;
+        if (player.scrap >= player.fuelStorageLevel * 10) {
+            player.scrap -= (player.fuelStorageLevel * 10);
+            player.fuelStorageLevel++;
+            player.maxfuel += 15;
+            e('maxfuel').innerHTML = player.maxfuel;
+            e("scrap").innerHTML = player.scrap;
+            e("fuelstoragelevel").innerHTML = player.fuelStorageLevel;
             e("villageMessage").innerHTML = "Fuel storage upgrade +1";
-            e('fuelstorageupgradecost').innerHTML = (this.fuelStorageLevel * 10);
-            e('fuelstorageupgradelevel').innerHTML = this.fuelStorageLevel;
-            e('yourscrap').innerHTML = this.scrap;
+            e('fuelstorageupgradecost').innerHTML = (player.fuelStorageLevel * 10);
+            e('fuelstorageupgradelevel').innerHTML = player.fuelStorageLevel;
+            e('yourscrap').innerHTML = player.scrap;
         }
         else {
             e("villageMessage").innerHTML = "No enough scrap!";
@@ -401,17 +353,17 @@ function MyGame() {
     };
     
     this.foodStorageUpgrade = function() {
-        if (this.scrap >= this.foodStorageLevel * 10) {
-            this.scrap -= (this.foodStorageLevel * 10);
-            this.foodStorageLevel++;
-            this.maxfood += 15;
-            e('maxfood').innerHTML = this.maxfood;
-            e("scrap").innerHTML = this.scrap;
-            e("foodstoragelevel").innerHTML = this.foodStorageLevel;
+        if (player.scrap >= player.foodStorageLevel * 10) {
+            player.scrap -= (player.foodStorageLevel * 10);
+            player.foodStorageLevel++;
+            player.maxfood += 15;
+            e('maxfood').innerHTML = player.maxfood;
+            e("scrap").innerHTML = player.scrap;
+            e("foodstoragelevel").innerHTML = player.foodStorageLevel;
             e("villageMessage").innerHTML = "Food storage upgrade +1";
-            e('foodstorageupgradecost').innerHTML = (this.foodStorageLevel * 10);
-            e('foodstorageupgradelevel').innerHTML = this.foodStorageLevel;
-            e('yourscrap').innerHTML = this.scrap;
+            e('foodstorageupgradecost').innerHTML = (player.foodStorageLevel * 10);
+            e('foodstorageupgradelevel').innerHTML = player.foodStorageLevel;
+            e('yourscrap').innerHTML = player.scrap;
         }
         else {
             e("villageMessage").innerHTML = "No enough scrap!";
@@ -419,17 +371,17 @@ function MyGame() {
     };
     
     this.waterStorageUpgrade = function() {
-        if (this.scrap >= this.waterStorageLevel * 10) {
-            this.scrap -= (this.waterStorageLevel * 10);
-            this.waterStorageLevel++;
-            this.maxwater += 15;
-            e('maxwater').innerHTML = this.maxwater;
-            e("scrap").innerHTML = this.scrap;
-            e("waterstoragelevel").innerHTML = this.waterStorageLevel;
+        if (player.scrap >= player.waterStorageLevel * 10) {
+            player.scrap -= (player.waterStorageLevel * 10);
+            player.waterStorageLevel++;
+            player.maxwater += 15;
+            e('maxwater').innerHTML = player.maxwater;
+            e("scrap").innerHTML = player.scrap;
+            e("waterstoragelevel").innerHTML = player.waterStorageLevel;
             e("villageMessage").innerHTML = "Water storage upgrade +1";
-            e('waterstorageupgradecost').innerHTML = (this.waterStorageLevel * 10);
-            e('waterstorageupgradelevel').innerHTML = this.waterStorageLevel;
-            e('yourscrap').innerHTML = this.scrap;
+            e('waterstorageupgradecost').innerHTML = (player.waterStorageLevel * 10);
+            e('waterstorageupgradelevel').innerHTML = player.waterStorageLevel;
+            e('yourscrap').innerHTML = player.scrap;
         }
         else {
             e("villageMessage").innerHTML = "No enough scrap!";
@@ -438,17 +390,17 @@ function MyGame() {
 
     // CATCH-A-GAS STATION
     this.refuelCar = function() {
-        if (this.fuel < this.maxfuel) {
-            if (this.scrap >= 10) {
-                this.scrap -= 10;
-                this.fuel += 25;
-                if (this.fuel > this.maxfuel) {
-                    this.fuel = this.maxfuel;
+        if (this.fuel < player.maxfuel) {
+            if (player.scrap >= 10) {
+                player.scrap -= 10;
+                player.fuel += 25;
+                if (player.fuel > player.maxfuel) {
+                    player.fuel = player.maxfuel;
                 }
-                e("fuel").innerHTML = this.fuel;
-                e("scrap").innerHTML = this.scrap;
-                e('yourscrap').innerHTML = this.scrap;
-                e('yourfuel').innerHTML = this.fuel.toFixed(0);
+                e("fuel").innerHTML = player.fuel;
+                e("scrap").innerHTML = player.scrap;
+                e('yourscrap').innerHTML = player.scrap;
+                e('yourfuel').innerHTML = player.fuel.toFixed(0);
                 e("villageMessage").innerHTML = "Fuel added (fuel +25)"; 
             }
             else {
@@ -461,17 +413,17 @@ function MyGame() {
     };
     
     this.buyWater = function() {
-        if (this.water < this.maxwater) {
-            if (this.scrap >= 10) {
-                this.scrap -= 10;
-                this.water += 25;
-                if (this.water > this.maxwater) {
-                    this.water = this.maxwater;
+        if (player.water < player.maxwater) {
+            if (player.scrap >= 10) {
+                player.scrap -= 10;
+                player.water += 25;
+                if (player.water > player.maxwater) {
+                    player.water = player.maxwater;
                 }
-                e("water").innerHTML = this.water;
-                e("scrap").innerHTML = this.scrap;
-                e('yourscrap').innerHTML = this.scrap;
-                e('yourwater').innerHTML = this.water;
+                e("water").innerHTML = player.water;
+                e("scrap").innerHTML = player.scrap;
+                e('yourscrap').innerHTML = player.scrap;
+                e('yourwater').innerHTML = player.water;
                 e("villageMessage").innerHTML = "Water added (+25)"; 
             }
             else {
@@ -522,13 +474,13 @@ function MyGame() {
             if (this.attack + (Math.round((Math.random() * this.viciousDogsAttack))) >= this.viciousDogsAttack) {
                 var foundScrap = (Math.floor((Math.random() * 5)+5));
                 e("spot").innerHTML += this.distanceOnSpot()+ "Dogs defeated, You win! You found some scrap: "+foundScrap+"<br>";
-                this.scrap += foundScrap;
-                e("scrap").innerHTML = this.scrap +" (+"+foundScrap+")";         
+                player.scrap += foundScrap;
+                e("scrap").innerHTML = player.scrap +" (+"+foundScrap+")";         
             }
             else {
                 var tempDamage = Math.floor((Math.random() * (this.viciousDogsAttack * 2)+1));
                 e("spot").innerHTML += this.distanceOnSpot()+ "Dogs, You loose... damage: "+tempDamage+"<br>";
-                this.damage = tempDamage;
+                player.damage = tempDamage;
             }
         }
         
@@ -536,13 +488,13 @@ function MyGame() {
             if (this.attack + (Math.round((Math.random() * this.smallRaidersAttack))) >= this.smallRaidersAttack) {
                 var foundScrap = (Math.floor((Math.random() * 15)+5));
                 e("spot").innerHTML += this.distanceOnSpot()+ "Small Raiders defeated, You win! You found some scrap: "+foundScrap+"<br>";
-                this.scrap += foundScrap;
-                e("scrap").innerHTML = this.scrap +" (+"+foundScrap+")";   
+                player.scrap += foundScrap;
+                e("scrap").innerHTML = player.scrap +" (+"+foundScrap+")";   
             }
             else {
                 var tempDamage = Math.floor((Math.random() * (this.smallRaidersAttack * 2)+1));
                 e("spot").innerHTML += this.distanceOnSpot()+ "Small Raiders, You loose... damage: "+tempDamage+"<br>";
-                this.damage = tempDamage;
+                player.damage = tempDamage;
             }
         }
         
@@ -550,13 +502,13 @@ function MyGame() {
             if (this.attack + (Math.round((Math.random() * this.skulzAttack))) >= this.skulzAttack) {
                 var foundScrap = (Math.floor((Math.random() * 20)+5));
                 e("spot").innerHTML += this.distanceOnSpot()+ "Skulz Raiders defeated, You win! You found some scrap: "+foundScrap+"<br>";
-                this.scrap += foundScrap;
-                e("scrap").innerHTML = this.scrap +" (+"+foundScrap+")";   
+                player.scrap += foundScrap;
+                e("scrap").innerHTML = player.scrap +" (+"+foundScrap+")";   
             }
             else {
                 var tempDamage = Math.floor((Math.random() * (this.skulzAttack * 2)+1));
                 e("spot").innerHTML += this.distanceOnSpot()+ "Skulz Raiders, You loose... damage: "+tempDamage+"<br>";
-                this.damage = tempDamage;
+                player.damage = tempDamage;
             }
         }
         
@@ -564,13 +516,13 @@ function MyGame() {
             if (this.attack + (Math.round((Math.random() * this.khansAttack))) >= this.khansAttack) {
                 var foundScrap = (Math.floor((Math.random() * 30)+5));
                 e("spot").innerHTML += this.distanceOnSpot()+ "Khans Raiders defeated, You win! You found some scrap: "+foundScrap+"<br>";
-                this.scrap += foundScrap;
-                e("scrap").innerHTML = this.scrap +" (+"+foundScrap+")";   
+                player.scrap += foundScrap;
+                e("scrap").innerHTML = player.scrap +" (+"+foundScrap+")";   
             }
             else {
                 var tempDamage = Math.floor((Math.random() * (this.khansAttack * 2)+1));
                 e("spot").innerHTML += this.distanceOnSpot()+ "Khans Raiders, You loose... damage: "+tempDamage+"<br>";
-                this.damage = tempDamage;
+                player.damage = tempDamage;
             }
         }
         
@@ -578,13 +530,13 @@ function MyGame() {
             if (this.attack + (Math.round((Math.random() * this.immortanAttack))) >= this.immortanAttack) {
                 var foundScrap = (Math.floor((Math.random() * 50)+5));
                 e("spot").innerHTML += this.distanceOnSpot()+ "Immortan Joe defeated, You win! You found some scrap: "+foundScrap+"<br>";
-                this.scrap += foundScrap;
-                e("scrap").innerHTML = this.scrap +" (+"+foundScrap+")";
+                player.scrap += foundScrap;
+                e("scrap").innerHTML = player.scrap +" (+"+foundScrap+")";
             }
             else {
                 var tempDamage = Math.floor((Math.random() * (this.immortanAttack * 2)+1));
                 e("spot").innerHTML += this.distanceOnSpot()+ "Immortan Joe, You loose... damage: "+tempDamage+".<br>";
-                this.damage = tempDamage;
+                player.damage = tempDamage;
             }
         }
         
@@ -603,20 +555,20 @@ function MyGame() {
         else if (this.gameEvent === 4) tempDamage = (this.khansAttack * 2);
         else if (this.gameEvent === 5) tempDamage = (this.immortanAttack * 2);
         e("spot").innerHTML += this.distanceOnSpot() +"You flee... damage: "+tempDamage+".<br>";
-        this.damage = tempDamage;
+        player.damage = tempDamage;
         this.pausegame();
     };
 
     this.checkGameOver = function() {
-        if (this.food <= 0 || this.water <= 0 || this.shield <= 0 || this.fuel <= 0) {
+        if (player.food <= 0 || player.water <= 0 || player.shield <= 0 || player.fuel <= 0) {
             this.running = false;
             e('game').style.display = 'none';
             e('gameoverpart').style.display = 'block';
-            e('distancedriven').innerHTML = this.distance.toFixed(2);
+            e('distancedriven').innerHTML = player.distance.toFixed(2);
             if (this.food <= 0) e('reasongameover').innerHTML = 'You died of starvation !';
-            else if (this.water <= 0) e('reasongameover').innerHTML = 'You died of dehydration !';
-            else if (this.shield <= 0) e('reasongameover').innerHTML = 'Your car has exploded !';
-            else if (this.fuel <= 0) e('reasongameover').innerHTML = 'Your fuel has run out, and after a few days of wandering you have died of exhaustion.';
+            else if (player.water <= 0) e('reasongameover').innerHTML = 'You died of dehydration !';
+            else if (player.shield <= 0) e('reasongameover').innerHTML = 'Your car has exploded !';
+            else if (player.fuel <= 0) e('reasongameover').innerHTML = 'Your fuel has run out, and after a few days of wandering you have died of exhaustion.';
         }
     };
     
@@ -687,17 +639,16 @@ function MyGame() {
 
     // "GAME LOOP"
     this.gameLoop = function() {
-        
-        this.updateDistance();
-        this.updateFuel();
-        this.updateFuelUsage();
-        this.updateFood();
-        this.updateWater();
-        this.updateScrap();
-        this.updateShield(this.damage);
+        player.updateDistance(this.terrain);
+        player.updateFuel();
+        player.updateFuelUsage(this.terrain);
+        player.updateFood();
+        player.updateWater();
+        player.updateScrap();
+        player.updateShield(player.damage);
         this.updateSpot();
         this.checkGameOver();
-        this.damage = 0;
+        player.damage = 0;
     };
 
     this.pausegame = function() {
