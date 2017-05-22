@@ -58,18 +58,6 @@
         text-decoration: none;
     }
 
-    .gametitle {
-        color: wheat;
-        text-align: center;
-        /**background-color: #234233;
-        border-radius: 3px; **/
-    }
-
-    .setSpeed {
-        text-align: center;
-        padding-left: 90px;
-    }
-
     #startstop {
         font-size: 24px;
         display: none;
@@ -88,7 +76,7 @@
         text-align: center;
         font-size: 20px;
         text-shadow: 2px 2px #666;
-        margin-top: 0px;
+        margin-top: 00px;
         margin-bottom: 0px;
         color: azure;
         border-radius: 3px;
@@ -99,57 +87,7 @@
         padding-left: 5px;
         margin-bottom: 5px;
     }
-    
-    .distancedriven {
-        width: 100px;
-        height: 100px;
-        padding: 0px;
-        margin: auto;
-        font-size: 20px;
-        border-radius: 60px;
-        background-color: #667;
-        opacity: 0.7;
-        top: 5px;
-        position: relative;
-        display:inline-block;
-        border: 8px solid #445;
-        color: #ddd;
-    }
-    
-    .distancedriven:hover {
-        border: 8px solid #556;
-        color: #eee;
-    }
-    
-    #distanceBig {
-        text-shadow: 2px 2px #999;
-        height: 100px;
-        line-height: 100px;
-        font-size: 22px;
-    }
-    
-    #distanceBig:hover {
-        cursor: default;
-    }
-    
-    .distancepart {
-        color: #aaa;
-        padding: 5px;
-        width: 115px;
-        height: 150px;
-        position: relative;
-        border-radius: 8px;
-        font-size: 28px; 
-        text-shadow: 2px 2px #777;
-    }
-    
-    .carpart {
-        float: left;
-        position: absolute;
-        top: 50px;
-        left: 45%;
-    }
-    
+        
     .inputname {
         margin: 20px;
     }
@@ -161,11 +99,12 @@
         margin-top: 5px;
         height: 380px;
         border-radius: 5px;
+        padding-left: 5px;
         opacity: 0.9;
     }
 
     .middlepanel {
-        width: calc(100% - 550px);
+        width: calc(100% - 560px);
         float: left;
         background-color: #222;
         margin-top: 5px;
@@ -183,6 +122,7 @@
         margin-top: 5px;
         height: 380px;
         border-radius: 5px;
+        padding-left: 5px;
         opacity: 0.9;
     }
 
@@ -198,7 +138,7 @@
         color: wheat;
     }
 
-    #villagebtn {
+    #actionbuttonpart {
         display: none;
     }
 
@@ -228,18 +168,17 @@
         transform: translate(0px, 2px);
     }
 
-    .startbutton {
+    .mainmenubutton {
         font-size: 18px;
         border-radius: 6px;
-    }
-    
-    #highscoresbtn {
-        margin-top: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
         font-size: 18px;
         font-family: 'Montserrat', sans-serif;
         background-color: #445;
         border: 2px solid #556;
         padding: 10px;
+        width: 200px;
     }
     
     #highscorespart {
@@ -282,13 +221,6 @@
     #clearscores {
         margin-top: 20px;
     }
-    
-    .helpbtn {
-        float: right;
-        margin-right: 5px;
-        margin-top: 5px;
-        position: relative;
-    }
 
     #helppart {
         display: none;
@@ -305,25 +237,13 @@
         border-radius: 5px;
     }
     
+    .wheelpartmainmenu {
+        padding: 10px; width: 80px; margin: auto; margin-top: 10px; margin-bottom: 0px;
+    }
+    
     #gameoverpart {
         display: none;
         text-align: center;
-    }
-
-    #veryslowspeed {
-        font-size: 20px;
-    }
-
-    #slowspeed {
-        font-size: 20px;
-    }
-
-    #mediumspeed {
-        font-size: 20px;
-    }
-
-    #fastspeed {
-        font-size: 20px;
     }
 
     #spotdiv {
@@ -454,11 +374,15 @@
         transform-origin: 50% 50%;
     }
     @keyframes wheelRotation {
-        0% { transform: translate(0px, 0px) rotate(0deg); }
-        25% { transform: translate(0px, 10px) rotate(90deg); }
-        50% { transform: translate(0px, 0px) rotate(180deg); }
-        75% { transform: translate(0px, -10px) rotate(270deg); }
-        100% { transform: translate(0px, 0px) rotate(360deg); }
+        0% { transform: translate(0px, -4px) rotate(0deg); }
+        12% { transform: translate(0px, -2px) rotate(45deg); }
+        25% { transform: translate(0px, 4px) rotate(90deg); }
+        37% { transform: translate(0px, 12px) rotate(135deg); }
+        50% { transform: translate(0px, 22px) rotate(180deg); }
+        62% { transform: translate(0px, 12px) rotate(225deg); }
+        75% { transform: translate(0px, 4px) rotate(270deg); }
+        87% { transform: translate(0px, -2px) rotate(315deg); }
+        100% { transform: translate(0px, -4px) rotate(360deg); }
     }
 
     #backgroundimage {
@@ -467,56 +391,4 @@
         position: absolute;
         left: 0;
         top: 0;
-    }
-    
-    #car {
-    }
-
-    
-    .caranimSolid {
-        animation: animationFramesSolid linear 3s;
-        animation-iteration-count: infinite;
-        transform-origin: 50% 50%;
-    }
-    @keyframes animationFramesSolid {
-        0% { transform:  translate(0px, 0px) rotate(0deg); }
-        25% { transform:  translate(0px,-3px) rotate(0deg); }
-        50% { transform:  translate(0px, 0px) rotate(0deg); }
-        75% { transform: translate(0px, 3px) rotate(0deg); }
-    }
-
-    .caranimSand {
-        animation: animationFramesSand linear 3s;
-        animation-iteration-count: infinite;
-        transform-origin: 50% 50%;
-    }
-    @keyframes animationFramesSand {
-        0% { transform:  translate(0px, 0px) rotate(0deg); }
-        25% { transform:  translate(0px,-1px) rotate(-1deg); }
-        50% { transform:  translate(0px, 0px) rotate(1deg); }
-        75% { transform: translate(0px, 1px) rotate(-1deg); }
-    }
-
-    .caranimMud {
-        animation: animationFramesMud linear 3s;
-        animation-iteration-count: infinite;
-        transform-origin: 50% 50%;
-    }
-    @keyframes animationFramesMud {
-        0% { transform:  translate(0px, 1px) rotate(0deg); }
-        25% { transform:  translate(0px,-1px) rotate(-3deg); }
-        50% { transform:  translate(0px, -2px) rotate(2deg); }
-        75% { transform: translate(0px, 1px) rotate(-3deg); }
-    }
-
-    .caranimRocks {
-        animation: animationFramesRocks linear 3s;
-        animation-iteration-count: infinite;
-        transform-origin: 50% 50%;
-    }
-    @keyframes animationFramesRocks {
-        0% { transform:  translate(0px, 0px) rotate(0deg); }
-        25% { transform:  translate(1px, -5px) rotate(-5deg); }
-        50% { transform:  translate(-1px, 6px) rotate(8deg); }
-        75% { transform: translate(0px, 10px) rotate(-5deg); }
     }

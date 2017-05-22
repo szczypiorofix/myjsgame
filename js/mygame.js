@@ -6,6 +6,14 @@ function e(element) {
 function MyGame() {
 
     var player = new Player();
+    
+    this.music = true;
+    this.audio = new Audio('music/highwayman.mp3');
+    this.audio.play();
+    this.audio.loop = true;
+    this.musicVolume = 1;
+    
+    //console.log(window.innerWidth +" : "+window.innerHeight);
 
     this.running = true;
     
@@ -32,42 +40,37 @@ function MyGame() {
     this.immortanAttack = 6;
     
     this.events = [
-        new EventOnRoad("You see a small village in a distance", 95, this.TYPE.PLACE),
-        new EventOnRoad("You are attacked by a pack of vicious dogs", 85, this.TYPE.FIGHT),
-        new EventOnRoad("You are attacked by a small group of bandits", 65, this.TYPE.FIGHT),
-        new EventOnRoad("You are attacked by raiders: 'Skulz'.", 40, this.TYPE.FIGHT),
-        new EventOnRoad("You are attacked by raiders: 'Khans'.", 40, this.TYPE.FIGHT),
-        new EventOnRoad("Oh no! It's Immortan Joe gang!", 15, this.TYPE.FIGHT),
+        new EventOnRoad("You see a small village in a distance", 95, this.TYPE.PLACE, "Enter the village", "Keep moving", 0),
+        new EventOnRoad("You are attacked by a pack of vicious dogs", 85, this.TYPE.FIGHT, "Attack dogs", "Flee", 0),
+        new EventOnRoad("You are attacked by a small group of bandits", 65, this.TYPE.FIGHT, "Attack bandits", "Flee", 0),
+        new EventOnRoad("You are attacked by raiders: 'Skulz'.", 40, this.TYPE.FIGHT, "Attack Skulz", "Flee", 0),
+        new EventOnRoad("You are attacked by raiders: 'Khans'.", 40, this.TYPE.FIGHT, "Attack Khans", "Flee", 0),
+        new EventOnRoad("Oh no! It's Immortan Joe gang!", 15, this.TYPE.FIGHT, "Attack Immortan Joe gang", "Flee", 0),
         new EventOnRoad("You drove on a solid ground.", 50, this.TYPE.TERRAIN),
         new EventOnRoad("You drove on a sandy path.", 60, this.TYPE.TERRAIN),
         new EventOnRoad("You drove on a muddy road.", 30, this.TYPE.TERRAIN),
         new EventOnRoad("You drove on a rocky path.", 40, this.TYPE.TERRAIN),
-        new EventOnRoad("You found some fuel!", 60, this.TYPE.FOUND),
-        new EventOnRoad("You found some water!", 60, this.TYPE.FOUND),
-        new EventOnRoad("You found some food!", 60, this.TYPE.FOUND),
-        new EventOnRoad("You found some scrap!", 65, this.TYPE.FOUND),
-        new EventOnRoad("You see a Lone Wanderer.", 20, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see a dog.", 20, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see a corpse.", 25, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see a dead body, half-rotten.", 25, this.TYPE.ENCOUNTER),
-        new EventOnRoad("Is that a river nearby?", 20, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see an old, damaged car.", 25, this.TYPE.ENCOUNTER),
-        new EventOnRoad("What??? Skywalker Ranch???", 5, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see group of followers of the Flying Spaghetti Monster.", 10, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see two wanderers.", 20, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see an abandoned shack.", 20, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see a ruins of a village nearby.", 20, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see a ruins of a big house nearby.", 20, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see a ruined house", 30, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see a ruined supermarket.", 25, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see a ruins of old chapel.", 25, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see a slave hunter who leads two slaves on chains.", 15, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see a bandit camp.", 20, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see a damaged car.", 20, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see a damaged truck.", 20, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see an empty bangit camp.", 20, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see an old graveyard.", 15, this.TYPE.ENCOUNTER),
-        new EventOnRoad("You see an old railway siding.", 20, this.TYPE.ENCOUNTER)
+        new EventOnRoad("You see a Lone Wanderer.", 20, this.TYPE.ENCOUNTER, "Talk to the Lone Wanderer", "Keep moving", 0),
+        new EventOnRoad("You see a dog.", 20, this.TYPE.ENCOUNTER, "Come closer to the dog", "Keep moving", 0),
+        new EventOnRoad("You see a corpse.", 25, this.TYPE.ENCOUNTER, "Search the corpse", "Keep moving", 0),
+        new EventOnRoad("You see a dead body, half-rotten.", 25, this.TYPE.ENCOUNTER, "Search the body", "Keep moving", 0),
+        new EventOnRoad("You see an old, damaged car.", 25, this.TYPE.ENCOUNTER, "Check the car", "Keep moving", 0),
+        new EventOnRoad("What??? Skywalker Ranch???", 5, this.TYPE.ENCOUNTER, "Check the ranch", "Keep moving", 0),
+        new EventOnRoad("You see group of followers of the Flying Spaghetti Monster.", 10, this.TYPE.ENCOUNTER, "Talk to this freaks", "Keep moving", 0),
+        new EventOnRoad("You see two wanderers.", 20, this.TYPE.ENCOUNTER, "Talk to wanderers", "Keep moving", 0),
+        new EventOnRoad("You see an abandoned shack.", 20, this.TYPE.ENCOUNTER, "Search the shack", "Keep moving", 0),
+        new EventOnRoad("You see a ruins of a village nearby.", 20, this.TYPE.ENCOUNTER, "Enter the ruins", "Keep moving", 0),
+        new EventOnRoad("You see a ruins of a big house nearby.", 20, this.TYPE.ENCOUNTER, "Search the house", "Keep moving", 0),
+        new EventOnRoad("You see a ruined house.", 30, this.TYPE.ENCOUNTER, "Search the house", "Keep moving", 0),
+        new EventOnRoad("You see a ruined supermarket.", 25, this.TYPE.ENCOUNTER, "Check ruined supermarket", "Keep moving", 0),
+        new EventOnRoad("You see a ruins of old chapel.", 25, this.TYPE.ENCOUNTER, "Search the chapel", "Keep moving", 0),
+        new EventOnRoad("You see a slave hunter who leads two slaves on chains.", 15, this.TYPE.ENCOUNTER, "Talk to slave hunter", "Keep moving", 0),
+        new EventOnRoad("You see a bandit camp.", 20, this.TYPE.ENCOUNTER, "Search the camp", "Keep moving", 0),
+        new EventOnRoad("You see a damaged car.", 20, this.TYPE.ENCOUNTER, "Search the car", "Keep moving", 0),
+        new EventOnRoad("You see a damaged truck.", 20, this.TYPE.ENCOUNTER, "Search the truck", "Keep moving", 0),
+        new EventOnRoad("You see an empty bangit camp.", 20, this.TYPE.ENCOUNTER, "Enter the bandit camp", "Keep moving", 0),
+        new EventOnRoad("You see an old graveyard.", 15, this.TYPE.ENCOUNTER, "Search the graveyard", "Keep moving", 0),
+        new EventOnRoad("You see an old railway siding.", 20, this.TYPE.ENCOUNTER, "Enter railway siding", "Keep moving", 0)
     ];
     
     this.terrains = [
@@ -83,12 +86,6 @@ function MyGame() {
       "Bitter Springs"
     ];
     this.villageName = "";
-
-    this.setSpeed = function(speed) {
-        this.gameSpeed = speed;
-    };
-      
-
     
     this.updateSpot = function() {
         this.gameEventStep--;
@@ -104,7 +101,7 @@ function MyGame() {
                 this.gameEventObject = this.events[this.gameEvent];
                 if (this.gameEvent > 0) e("spot").innerHTML += this.distanceOnSpot() +this.gameEventObject.name+"<br>";
                 this.eventsOnTheRoad();
-                this.gameEventStep = Math.floor(Math.random() * 4) + 2;
+                this.gameEventStep = Math.floor(Math.random() * 3) + 2;
             }
         }
         e("spotdiv").scrollTop = e("spotdiv").scrollHeight;
@@ -116,67 +113,52 @@ function MyGame() {
 
     this.eventsOnTheRoad = function() {
         
+        if (this.gameEventObject.type !== this.TYPE.TERRAIN) {
+            this.running = false;
+            e('actionbtn').innerHTML = this.gameEventObject.actionMsg;
+            e('cancelbtn').innerHTML = this.gameEventObject.cancelMsg;
+        }
+        
         // LOCATIONS
         if (this.gameEventObject.type === this.TYPE.PLACE) {
 
             if (this.gameEvent === 0) {
                 this.villageName = this.villages[Math.floor(Math.random() * this.villages.length)];
-                e("villagebtn").style.display = "block";                
+                e("actionbuttonpart").style.display = "block";
+                console.log(this.gameEventObject.value);
                 e("spot").innerHTML += this.distanceOnSpot() +this.events[this.gameEvent].name+": " +this.villageName+".<br>";
-                this.pausegame();
+                this.running = false;
             }
             
-        } else {
-            e("villagebtn").style.display = "none";
         }
+        else e("actionbuttonpart").style.display = "none";
 
         // FIGHTS
         if (this.gameEventObject.type === this.TYPE.FIGHT) {
-            this.pausegame();
-            e("fightfleebtn").style.display = "block";
+            e("actionbuttonpart").style.display = "block";
         }
         
         // TERRAIN UPDATE
         if (this.gameEventObject.type === this.TYPE.TERRAIN) {
 
             if (this.gameEvent === 6) { // SOLID GROUND
-                e("car").classList.remove('caranimSolid');
-                e("car").classList.remove('caranimSand');
-                e("car").classList.remove('caranimMud');
-                e("car").classList.remove('caranimRocks');
                 this.terrain = this.terrains[0];
                 e("terrain").innerHTML = this.terrains[0].name;
-                e("car").classList.add('caranimSolid');
             }
             
             if (this.gameEvent === 7) { // SAND
-                e("car").classList.remove('caranimSolid');
-                e("car").classList.remove('caranimSand');
-                e("car").classList.remove('caranimMud');
-                e("car").classList.remove('caranimRocks');
                 this.terrain = this.terrains[1];
                 e("terrain").innerHTML = this.terrains[1].name;
-                e("car").classList.add('caranimSand');
             }
             
             if (this.gameEvent === 8) { // MUD
-                e("car").classList.remove('caranimSolid');
-                e("car").classList.remove('caranimSand');
-                e("car").classList.remove('caranimMud');
-                e("car").classList.remove('caranimRocks');
                 this.terrain = this.terrains[2];
                 e("terrain").innerHTML = this.terrains[2].name;
-                e("car").classList.add('caranimMud');
             }
             
             if (this.gameEvent === 9) { // ROCKS
-                e("car").classList.remove('caranimSolid');
-                e("car").classList.remove('caranimSand');
-                e("car").classList.remove('caranimMud');
-                e("car").classList.remove('caranimRocks');
                 this.terrain = this.terrains[3];
                 e("terrain").innerHTML = this.terrains[3].name;
-                e("car").classList.add('caranimRocks');
             }
         }
 
@@ -220,7 +202,9 @@ function MyGame() {
         
          // ENCOUNTERS ...
         if (this.gameEventObject.type === this.TYPE.ENCOUNTER) {
-            
+            e('actionbtn').innerHTML = this.gameEventObject.actionMsg;
+            e('cancelbtn').innerHTML = this.gameEventObject.cancelMsg;
+            e("actionbuttonpart").style.display = "block";
         }
     };
 
@@ -433,12 +417,22 @@ function MyGame() {
         e("villagebtn").style.display = "none";
         e("spot").innerHTML += this.distanceOnSpot() + "Back on the fury road!<br>";
         e("spotdiv").scrollTop = e("spotdiv").scrollHeight;
-        this.pausegame();
+        this.running = true;
+    };
+    
+    this.action = function() {
+        this.running = true;
+        e('actionbuttonpart').style.display = 'none';
+    };
+    
+    this.cancel = function() {
+        this.running = true;
+        e('actionbuttonpart').style.display = 'none';
     };
     
     this.fight = function() {
         e("spot").innerHTML += this.distanceOnSpot()+ "You are facing the enemies!<br>";
-        e("fightfleebtn").style.display = "none";
+        //e("fightfleebtn").style.display = "none";
         
         if (this.gameEvent === 1) { // VICIOUS DOGS
             if (this.attack + (Math.round((Math.random() * this.viciousDogsAttack))) >= this.viciousDogsAttack) {
@@ -511,11 +505,11 @@ function MyGame() {
         }
         
         e("spotdiv").scrollTop = e("spotdiv").scrollHeight;
-        this.pausegame();
+        this.running = true;
     };
     
     this.flee = function() {
-        e("fightfleebtn").style.display = "none";
+        //e("fightfleebtn").style.display = "none";
         e("spotdiv").scrollTop = e("spotdiv").scrollHeight;
         var tempDamage = 0;
         if (this.gameEvent === 1) tempDamage = (this.viciousDogsAttack * 2);
@@ -525,7 +519,7 @@ function MyGame() {
         else if (this.gameEvent === 5) tempDamage = (this.immortanAttack * 2);
         e("spot").innerHTML += this.distanceOnSpot() +"You flee... damage: "+tempDamage+".<br>";
         player.damage = tempDamage;
-        this.pausegame();
+        this.running = true;
     };
 
     this.checkGameOver = function() {
@@ -620,16 +614,33 @@ function MyGame() {
         player.damage = 0;
     };
 
-    this.pausegame = function() {
-//        if (this.running === true) {
-//            this.running = false;
-//        }
-//        else {
-//            this.running = true;
-//        }
-        this.running = !this.running;
+    this.playMusic = function() {
+        this.music = true;
+        e('musicbtn').src = "images/musicon.png";
+        e('musicvolumeslider').value = this.musicVolume * 100;
+        //console.log(this.musicVolume * 100);
+        this.audio.play();
     };
-
+    
+    this.stopMusic = function() {
+        this.music = false;
+        e('musicbtn').src = "images/musicoff.png";
+        e('musicvolumeslider').value = 0;
+        this.audio.pause();
+    };
+    
+    this.setMusicVolume = function(vol) {
+        if (vol >= 0.1) {
+            this.musicVolume = (vol / 100).toFixed(2);
+            this.audio.volume = this.musicVolume;
+            this.playMusic();
+        }
+        else {
+            this.music = false;
+            this.stopMusic();
+        }
+    };
+    
     this.startGame = function() {
         
         e('mainmenu').style.display = "none";
@@ -642,7 +653,7 @@ function MyGame() {
 
             instance.gameStep++;
             if (instance.running) {
-                if (instance.gameStep > (8 - (instance.gameSpeed * 2))) {
+                if (instance.gameStep > 1) {
                     instance.gameLoop();
                     instance.gameStep = 0;
                 }

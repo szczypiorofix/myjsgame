@@ -16,22 +16,25 @@
     <link rel="icon" href="icon.png">
 </head>
 
-<body>
-
-    <audio src="music/highwayman.mp3" loop autoplay></audio>
-        
+<body>        
     <div class="maindiv">
-                
+        <div>
+            <img src="images/musicon.png" class="mybutton" id="musicbtn" alt="Music On/Off" width="32" height="32">
+            <input type="range" min="0" max="100" value="100" step="5" id="musicvolumeslider">
+            <span id="musicvolume"></span>
+        </div>   
         <div id="mainmenu">
-            <!-- <img src="images/wasteland.jpg" id="backgroundimage" alt="Car wheel"> -->
-            <div style="padding: 10px; width: 80px; margin: auto; margin-top: 50px; margin-bottom: 0px;">
+            <div class="wheelpartmainmenu">
                 <img src="images/wheel.png" id="wheelicon" alt="Car wheel" width="64" height="64">
             </div>
             <div>
-                <button id="startgamebtn" class="mybutton startbutton">Shut up and drive!</button>
+                <button id="startgamebtn" class="mybutton mainmenubutton">PLAY</button>
             </div>
             <div>
-                <button id="highscoresbtn" class="mybutton">High Scores</button>
+                <button id="buttonhelp" class="mybutton mainmenubutton">HELP</button>
+            </div>
+            <div>
+                <button id="highscoresbtn" class="mybutton mainmenubutton">HIGH SCORES</button>
             </div>
 	</div>
         
@@ -218,44 +221,6 @@
         </div>
         
         <div id="game">
-            
-            <header class="gametitle">
-                <button class="mybutton helpbtn" id="buttonhelp">HELP</button>
-                
-                <div>
-                    <div class="distancepart">
-                        <span>Distance</span>
-                        <div class="sectionpart distancedriven tooltip">
-                            <span id="distanceBig">0</span>
-                             <span class="tooltiptext">Distance driven</span>
-                        </div>
-                       
-                    </div>
-                    <div class="carpart">
-                        <img id="car" src="images/furyroad.png" class="caranimSolid" alt="Fury Road" width="256" height="128">
-                    </div>
-                </div>
-            </header>
-                          
-            <div class="setSpeed">
-                <div class="tooltip">
-                    <img class="iconimage active" id="veryslowspeed" src="images/speed1.png" alt="Shield icon" height="36">
-                    <span class="tooltiptext">Very slow</span>
-                </div>
-                <div class="tooltip">
-                    <img class="iconimage" id="slowspeed" src="images/speed2.png" alt="Shield icon" height="36">
-                    <span class="tooltiptext">Slow</span>
-                </div>
-                <div class="tooltip">
-                    <img class="iconimage" id="mediumspeed" src="images/speed3.png" alt="Shield icon" height="36">
-                    <span class="tooltiptext">Medium speed</span>
-                </div>
-                <div class="tooltip">
-                    <img class="iconimage" id="fastspeed" src="images/speed4.png" alt="Shield icon" height="36">
-                    <span class="tooltiptext">Fast</span>
-                </div>
-            </div>
-            
             <div class="mainpanel">  
             <div class="leftpanel">
                 <p class="sectiontitle">STATISTICS</p>
@@ -343,14 +308,14 @@
                         <span style="color: burlywood;">0.00 :</span><span id="spot">Vroom-vroom !!!<br></span>
                     </div>
                     <div class="choicespanel">
-                        <span id="villagebtn">
-                            <button class="mybutton" id="entervillagebtn">ENTER THE VILLAGE</button>
-                            <button class="mybutton" id="keepgoingbtn">KEEP GOING</button>
+                        <span id="actionbuttonpart">
+                            <button class="mybutton" id="actionbtn"></button>
+                            <button class="mybutton" id="cancelbtn"></button>
                         </span>
-                        <span id="fightfleebtn">
+<!--                        <span id="fightfleebtn">
                             <button class="mybutton" id="fightbtn">FIGHT</button>
                             <button class="mybutton" id="fleebtn">FLEE</button>
-                        </span>
+                        </span>-->
                     </div>
                 </div>
             </div>

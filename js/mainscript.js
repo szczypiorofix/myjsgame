@@ -68,38 +68,48 @@
                 location.reload();
             }
         });
-
+        
+        e('musicbtn').addEventListener('click', function() { 
+            if (mygame.music) mygame.stopMusic();
+            else mygame.playMusic();
+        });
+        
+        e('musicvolumeslider').addEventListener('change', function() {
+            mygame.setMusicVolume(e('musicvolumeslider').value);
+            //console.log(e('musicvolumeslider').value / 100);
+        });
+        
         e('buttonhelp').addEventListener('click', function() { 
-            e('game').style.display = "none";
+            e('mainmenu').style.display = "none";
             e('helppart').style.display = "block";
         });
 
         e('helpexit').addEventListener('click', function() { 
-            e('game').style.display = "block";
+            e('mainmenu').style.display = "block";
             e('helppart').style.display = "none";
         });
 
-        e('fightbtn').addEventListener('click', function() { 
-            mygame.fight();
+        e('actionbtn').addEventListener('click', function() { 
+            mygame.action();
         });
 
-        e('fleebtn').addEventListener('click', function() { 
-            mygame.flee();
+        e('cancelbtn').addEventListener('click', function() { 
+            mygame.cancel();
         });
 
-        e('keepgoingbtn').addEventListener('click', function() { 
-            e("villagebtn").style.display = "none";
-            e("spot").innerHTML += mygame.distanceOnSpot() +"You bypassed the village.<br>";
-            var objDiv = document.getElementById("spotdiv");
-            objDiv.scrollTop = objDiv.scrollHeight;
-            mygame.pausegame();
-        });
-
-        e('entervillagebtn').addEventListener('click', function() { 
-            e('game').style.display = "none";
-            e('village').style.display = "block";
-            mygame.enterTheVillage();
-        });
+//        e('keepgoingbtn').addEventListener('click', function() { 
+//            e("actionbuttonpart").style.display = "none";
+//            e("spot").innerHTML += mygame.distanceOnSpot() +"You bypassed the village.<br>";
+//            var objDiv = document.getElementById("spotdiv");
+//            objDiv.scrollTop = objDiv.scrollHeight;
+//            mygame.running = true;
+//        });
+//
+//        e('entervillagebtn').addEventListener('click', function() { 
+//            e('game').style.display = "none";
+//            e('village').style.display = "block";
+//            mygame.enterTheVillage();
+//        });
 
         e('smittyexpandbtn').addEventListener('click', function() { 
             if (e('smittysgarage').style.display === "block") {
@@ -198,38 +208,5 @@
         e('backtoroadbtn').addEventListener('click', function() { 
            e('game').style.display = "block";
             mygame.backToTheRoad();
-        });
-
-        e('veryslowspeed').addEventListener('click', function() { 
-            mygame.setSpeed(1);
-            e("veryslowspeed").classList.remove("active");
-            e("slowspeed").classList.remove("active");
-            e("mediumspeed").classList.remove("active");
-            e("fastspeed").classList.remove("active");
-            e("veryslowspeed").classList.add("active");
-        });
-        e('slowspeed').addEventListener('click', function() { 
-            mygame.setSpeed(2);
-            e("veryslowspeed").classList.remove("active");
-            e("slowspeed").classList.remove("active");
-            e("mediumspeed").classList.remove("active");
-            e("fastspeed").classList.remove("active");
-            e("slowspeed").classList.add("active");
-        });
-        e('mediumspeed').addEventListener('click', function() { 
-            mygame.setSpeed(3);
-            e("veryslowspeed").classList.remove("active");
-            e("slowspeed").classList.remove("active");
-            e("mediumspeed").classList.remove("active");
-            e("fastspeed").classList.remove("active");
-            e("mediumspeed").classList.add("active");
-        });
-        e('fastspeed').addEventListener('click', function() { 
-            mygame.setSpeed(4);
-            e("veryslowspeed").classList.remove("active");
-            e("slowspeed").classList.remove("active");
-            e("mediumspeed").classList.remove("active");
-            e("fastspeed").classList.remove("active");
-            e("fastspeed").classList.add("active");
         });
     });

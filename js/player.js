@@ -37,7 +37,6 @@ function Player() {
         this.distance += this.distanceStep;
         e("distance").innerHTML = this.distance.toFixed(2);
         e("step").innerHTML = (this.distanceStep).toFixed(2);
-        e("distanceBig").innerHTML = this.distance.toFixed(2);
     };
 
     this.updateFood = function() {
