@@ -256,13 +256,9 @@ function MyGame() {
                 e('yourscrap').innerHTML = this.scrap;
                 e("villageMessage").innerHTML = "Car repaired. (shields +25)"; 
             }
-            else {
-                e('villageMessage').innerHTML = "You don't have enough scrap!";
-            }
+            else e('villageMessage').innerHTML = "You don't have enough scrap!";
         }
-        else {
-            e('villageMessage').innerHTML = 'Nothing to repair.';
-        }
+        else e('villageMessage').innerHTML = 'Nothing to repair.';
     };
     
     // PIMP MY RIDE UPGRADES   
@@ -281,9 +277,7 @@ function MyGame() {
             e('shieldsupgradelevel').innerHTML = player.shieldLevel;
             e('yourscrap').innerHTML = player.scrap;
         }
-        else {
-            e("villageMessage").innerHTML = "No enough scrap!";
-        }
+        else e("villageMessage").innerHTML = "No enough scrap!";
     };
 
     this.fuelConsumptionUpgrade = function() {
@@ -297,9 +291,7 @@ function MyGame() {
             e('fuelconsumptionupgradelevel').innerHTML = this.fuelConsumptionLevel;
             e('yourscrap').innerHTML = this.scrap;
         }
-        else {
-            e("villageMessage").innerHTML = "No enough scrap!";
-        }
+        else e("villageMessage").innerHTML = "No enough scrap!";
     };
     
     this.attackUpgrade = function() {
@@ -313,9 +305,7 @@ function MyGame() {
             e('attackupgradelevel').innerHTML = player.attackLevel;
             e('yourscrap').innerHTML = player.scrap;
         }
-        else {
-            e("villageMessage").innerHTML = "No enough scrap!";
-        }
+        else e("villageMessage").innerHTML = "No enough scrap!";
     };
     
     this.defenseUpgrade = function() {
@@ -329,9 +319,7 @@ function MyGame() {
             e('defenseupgradelevel').innerHTML = player.defenseLevel;
             e('yourscrap').innerHTML = player.scrap;
         }
-        else {
-            e("villageMessage").innerHTML = "No enough scrap!";
-        }
+        else e("villageMessage").innerHTML = "No enough scrap!";
     };
  
     this.fuelStorageUpgrade = function() {
@@ -347,9 +335,7 @@ function MyGame() {
             e('fuelstorageupgradelevel').innerHTML = player.fuelStorageLevel;
             e('yourscrap').innerHTML = player.scrap;
         }
-        else {
-            e("villageMessage").innerHTML = "No enough scrap!";
-        }
+        else e("villageMessage").innerHTML = "No enough scrap!";
     };
     
     this.foodStorageUpgrade = function() {
@@ -365,9 +351,7 @@ function MyGame() {
             e('foodstorageupgradelevel').innerHTML = player.foodStorageLevel;
             e('yourscrap').innerHTML = player.scrap;
         }
-        else {
-            e("villageMessage").innerHTML = "No enough scrap!";
-        }
+        else e("villageMessage").innerHTML = "No enough scrap!";
     };
     
     this.waterStorageUpgrade = function() {
@@ -383,9 +367,7 @@ function MyGame() {
             e('waterstorageupgradelevel').innerHTML = player.waterStorageLevel;
             e('yourscrap').innerHTML = player.scrap;
         }
-        else {
-            e("villageMessage").innerHTML = "No enough scrap!";
-        }
+        else e("villageMessage").innerHTML = "No enough scrap!";
     };
 
     // CATCH-A-GAS STATION
@@ -403,13 +385,9 @@ function MyGame() {
                 e('yourfuel').innerHTML = player.fuel.toFixed(0);
                 e("villageMessage").innerHTML = "Fuel added (fuel +25)"; 
             }
-            else {
-                e('villageMessage').innerHTML = "You don't have enough scrap!";
-            }
+            else e('villageMessage').innerHTML = "You don't have enough scrap!";
         }
-        else {
-            e('villageMessage').innerHTML = 'Your car is fully refueled.';
-        }
+        else e('villageMessage').innerHTML = 'Your car is fully refueled.';
     };
     
     this.buyWater = function() {
@@ -426,13 +404,9 @@ function MyGame() {
                 e('yourwater').innerHTML = player.water;
                 e("villageMessage").innerHTML = "Water added (+25)"; 
             }
-            else {
-                e('villageMessage').innerHTML = "You don't have enough scrap!";
-            }
+            else e('villageMessage').innerHTML = "You don't have enough scrap!";
         }
-        else {
-            e('villageMessage').innerHTML = 'You water resources are full.';
-        }
+        else e('villageMessage').innerHTML = 'You water resources are full.';
     };
     
     this.buyFood = function() {
@@ -449,13 +423,9 @@ function MyGame() {
                 e('yourfood').innerHTML = this.food;
                 e("villageMessage").innerHTML = "Food added (+25)"; 
             }
-            else {
-                e('villageMessage').innerHTML = "You don't have enough scrap!";
-            }
+            else e('villageMessage').innerHTML = "You don't have enough scrap!";
         }
-        else {
-            e('villageMessage').innerHTML = 'You food resources are full.';
-        }
+        else e('villageMessage').innerHTML = 'You food resources are full.';
     };
     
     this.backToTheRoad = function() {
@@ -541,7 +511,6 @@ function MyGame() {
         }
         
         e("spotdiv").scrollTop = e("spotdiv").scrollHeight;
-    
         this.pausegame();
     };
     
@@ -652,12 +621,13 @@ function MyGame() {
     };
 
     this.pausegame = function() {
-        if (this.running === true) {
-            this.running = false;
-        }
-        else {
-            this.running = true;
-        }
+//        if (this.running === true) {
+//            this.running = false;
+//        }
+//        else {
+//            this.running = true;
+//        }
+        this.running = !this.running;
     };
 
     this.startGame = function() {
