@@ -1,0 +1,66 @@
+    <!-- ################ TRELLO API TEST ################################ -->
+    
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://api.trello.com/1/client.js?key=eed51576516081fe2fbc832488d119d9"></script>
+    
+    <script>
+        var authenticationSuccess = function() { console.log('Successful authentication'); };
+        var authenticationFailure = function() { console.log('Failed authentication'); };
+        
+        
+        Trello.authorize({
+            type: 'popup',
+            name: 'Getting Started Application',
+            scope: {
+              read: 'true',
+              write: 'false' },
+            expiration: 'never',
+            success: authenticationSuccess,
+            error: authenticationFailure
+          });
+      </script> 
+
+
+
+
+
+
+
+
+<script>
+    
+    var showData = function(dataMsg) {
+        console.log(dataMsg);
+        
+        for (i = 0; i < dataMsg.length; i++) {
+            console.log('Card name: '+dataMsg[i].name +", Card desc: "+dataMsg[i].desc);
+        }
+    };
+    
+    
+    var success = function(successMsg) {
+        //console.log(successMsg);
+        
+        var cardId = 0;
+        
+        for (i = 0; i < successMsg.length; i++) {
+            
+            if (successMsg[i].name === 'Changelog') {
+                cardId = successMsg[i].id;           
+                console.log("Sukces! Znaleziono kartê: CHANGE LOG! id: "+cardId);
+                Trello.get('/lists/'+cardId+'/cards', showData, error);
+                
+            }
+        }
+    };
+
+    var error = function(errorMsg) {
+        console.log(errorMsg);
+    };
+
+    Trello.get('/board/592058105dedfcedb009645c/lists', success, error);
+    
+    
+    
+    
+    </script>

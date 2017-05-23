@@ -48,7 +48,7 @@
                 } 
                 today = mm+'/'+dd+'/'+yyyy;
                 temp.date = today;
-                temp.score = mygame.distance.toFixed(2);
+                temp.score = mygame.getDistance().toFixed(2);
 
                 if (highScores === null) highScores = [];
 
@@ -96,20 +96,6 @@
         e('cancelbtn').addEventListener('click', function() { 
             mygame.cancel();
         });
-
-//        e('keepgoingbtn').addEventListener('click', function() { 
-//            e("actionbuttonpart").style.display = "none";
-//            e("spot").innerHTML += mygame.distanceOnSpot() +"You bypassed the village.<br>";
-//            var objDiv = document.getElementById("spotdiv");
-//            objDiv.scrollTop = objDiv.scrollHeight;
-//            mygame.running = true;
-//        });
-//
-//        e('entervillagebtn').addEventListener('click', function() { 
-//            e('game').style.display = "none";
-//            e('village').style.display = "block";
-//            mygame.enterTheVillage();
-//        });
 
         e('smittyexpandbtn').addEventListener('click', function() { 
             if (e('smittysgarage').style.display === "block") {
