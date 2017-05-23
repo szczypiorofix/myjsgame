@@ -9,9 +9,42 @@ function MyGame() {
     
     this.music = true;
     this.audio = new Audio('music/highwayman.mp3');
-    this.audio.play();
     this.audio.loop = true;
     this.musicVolume = 1;
+    this.musicOn = 1;
+    this.savedMusicVolume = [this.musicOn, this.musicVolume];
+    
+    // localStorage.setItem("musicvolume", JSON.stringify(null)); //  - CLEAR LOCAL STORAGE "musicvolume"
+    
+    if (typeof(window.localStorage) !== "undefined") {
+        
+        this.savedMusicVolume = JSON.parse(localStorage.getItem("musicvolume"));
+        if (this.savedMusicVolume === null) {
+            this.savedMusicVolume = [this.musicOn, this.musicVolume];
+        }
+        this.musicOn = this.savedMusicVolume[0];
+        this.musicVolume = this.savedMusicVolume[1];
+    }
+    else {
+        console.log('Warning! Local storage not supported!');
+        this.savedMusicVolume = [this.musicOn, this.musicVolume];
+    }
+    this.music = true;
+    
+    if (this.musicOn) {
+        e('musicbtn').src = "images/musicon.png";
+        e('musicvolumeslider').value = this.musicVolume * 100;
+        this.music = true;
+    }
+    else {
+        e('musicbtn').src = "images/musicoff.png";
+        e('musicvolumeslider').value = 0;
+        this.music = false;
+        this.musicVolume = 0;
+    }
+    
+    this.audio.play();
+    this.audio.volume = this.musicVolume;
     
     //console.log(window.innerWidth +" : "+window.innerHeight);
 
@@ -75,9 +108,9 @@ function MyGame() {
     
     this.terrains = [
             new Terrain("Solid ground", 0, 0.6),
-            new Terrain("Sand", 1, 0.85),
-            new Terrain("Mud", 2, 1.15),
-            new Terrain("Rocks", 3, 1.3)
+            new Terrain("Sand", 1, 0.75),
+            new Terrain("Mud", 2, 1.88),
+            new Terrain("Rocks", 3, 1.1)
         ];
     
     this.villages = [
@@ -125,7 +158,6 @@ function MyGame() {
             if (this.gameEvent === 0) {
                 this.villageName = this.villages[Math.floor(Math.random() * this.villages.length)];
                 e("actionbuttonpart").style.display = "block";
-                console.log(this.gameEventObject.value);
                 e("spot").innerHTML += this.distanceOnSpot() +this.events[this.gameEvent].name+": " +this.villageName+".<br>";
                 this.running = false;
             }
@@ -618,8 +650,10 @@ function MyGame() {
         this.music = true;
         e('musicbtn').src = "images/musicon.png";
         e('musicvolumeslider').value = this.musicVolume * 100;
-        //console.log(this.musicVolume * 100);
         this.audio.play();
+        this.savedMusicVolume[0] = 1;
+        this.savedMusicVolume[1] = this.musicVolume;
+        localStorage.setItem("musicvolume", JSON.stringify(this.savedMusicVolume));
     };
     
     this.stopMusic = function() {
@@ -627,6 +661,9 @@ function MyGame() {
         e('musicbtn').src = "images/musicoff.png";
         e('musicvolumeslider').value = 0;
         this.audio.pause();
+        this.savedMusicVolume[0] = 0;
+        this.savedMusicVolume[1] = this.musicVolume;
+        localStorage.setItem("musicvolume", JSON.stringify(this.savedMusicVolume));
     };
     
     this.setMusicVolume = function(vol) {
@@ -636,9 +673,13 @@ function MyGame() {
             this.playMusic();
         }
         else {
+            this.musicVolume = 0;
+            this.audio.volume = 0;
             this.music = false;
             this.stopMusic();
         }
+        this.savedMusicVolume[0] = this.musicVolume;
+        localStorage.setItem("musicvolume", JSON.stringify(this.savedMusicVolume));
     };
     
     this.startGame = function() {
