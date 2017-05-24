@@ -403,7 +403,7 @@ function MyGame() {
     
     // YOU FOUND ....
     this.foundFuel = function(amount) {
-        var f = (Math.floor((Math.random() * (amount * 3))+amount));
+        var f = (Math.floor((Math.random() * (amount * 2))+amount));
         player.fuel += f;
         if (player.fuel > player.maxfuel) {
             player.fuel = player.maxfuel;
@@ -433,7 +433,7 @@ function MyGame() {
     };
     
     this.foundScrap = function(amount) {
-        var f = (Math.floor((Math.random() * (amount * 3))+amount));
+        var f = (Math.floor((Math.random() * (amount * 2))+amount));
         player.scrap += f;
         e('spot').innerHTML += this.distanceOnSpot() + "You found "+f+" scrap.<br>";
         e("scrap").innerHTML = player.scrap.toFixed(2) +" (+"+f+")";  
