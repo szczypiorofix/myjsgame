@@ -5,7 +5,7 @@ function e(element) {
 
 function MyGame() {
 
-    var player = new Player();
+    var player = new Player();  
     
     this.music = true;
     this.audio = new Audio('music/highwayman.mp3');
