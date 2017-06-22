@@ -456,14 +456,54 @@ function MyGame() {
         }
         
         if (this.gameEvent > 9) {
+            switch (this.gameEvent) {
+                case 10: {
+                        e('spot').innerHTML += this.distanceOnSpot() + "The Lone Wanderer greets you.<br>"; 
+                        break;
+                }
+                case 11: {
+                        e('spot').innerHTML += this.distanceOnSpot() + "The dog has something on his mouth.<br>";
+                        break;
+                }
+                case 12: {
+                        e('spot').innerHTML += this.distanceOnSpot() + "You searched the corpse.<br>";
+                        break;
+                }
+                case 13: {
+                        e('spot').innerHTML += this.distanceOnSpot() + "You searched the body and you found some goods.<br>";
+                        break;
+                }
+                case 14: {
+                        e('spot').innerHTML += this.distanceOnSpot() + "In the car you've found some goods.<br>";
+                        break;
+                }
+                case 15: {
+                        e('spot').innerHTML += this.distanceOnSpot() + "OMG! Skywalker ranch! Luke Skywalker has a little gift for ya!<br>";
+                        break;
+                }
+                case 16: {
+                        e('spot').innerHTML += this.distanceOnSpot() + "The followers of the Flying Spaghetti Monster gave you a little gift.<br>";
+                        this.foundScrap(6);
+                        break;
+                }
+                case 17: {
+                        e('spot').innerHTML += this.distanceOnSpot() + "The wanderers are not very talkative...<br>";
+                        break;
+                }
+                case 18: {
+                        e('spot').innerHTML += this.distanceOnSpot() + "In the shack you've found some goods.<br>";
+                        break;
+                }
+                case 19: {
+                        e('spot').innerHTML += this.distanceOnSpot() + "In the ruins only death you can find...<br>";
+                        break;
+                }
+            }
             if (this.gameEventObject.danger > 0) {
                 this.foundFuel(this.gameEventObject.danger);
                 this.foundScrap(this.gameEventObject.danger);
                 this.foundWater(this.gameEventObject.danger);
                 this.foundFood(this.gameEventObject.danger);
-            }
-            if (this.gameEvent === 10) {
-                e('spot').innerHTML += this.distanceOnSpot() + "The Lone Wanderer greets you.<br>";
             }
         }
         
